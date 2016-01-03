@@ -9,6 +9,12 @@ class TestBaseClass(TestCase):
 		self.fake = Factory.create()
 		self.client = Client()
 
+	def tearDown(self):
+		del self.fake
+		del self.client
+		del self.username
+		del self.password
+
 	def create_user(self):
 		"""
 		This method registers a new user for use in the tests below.

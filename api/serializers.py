@@ -6,10 +6,10 @@ from .models import BucketList, Item
 class BucketListSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = BucketList
-		fields = ('url', 'name')
+		fields = ('name',)
 
 
 class ItemSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Item
-		fields = ('url', 'name', 'done')
+		fields = ('bucketlist', 'name', 'done')

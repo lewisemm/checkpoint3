@@ -33,4 +33,8 @@ class Item(models.Model):
 	date_created = models.DateTimeField(auto_now_add=True)
 	date_modified = models.DateTimeField(auto_now=True)
 	done = models.BooleanField(default=False)
-	bucketlist = models.ForeignKey(BucketList, on_delete=models.CASCADE)
+	bucketlist = models.ForeignKey(
+		BucketList,
+		on_delete=models.CASCADE,
+		related_name='item'
+	)

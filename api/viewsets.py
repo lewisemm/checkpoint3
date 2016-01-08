@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 
@@ -38,3 +39,16 @@ class BucketListViewSet(viewsets.ModelViewSet):
 class ItemViewSet(viewsets.ModelViewSet):
 	serializer_class = ItemSerializer
 	queryset = Item.objects.all()
+
+	def list(self, request, bucketlist_pk=None):
+		bucketlist = BucketList.objects.get(buck_id=bucketlist_pk)
+		queryset = Item.objects.filter(bucketlist=bucketlist)
+		serializer = ItemSerializer(queryset, many=True)
+		return Response(serializer.data)
+
+	def retrieve(self, request, pk=None, bucketlist_pk=None):
+		bucketlist = BucketList.objects.get(buck_id=bucketlist_pk)
+		queryset = Item.objects.filter(bucketlist=bucketlist, item_id=pk)
+		item = get_object_or_404(queryset)
+		serializer = ItemSerializer(item)
+		return Response(serializer.data)

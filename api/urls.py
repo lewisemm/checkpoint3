@@ -1,10 +1,12 @@
 from django.conf.urls import url, include
+
 from rest_framework_nested import routers
 
-from .viewsets import BucketListViewSet, ItemViewSet
+from .viewsets import BucketListViewSet, ItemViewSet, UserViewSet
 
 router = routers.SimpleRouter()
 router.register(r'bucketlists', BucketListViewSet)
+router.register(r'users', UserViewSet)
 
 bucket_router = routers.NestedSimpleRouter(
 	router,

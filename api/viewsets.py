@@ -7,11 +7,12 @@ from .models import BucketList, Item
 
 
 class BucketListViewSet(viewsets.ModelViewSet):
+	"""This class handles CRUD requests to the '/bucketlists/' url."""
 	queryset = BucketList.objects.all()
 	serializer_class = BucketListSerializer
 
 	def create(self, request):
-		"""Customize the BucketList creation process.
+		"""Customize the '/bucketlist/' POST request.
 
 		Save the currently logged in user as the creator of the
 		bucketlist.
@@ -37,16 +38,29 @@ class BucketListViewSet(viewsets.ModelViewSet):
 
 
 class ItemViewSet(viewsets.ModelViewSet):
+	"""
+	This class handles CRUD requests
+	to the '/bucketlists/<buck_id>/items/' url.
+	"""
 	serializer_class = ItemSerializer
 	queryset = Item.objects.all()
 
 	def list(self, request, bucketlist_pk=None):
+		"""Customize the get request to the '/bucketlists/<buck_id>/items' url.
+
+		Filter out items which don't belong to bucketlist of id <buck_id>.
+		"""
 		bucketlist = BucketList.objects.get(buck_id=bucketlist_pk)
 		queryset = Item.objects.filter(bucketlist=bucketlist)
 		serializer = ItemSerializer(queryset, many=True)
 		return Response(serializer.data)
 
 	def retrieve(self, request, pk=None, bucketlist_pk=None):
+		"""Customize the get request to the
+			'/bucketlists/<buck_id>/items/<item_id>' url.
+
+		Only retrieves item of <item_id> under bucketlist of <buck_id>.
+		"""
 		bucketlist = BucketList.objects.get(buck_id=bucketlist_pk)
 		queryset = Item.objects.filter(bucketlist=bucketlist, item_id=pk)
 		item = get_object_or_404(queryset)

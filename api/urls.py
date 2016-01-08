@@ -1,19 +1,19 @@
 from django.conf.urls import url, include
+from rest_framework_nested import routers
 
-from rest_framework.routers import DefaultRouter
+from .viewsets import BucketListViewSet, ItemViewSet
 
-from . import viewsets
+router = routers.SimpleRouter()
+router.register(r'bucketlists', BucketListViewSet)
 
-
-# create a router and register viewsets with it
-router = DefaultRouter()
-router.register(r'bucketlist', viewsets.BucketListViewSet)
-router.register(r'item', viewsets.ItemViewSet)
+bucket_router = routers.NestedSimpleRouter(
+	router,
+	r'bucketlists',
+	lookup='bucketlist'
+)
+bucket_router.register(r'items', ItemViewSet, base_name='bucketlist-items')
 
 urlpatterns = [
 	url(r'^', include(router.urls)),
-	url(
-		r'^api-auth/',
-		include('rest_framework.urls', namespace='rest_framework')
-	)
+	url(r'^', include(bucket_router.urls)),
 ]

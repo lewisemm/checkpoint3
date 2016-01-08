@@ -1,4 +1,4 @@
-from rest_framework import viewsets, status
+from rest_framework import status, viewsets
 from rest_framework.response import Response
 
 from .serializers import BucketListSerializer, ItemSerializer
@@ -6,9 +6,8 @@ from .models import BucketList, Item
 
 
 class BucketListViewSet(viewsets.ModelViewSet):
-
-	serializer_class = BucketListSerializer
 	queryset = BucketList.objects.all()
+	serializer_class = BucketListSerializer
 
 	def create(self, request):
 		"""Customize the BucketList creation process.
@@ -37,6 +36,5 @@ class BucketListViewSet(viewsets.ModelViewSet):
 
 
 class ItemViewSet(viewsets.ModelViewSet):
-
 	serializer_class = ItemSerializer
 	queryset = Item.objects.all()

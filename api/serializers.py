@@ -15,4 +15,3 @@ class BucketListSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = BucketList
 		fields = ('name', 'item')
-		# write_only_fields = ('item',)

@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 
-from rest_framework import status, viewsets
+from rest_framework import status, viewsets, permissions
 from rest_framework.response import Response
 
 from .serializers import BucketListSerializer, ItemSerializer, UserSerializer
@@ -13,7 +13,10 @@ class BucketListViewSet(viewsets.ModelViewSet):
 	"""This class handles CRUD requests to the '/bucketlists/' url."""
 	queryset = BucketList.objects.all()
 	serializer_class = BucketListSerializer
-	permission_classes = (IsOwnerOrReadOnly,)
+	permission_classes = (
+		permissions.IsAuthenticatedOrReadOnly,
+		IsOwnerOrReadOnly,
+	)
 
 	def create(self, request):
 		"""Customize the '/bucketlist/' POST request.
@@ -49,7 +52,10 @@ class ItemViewSet(viewsets.ModelViewSet):
 	serializer_class = ItemSerializer
 	queryset = Item.objects.all()
 	# problem here: item objects have no attribute created_by
-	permission_classes = (IsOwnerOrReadOnly,)
+	permission_classes = (
+		permissions.IsAuthenticatedOrReadOnly,
+		IsOwnerOrReadOnly,
+	)
 
 	def list(self, request, bucketlist_pk=None):
 		"""Customize the get request to the '/bucketlists/<buck_id>/items' url.

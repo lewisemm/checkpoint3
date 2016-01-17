@@ -1,0 +1,27 @@
+{% extends "base/base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+	<!-- bucketist service -->
+	<script src="../static/js/services/bucketlists.js"></script>
+	<!-- bucketist controller -->
+	<script src="../static/js/controllers/BucketListController.js"></script>
+	<div class="row" ng-app="BucketListApp" ng-controller="BucketListController">
+		<div class="col s12">
+			<div class="card small">
+				<div class="card-image">
+					<img src="{% static 'images/bucketlist_card.jpg' %}">
+					<span class="card-title">Bucketlists</span>
+				</div>
+
+				<div class="card-content">
+					<ul class="collection" ng-repeat="bucketlist in bucketlists">
+							<li class="collection-item"><< bucketlist.name >></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

@@ -3,24 +3,30 @@
 {% load staticfiles %}
 
 {% block content %}
+	<script>
+		$(document).ready(function() {
+			$('.parallax').parallax();
+		});
+	</script>
 	<!-- bucketist service -->
 	<script src="../static/js/services/bucketlists.js"></script>
 	<!-- bucketist controller -->
 	<script src="../static/js/controllers/BucketListController.js"></script>
-	<div class="row" ng-app="BucketListApp" ng-controller="BucketListController">
-		<div class="col s12">
-			<div class="card small">
-				<div class="card-image">
-					<img src="{% static 'images/bucketlist_card.jpg' %}">
-					<span class="card-title">Bucketlists</span>
-				</div>
 
-				<div class="card-content">
-					<ul class="collection" ng-repeat="bucketlist in bucketlists">
-							<li class="collection-item"><< bucketlist.name >></li>
-					</ul>
+	<div class="row" ng-app="BucketListApp" ng-controller="BucketListController">
+		<div class="parallax-container">
+			<div class="parallax"><img src={% static "images/bucketlist_card.jpg" %}></div>
+		</div>
+		<div class="section white">
+			<div class="row container">
+				<h2 class="header">Bucketlists</h2>
+				<div class="collection" ng-repeat="bucketlist in bucketlists">
+					<a href="#!" class="collection-item">|| bucketlist.name ||</a>
 				</div>
 			</div>
+		</div>
+		<div class="parallax-container">
+			<div class="parallax"><img src={% static "images/sketch.jpg" %}></div>
 		</div>
 	</div>
 

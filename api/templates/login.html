@@ -3,37 +3,70 @@
 {% load staticfiles %}
 
 {% block content %}
-	<script >
-		$(document).ready(function(){
-			$('.parallax').parallax();
-		});
-	</script>
 	<div class="row">
 		<div class="col s12 white z-depth-5">
-			<div class="container">
-				<div class="row">
-					<div class="col s8 offset-s4 blue lighten-5 ">
-						<p class="teal-text text-darken-2">Please provide your username and password</p>
-			  		</div>
-				</div>
-				<div class="row">
-					<div class="input-field col s6 offset-s6 blue lighten-5">
-						<input placeholder="username" id="username" type="text" class="validate">
-						<label for="username">Username</label>
-					</div>
-				</div>
-				<div class="row">
-					<div class="input-field col s6 offset-s6 blue lighten-5">
-						<input placeholder="password" id="password" type="password" class="validate">
-						<label for="password">Password</label>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s2 offset-s10">
-						<a class="waves-effect waves-light btn blue lighten-5 teal-text text-darken-2" href='bucketlist/'>Login</a>
-					</div>
+			<div class="row">
+				<div class="col s8 offset-s2">
+					<ul class="tabs">
+						<li class="tab col s3"><a class="teal-text text-lighten-2" href="#test1">Sign Up</a></li>
+						<li class="tab col s3"><a class="active teal-text text-lighten-2" href="#test2">Sign In</a></li>
+					</ul>
 				</div>
 			</div>
+			<div class="row">
+				<div id="test1" class="col s8 offset-s2" style="border-style: solid;">
+				<!-- Sign up starts here -->
+					<div class="row">
+						<form class="col s12">
+							<div class="row">
+								<div class="input-field col s6 offset-s3">
+									<input placeholder="Username" id="new_username" type="text" class="validate">
+									<label for="new_username">Username</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="input-field col s6 offset-s3">
+									<input id="new_password" type="password" class="validate">
+									<label for="new_password">Password</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="input-field col s6 offset-s3">
+									<input id="conf_new_password" type="password" class="validate">
+									<label for="conf_new_password">Confirm Password</label>
+								</div>
+							</div>
+							<div class="row">
+								<a class="waves-effect waves-light btn" href='login/'>Sign Up</a>
+							</div>
+						</form>
+					</div>
+				<!-- Sign up form ends here -->
+				</div>
+				<div id="test2" class="col s8 offset-s2" style="border-style: solid;">
+					<!-- Sign in form starts here -->
+					<div class="row">
+						<form class="col s12">
+							<div class="row">
+								<div class="input-field col s6 offset-s3">
+									<input placeholder="Username" id="username" type="text" class="validate">
+									<label for="username">Username</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="input-field col s6 offset-s3">
+									<input id="password" type="password" class="validate">
+									<label for="password">Password</label>
+								</div>
+							</div>
+							<div class="row">
+								<a class="waves-effect waves-light btn" href='login/'>Sign In</a>
+							</div>
+						</form>
+					</div>
+					<!-- Sign in form ends here -->
+				</div>
+  			</div>
 		</div>
 	</div>
 {% endblock %}

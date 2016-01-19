@@ -3,28 +3,63 @@
 {% load staticfiles %}
 
 {% block content %}
-	<div class="row">
-		<div class="col s2 offset-s8"><a class="waves-effect waves-light btn">Sign In</a></div>
-		<div class="col s2"><a class="waves-effect waves-light btn">Sign Up</a></div>
-	</div>
-	<div class="row">
-		<div class="slider">
-			<ul class="slides">
-				<li>
-					<img src="{% static 'images/graduate.jpg' %}"> <!-- random image -->
-					<div class="caption center-align">
-						<h3>What's your dream?</h3>
-						<h5 class="light grey-text text-lighten-3">Graduating maybe?</h5>
-					</div>
-				</li>
-				<li>
-					<img src="{% static 'images/promotion.jpg' %}"> <!-- random image -->
-					<div class="caption left-align">
-						<h3>Make a list of your goals!</h3>
-						<h5 class="light grey-text text-lighten-3">Career progress.</h5>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div>
+    <script>
+        $(document).ready(function(){
+            $('.slider').slider({full_width: true});
+        });
+    </script>
+    <!-- <div class="row">
+        <div class="col s2 offset-s8">
+            <a class="waves-effect waves-light btn" href='login/'>Sign In</a>
+        </div>
+        <div class="col s2"><a class="waves-effect waves-light btn">Sign Up</a></div>
+    </div> -->
+    <div class="row">
+        <div class="slider">
+            <ul class="slides">
+                <li>
+                    <img src="{% static 'images/graduate.jpg' %}"> <!-- random image -->
+                    <div class="caption left-align">
+                        <h3>What do you hope to achieve?</h3>
+                        <h5 class="light grey-text text-lighten-3">Graduate maybe?</h5>
+                    </div>
+                </li>
+                <li>
+                    <img src="{% static 'images/promotion.jpg' %}"> <!-- random image -->
+                    <div class="caption center-align">
+                        <h3>Career Progression?</h3>
+                        <h5 class="light grey-text text-lighten-3">D1 Material</h5>
+                    </div>
+                </li>
+                <li>
+                    <img src="{% static 'images/javascript.png' %}"> <!-- random image -->
+                    <div class="caption left-align">
+                        <h3>Learn?</h3>
+                        <h5 class="light grey-text text-lighten-3">Finish that course online</h5>
+                    </div>
+                </li>
+                <li>
+                    <img src="{% static 'images/mentor.png' %}"> <!-- random image -->
+                    <div class="caption right-align">
+                        <h3>Inspire?</h3>
+                        <h5 class="light grey-text text-lighten-3">Mentor someone this year</h5>
+                    </div>
+                </li>
+                <li>
+                    <img src="{% static 'images/shrek.jpg' %}"> <!-- random image -->
+                    <div class="caption center-align">
+                        <h3>Smile more often?</h3>
+                        <h5 class="light grey-text text-lighten-3">Say cheese!!</h5>
+                    </div>
+                </li>
+                <li>
+                    <img src="{% static 'images/bucketlist.jpg' %}"> <!-- random image -->
+                    <div class="caption left-align">
+                        <h3>Take ownership!</h3>
+                        <h5 class="light grey-text text-lighten-3">Create that BucketList!</h5>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 {% endblock %}

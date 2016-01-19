@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +7,8 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<!-- Compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+	<!-- Materialize Icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- Compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js">
 	</script>
@@ -15,14 +19,26 @@
 
 	<!--Bucketlist Angular Routes-->
 	<script src="../../static/js/app.js"></script>
+	<link rel="stylesheet" href="{% static 'css/base.css' %}">
 	<title>Bucketlist API</title>
 </head>
 
 <body>
-	<!-- <div class="container" id="master_container"> -->
+	<div class="navbar-fixed">
+		<nav>
+			<div class="nav-wrapper teal lighten-2">
+				<a href="#" class="brand-logo">Checkpoint 3 ™</a>
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li><a href="login/">Authenticate</a></li>
+					<!-- <li><a href="login/">Sign In</a></li> -->
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<main id="display">
 		{% block content %}{% endblock %}
-	<!-- </div> -->
-	<footer class="page-footer">
+	</main>
+	<footer class="page-footer teal lighten-2">
 		<div class="container">
 			<div class="row">
 			  	<div class="col s4">

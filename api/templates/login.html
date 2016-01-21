@@ -3,6 +3,8 @@
 {% load staticfiles %}
 
 {% block content %}
+	<!-- login controller -->
+	<script src="../static/js/controllers/LoginController.js"></script>
 	<div class="row">
 		<div class="col s12 white z-depth-5">
 			<div class="row">
@@ -46,21 +48,21 @@
 				<div id="test2" class="col s8 offset-s2" style="border-style: solid;">
 					<!-- Sign in form starts here -->
 					<div class="row">
-						<form class="col s12">
+						<form class="col s12" ng-controller="LoginController as login_user">
 							<div class="row">
 								<div class="input-field col s6 offset-s3">
-									<input placeholder="Username" id="username" type="text" class="validate">
+									<input placeholder="Username" id="username" type="text" class="validate" ng-model="login_username">
 									<label for="username">Username</label>
 								</div>
 							</div>
 							<div class="row">
 								<div class="input-field col s6 offset-s3">
-									<input id="password" type="password" class="validate">
+									<input id="password" type="password" class="validate" ng-model="login_password">
 									<label for="password">Password</label>
 								</div>
 							</div>
 							<div class="row">
-								<a class="waves-effect waves-light btn" href='login/'>Sign In</a>
+								<a class="waves-effect waves-light btn" href="" ng-click="login_user.login()">Sign In</a>
 							</div>
 						</form>
 					</div>

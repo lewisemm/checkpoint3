@@ -1,16 +1,19 @@
-BucketListApp.controller('LoginController', ['$scope', '$http', function($scope, $http) {
-	var login_user = this;
-	login_user.login = function() {
-		var data = {
-			username: $scope.login_username,
-			password: $scope.login_password
-		}
-		$http.post(
-			"http://localhost:8000/auth/login/",
-			data
-		).then(function(response) {
-			$scope.token = response.data.token;
-		});
-	};
+BucketlistApp.controller('LoginController', ['$scope', '$http', '$window',
+	function ($scope, $http, $window) {
 
-}]);
+		$scope.login = function () {
+			var data = {
+				username: $scope.login_username,
+				password: $scope.login_password
+			};
+			$http.post(
+				'http://localhost:8000/auth/login/',
+				data
+			)
+			.then(function (response) {
+				// attach token to authoruzation header
+				$window.location.href = "#bucketlist";
+			});
+		};
+	}
+]);

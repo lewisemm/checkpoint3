@@ -1,7 +1,8 @@
-BucketListApp.controller('BucketListController', ['$scope', 'bucketlists', function($scope, bucketlists) {
-	$scope.age = 10;
-	bucketlists.success(function(data) {
-		$scope.bucketlists = data;
-		// console.log($age);
-	});
-}]);
+BucketlistApp.controller('BucketlistController', ['$scope', '$window', 'BucketlistFactory',
+	function ($scope, $window, BucketlistFactory) {
+		$scope.bucketlists = BucketlistFactory.getAll();
+		$scope.view_items = function (buck_id) {
+			$window.location.href = "#bucketlist/" + buck_id + "/";
+		}
+	}
+]);

@@ -1,6 +1,6 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en" ng-app="BucketListApp">
+<html lang="en">
 <head>
 	<!--Import jQuery before materialize.js-->
 	<script src="{% static 'bower_components/jquery/dist/jquery.js' %}"></script>
@@ -14,43 +14,55 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-resource.min.js"></script>
-
-	<!--Bucketlist Angular Routes-->
-	<script src="../../static/js/app.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.js"></script>
+	<script src="{% static 'js/app.js' %}"></script>
+	<script src="{% static 'js/controllers/LoginController.js' %}"></script>
+	<script src="{% static 'js/controllers/BucketlistController.js' %}"></script>
+  <script src="{% static 'js/controllers/BucketlistDetailsController.js' %}"></script>
+	<script src="{% static 'js/services/bucketlist_service.js' %}"></script>
 	<link rel="stylesheet" href="{% static 'css/base.css' %}">
 	<title>Bucketlist API</title>
 </head>
+<body ng-app="BucketlistApp">
+	<header>
+		<div class="navbar-fixed">
+	<nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="#login">Authenticate</a></li>
+      </ul>
+    </div>
+  </nav>
+  </div>
+	</header>
 
-<body>
-	<div class="navbar-fixed">
-		<nav>
-			<div class="nav-wrapper teal lighten-2">
-				<a href="#" class="brand-logo">Checkpoint 3 ™</a>
-				<ul id="nav-mobile" class="right hide-on-med-and-down">
-					<li><a href="login/">Authenticate</a></li>
-					<!-- <li><a href="login/">Sign In</a></li> -->
-				</ul>
-			</div>
-		</nav>
-	</div>
-	<main id="display">
-		{% block content %}{% endblock %}
+	<main ng-view>
 	</main>
-	<footer class="page-footer teal lighten-2">
-		<div class="container">
-			<div class="row">
-				<div class="col s6">
-					<h5 class="white-text">Repo</h5>
-					<a href="https://github.com/andela-lkabui/checkpoint3" class="grey-text text-lighten-4">Checkpoint 3</a>
-				</div>
-			</div>
-		</div>
-		<div class="footer-copyright">
-			<div class="container">
-				© 2016 Andela
-				<a class="grey-text text-lighten-4 right" href="#!">#TIA</a>
-			</div>
-		</div>
-	</footer>
+	<footer class="page-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Footer Content</h5>
+                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2014 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+        </footer>
 </body>
 </html>

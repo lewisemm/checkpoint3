@@ -1,0 +1,72 @@
+{% extends "base/base.html" %}
+<script type="text/javascript">
+	$(document).ready(function(){
+    $('ul.tabs').tabs();
+  });
+</script>
+	<div class="row">
+		<div class="col s12 white z-depth-5">
+		<div class="row">
+			<div class="col s8 offset-s2">
+				<ul class="tabs">
+					<li class="tab col s3"><a class="teal-text text-lighten-2" href="#signup">Sign Up</a></li>
+					<li class="tab col s3"><a class="active teal-text text-lighten-2" href="#signin">Sign In</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div id="signup" class="col s8 offset-s2" style="border-style: solid;">
+			<!-- Sign up starts here -->
+				<div class="row">
+					<form class="col s12">
+						<div class="row">
+							<div class="input-field col s6 offset-s3">
+								<input placeholder="Username" id="new_username" type="text" class="validate">
+								<label for="new_username">Username</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s6 offset-s3">
+								<input id="new_password" type="password" class="validate">
+								<label for="new_password">Password</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s6 offset-s3">
+								<input id="conf_new_password" type="password" class="validate">
+								<label for="conf_new_password">Confirm Password</label>
+							</div>
+						</div>
+						<div class="row">
+							<a class="waves-effect waves-light btn" href='login/'>Sign Up</a>
+						</div>
+					</form>
+				</div>
+			<!-- Sign up form ends here -->
+			</div>
+			<div id="signin" class="col s8 offset-s2" style="border-style: solid;">
+				<!-- Sign in form starts here -->
+				<div class="row">
+					<form class="col s12">
+						<div class="row">
+							<div class="input-field col s6 offset-s3">
+								<input placeholder="Username" id="username" type="text" class="validate" ng-model="login_username">
+								<label for="username">Username</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s6 offset-s3">
+								<input id="password" type="password" class="validate" ng-model="login_password">
+								<label for="password">Password</label>
+							</div>
+						</div>
+						<div class="row">
+							<a class="waves-effect waves-light btn" href="" ng-click="login()">Sign In</a>
+						</div>
+					</form>
+				</div>
+				<!-- Sign in form ends here -->
+			</div>
+			</div>
+	</div>
+</div>

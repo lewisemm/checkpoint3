@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col s8 offset-s2">
+    <table class="highlight">
+      <thead>
+        <tr>
+            <th data-field="id">Item Name</th>
+            <th data-field="name">Date Created</th>
+            <th data-field="price">Date Modified</th>
+            <th data-field="price">Done</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr ng-repeat="item in items">
+          <td>[[ item.name ]]</td>
+          <td>[[ item.date_created|date ]]</td>
+          <td>[[ item.date_modified|date ]]</td>
+          <td>[[ item.done ]]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

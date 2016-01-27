@@ -14,9 +14,17 @@ class BucketListViewSet(viewsets.ModelViewSet):
 	queryset = BucketList.objects.all()
 	serializer_class = BucketListSerializer
 	permission_classes = (
-		permissions.IsAuthenticatedOrReadOnly,
-		IsOwnerOrReadOnly,
+		permissions.IsAuthenticated,
+		IsOwnerOrReadOnly
 	)
+
+	def get_queryset(self):
+		return BucketList.objects.filter(pk=self.kwargs.get('pk'))
+
+	def get_object(self):
+		obj = get_object_or_404(self.get_queryset())
+		self.check_object_permissions(self.request, obj)
+		return obj
 
 	def create(self, request):
 		"""Customize the '/bucketlist/' POST request.
@@ -53,8 +61,8 @@ class ItemViewSet(viewsets.ModelViewSet):
 	queryset = Item.objects.all()
 	# problem here: item objects have no attribute created_by
 	permission_classes = (
-		permissions.IsAuthenticatedOrReadOnly,
-		IsOwnerOrReadOnly,
+		permissions.IsAuthenticated,
+		IsOwnerOrReadOnly
 	)
 
 	def list(self, request, bucketlist_pk=None):

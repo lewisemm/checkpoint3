@@ -10,12 +10,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 		if request.method in permissions.SAFE_METHODS:
 			return True
 
-		# if object is instance of BucketList, ensure unsafe methods can
-		# only be requested by the owner
 		if isinstance(obj, BucketList):
 			return obj.created_by == request.user.username
-		else:
-			# this is an instance of Item
-			# unsafe requests should only be granted for Items belonging
-			# to BucketLists created by currently logged in user
-			return obj.bucketlist.created_by == request.user.username
+
+		return obj.bucketlist.created_by == request.user.username

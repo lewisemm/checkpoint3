@@ -8,6 +8,7 @@ class ItemSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Item
 		fields = ('item_id', 'name', 'date_created', 'date_modified', 'done')
+		read_only_fields = ('item_id', 'date_created', 'date_modified')
 
 
 class BucketListSerializer(serializers.ModelSerializer):
@@ -18,6 +19,9 @@ class BucketListSerializer(serializers.ModelSerializer):
 		fields = (
 			'buck_id', 'name', 'item', 'date_created',
 			'date_modified', 'created_by'
+		)
+		read_only_fields = (
+			'buck_id', 'created_by', 'date_created', 'date_modified',
 		)
 
 

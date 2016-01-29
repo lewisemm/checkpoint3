@@ -1,4 +1,4 @@
-var BucketlistApp = angular.module("BucketlistApp", ['ngRoute', 'ngResource']);
+var BucketlistApp = angular.module('BucketlistApp', ['ngRoute', 'ngResource', 'ngCookies']);
 
 // conflicts with Django's templating warrants this change
 BucketlistApp.config(function ($interpolateProvider) {
@@ -26,6 +26,19 @@ BucketlistApp.config(function ($routeProvider) {
 	.when('/bucketlist/:buckId/', {
 		templateUrl: 'static/views/bucketlist_details.html',
 		controller: 'BucketlistDetailsController'
+	})
+	.when('/bucketlist/:buckId/items/:itemId', {
+		templateUrl: 'static/views/bucketlist_details.html',
+		controller: 'BucketlistDetailsController'
+	})
+	.when('/bucketlist/:buckId/edit/:itemId', {
+		templateUrl: 'static/views/item_edit.html',
+		controller: 'ItemController'
 	});
 
 });
+
+BucketlistApp.config(function ($httpProvider) {
+		$httpProvider.interceptors.push('AuthorizationService');
+	}
+);

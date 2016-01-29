@@ -1,23 +1,55 @@
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.collapsible').collapsible({
+      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+    $('.modal-trigger').leanModal();
+  });
+</script>
+<div class="row">
+  <div class="col s12">
+    <h4>[[ bucketlist.name ]]</h4>
+    <div>
+      <a class="waves-effect waves-light btn modal-trigger" data-target="create_bucketlist_item">Add Item</a>
+
+      <!-- Modal Structure -->
+      <div id="create_bucketlist_item" class="modal">
+        <div class="modal-content">
+          <h4>Create item under Bucketlist [[ bucketlist.buck_id ]]</h4>
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s6 offset-s6">
+                <input placeholder="New item name" id="new_item_name" type="text" class="validate" ng-model="new_item_name">
+                <label for="new_item_name">Bucketlist Name</label>
+              </div>
+              <div class="input-field col s6 offset-s6">
+                <input placeholder="Status" id="new_item_status" type="checkbox" class="validate" ng-model="new_item_status">
+                <label for="new_item_status">Item Status</label>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a href="#/bucketlist/[[ bucketlist.buck_id ]]/" class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="addItem()">Create</a>
+          <a href="#/bucketlist/[[ bucketlist.buck_id ]]/" class=" modal-action modal-close waves-effect waves-green btn-flat">Dismiss</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col s8 offset-s2">
-    <table class="highlight">
-      <thead>
-        <tr>
-            <th data-field="id">Item Name</th>
-            <th data-field="name">Date Created</th>
-            <th data-field="price">Date Modified</th>
-            <th data-field="price">Done</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr ng-repeat="item in items">
-          <td>[[ item.name ]]</td>
-          <td>[[ item.date_created|date ]]</td>
-          <td>[[ item.date_modified|date ]]</td>
-          <td>[[ item.done ]]</td>
-        </tr>
-      </tbody>
-    </table>
+    <ul class="collapsible popout" data-collapsible="accordion">
+      <li ng-repeat="item in bucketlist.item">
+        <div class="collapsible-header"><i class="material-icons">filter_drama</i>
+          [[ item.name ]]
+        </div>
+        <div class="collapsible-body"><p>Done: [[ item.done ]]</p></div>
+        <div class="collapsible-body">
+          <a class="waves-effect waves-light btn" ng-click="editItem([[ bucketlist.buck_id ]], [[ item.item_id ]])"><i class="material-icons left">cloud</i>Edit</a>
+          <a class="waves-effect waves-light btn" ng-click="deleteItem([[ item.item_id ]])"><i class="material-icons left">cloud</i>Delete</a>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>

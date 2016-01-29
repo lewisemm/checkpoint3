@@ -1,5 +1,6 @@
-BucketlistApp.controller('LoginController', ['$scope', '$http', '$window',
-	function ($scope, $http, $window) {
+BucketlistApp.controller('LoginController',
+	['$scope', '$http', '$window', '$cookies',
+	function ($scope, $http, $window, $cookies) {
 
 		$scope.login = function () {
 			var data = {
@@ -11,7 +12,11 @@ BucketlistApp.controller('LoginController', ['$scope', '$http', '$window',
 				data
 			)
 			.then(function (response) {
-				// attach token to authoruzation header
+				// attach token to authorization header
+				var token = response.data.token;
+				if (token) {
+					$cookies.put('Authorization', token);
+				}
 				$window.location.href = "#bucketlist";
 			});
 		};

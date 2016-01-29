@@ -20,8 +20,15 @@ class BucketListViewSet(viewsets.ModelViewSet):
 	# )
 	pagination_class = BucketlistPaginator
 
-	# def get_queryset(self):
-	# 	return BucketList.objects.filter(pk=self.kwargs.get('pk'))
+	def get_queryset(self):
+		if self.kwargs.get('pk'):
+			return BucketList.objects.filter(pk=self.kwargs.get('pk'))
+
+		search_name = self.request.query_params.get('q', None)
+		if search_name:
+			return BucketList.objects.filter(name=search_name)
+
+		return BucketList.objects.all()
 
 	# def get_object(self):
 	# 	obj = get_object_or_404(self.get_queryset())

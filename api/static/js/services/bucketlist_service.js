@@ -4,7 +4,7 @@ BucketlistApp.factory('BucketlistFactory', ['$resource',
 			Bucketlist: $resource('/bucketlists/:buck_id/', {buck_id:'@buck_id'}, {
 				getAll:{
 					method: 'GET',
-					isArray: true
+					isArray: false
 				},
 				getOne: {
 					method: 'GET',

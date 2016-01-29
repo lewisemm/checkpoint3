@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from .serializers import BucketListSerializer, ItemSerializer, UserSerializer
 from .models import BucketList, Item
 from .permissions import IsOwnerOrReadOnly
+from .paginator import BucketlistPaginator
 
 
 class BucketListViewSet(viewsets.ModelViewSet):
@@ -17,6 +18,7 @@ class BucketListViewSet(viewsets.ModelViewSet):
 	# 	permissions.IsAuthenticated,
 	# 	# IsOwnerOrReadOnly
 	# )
+	pagination_class = BucketlistPaginator
 
 	# def get_queryset(self):
 	# 	return BucketList.objects.filter(pk=self.kwargs.get('pk'))
@@ -64,6 +66,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 		permissions.IsAuthenticated,
 		# IsOwnerOrReadOnly
 	)
+	pagination_class = BucketlistPaginator
 
 	def create(self, request, bucketlist_pk=None, pk=None):
 		bucketlist = get_object_or_404(BucketList, pk=bucketlist_pk)

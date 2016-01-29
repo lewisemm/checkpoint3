@@ -1,3 +1,36 @@
+<script type="text/javascript">
+$(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+</script>
+<div class="row">
+  <div class="col s3 offset-9" style="padding-top: 1em;">
+  <!-- Modal start -->
+  <a class="waves-effect waves-light btn modal-trigger" class="z-depth-6" data-target="modal_add_bucketlist">Create Bucketlist</a>
+
+  <div id="modal_add_bucketlist" class="modal">
+    <div class="modal-content">
+      <div class="col s6 offset-s3">
+        <h4>Create a Bucketlist</h4>
+      </div>
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s6 offset-s6">
+            <input placeholder="Bucketlist Name" id="bucketlist_name" type="text" class="validate" ng-model="bucketlist_name">
+            <label for="bucketlist_name">Bucketlist Name</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#bucketlist" class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="addBucketlist()">Create Bucketlist</a>
+      <a href="#bucketlist" class=" modal-action modal-close waves-effect waves-green btn-flat" class="modal">Dismiss</a>
+    </div>
+  </div>
+  <!-- Modal end -->
+  </div>
+</div>
 <div class="row">
   <div class="col s12 m6" ng-repeat="bucketlist in bucketlists">
     <div class="card teal lighten-2">
@@ -13,7 +46,7 @@
         </ul>
       </div>
       <div class="card-action">
-        <a ng-click="view_items( [[ bucketlist.buck_id ]] )">View Bucketlist Items</a>
+        <a ng-click="viewItems( [[ bucketlist.buck_id ]] )">View Bucketlist Items</a>
       </div>
       <!-- Start fba -->
       <div class="fixed-action-btn horizontal click-to-toggle" style="position: absolute; right: 24px;">
@@ -21,11 +54,14 @@
             <i class="large mdi-navigation-menu"></i>
         </a>
         <ul>
-          <li><a class="btn-floating black"><i class="material-icons">edit</i></a></li>
-          <li><a class="btn-floating red"><i class="material-icons">delete</i></a></li>
+          <li><a class="btn-floating black"><i class="material-icons" ng-click="edit([[ bucketlist.buck_id ]])">edit</i></a></li>
+          <li><a class="btn-floating red"><i class="material-icons" ng-click="del([[ bucketlist.buck_id ]])">delete</i></a></li>
         </ul>
       </div>
       <!-- End fba -->
     </div>
   </div>
+  <!-- edit modal starts -->
+
+  <!-- edit modal ends -->
 </div>

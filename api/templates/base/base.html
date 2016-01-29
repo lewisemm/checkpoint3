@@ -20,7 +20,9 @@
 	<script src="{% static 'js/controllers/LoginController.js' %}"></script>
 	<script src="{% static 'js/controllers/BucketlistController.js' %}"></script>
   <script src="{% static 'js/controllers/BucketlistDetailsController.js' %}"></script>
+  <script src="{% static 'js/controllers/ItemController.js' %}"></script>
 	<script src="{% static 'js/services/bucketlist_service.js' %}"></script>
+  <script src="{% static 'js/services/authorization_service.js' %}"></script>
 	<link rel="stylesheet" href="{% static 'css/base.css' %}">
 	<title>Bucketlist API</title>
 </head>
@@ -31,7 +33,7 @@
     <div class="nav-wrapper">
       <a href="#" class="brand-logo">Logo</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#login">Authenticate</a></li>
+        <li><a href="#login">Sign In</a></li>
       </ul>
     </div>
   </nav>

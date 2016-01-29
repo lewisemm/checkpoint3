@@ -13,18 +13,18 @@ class BucketListViewSet(viewsets.ModelViewSet):
 	"""This class handles CRUD requests to the '/bucketlists/' url."""
 	queryset = BucketList.objects.all()
 	serializer_class = BucketListSerializer
-	permission_classes = (
-		permissions.IsAuthenticated,
-		IsOwnerOrReadOnly
-	)
+	# permission_classes = (
+	# 	permissions.IsAuthenticated,
+	# 	# IsOwnerOrReadOnly
+	# )
 
-	def get_queryset(self):
-		return BucketList.objects.filter(pk=self.kwargs.get('pk'))
+	# def get_queryset(self):
+	# 	return BucketList.objects.filter(pk=self.kwargs.get('pk'))
 
-	def get_object(self):
-		obj = get_object_or_404(self.get_queryset())
-		self.check_object_permissions(self.request, obj)
-		return obj
+	# def get_object(self):
+	# 	obj = get_object_or_404(self.get_queryset())
+	# 	self.check_object_permissions(self.request, obj)
+	# 	return obj
 
 	def create(self, request):
 		"""Customize the '/bucketlist/' POST request.
@@ -48,7 +48,7 @@ class BucketListViewSet(viewsets.ModelViewSet):
 				'status': "Bad request",
 				'message': "Failed to create an BucketList"
 			},
-			status=status.HTTP_401_BAD_REQUEST
+			status=status.HTTP_400_BAD_REQUEST
 		)
 
 
@@ -62,8 +62,29 @@ class ItemViewSet(viewsets.ModelViewSet):
 	# problem here: item objects have no attribute created_by
 	permission_classes = (
 		permissions.IsAuthenticated,
-		IsOwnerOrReadOnly
+		# IsOwnerOrReadOnly
 	)
+
+	def create(self, request, bucketlist_pk=None, pk=None):
+		bucketlist = get_object_or_404(BucketList, pk=bucketlist_pk)
+		if isinstance(bucketlist, BucketList):
+			serializer = self.serializer_class(data=request.data)
+			if serializer.is_valid():
+				item = Item(**serializer.validated_data)
+				item.bucketlist = bucketlist
+				item.save()
+				return Response(serializer.data, status=status.HTTP_201_CREATED)
+			return Response(
+				{
+					'status': 'Invalid data',
+					'message': 'Invalid data provided'
+				}, status=status.HTTP_400_BAD_REQUEST
+			)
+		return Response(
+			{
+				'detail': 'Not found.'
+			}, status=status.HTTP_400_BAD_REQUEST
+		)
 
 	def list(self, request, bucketlist_pk=None):
 		"""Customize the get request to the '/bucketlists/<buck_id>/items' url.

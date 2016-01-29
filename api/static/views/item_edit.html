@@ -1,0 +1,24 @@
+<div class="row">
+	<div class="col s8 offset-s2">
+		<!-- Form starts -->
+		<form class="col s12">
+	      <div class="row">
+	        <div class="input-field col s6">
+	          <input placeholder="[[ item.name ]]" id="update_name" type="text" class="validate" ng-model="update_name">
+	          <label for="update_name">Edit item name</label>
+	        </div>
+	      </div>
+	      <div class="row">
+	        <div class="input-field col s6">
+	          <input id="update_done" type="checkbox" ng-checked="[[ item.done ]]" class="validate" ng-model="update_done">
+	          <label for="update_done">Edit status</label>
+	        </div>
+	      </div>
+	      <div class="row">
+	        <a class="waves-effect waves-light btn" ng-click="updateItem()"><i class="material-icons left">cloud</i>Update</a>
+	      	<a class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>Exit</a>
+	      </div>
+	    </form>
+		<!-- Form ends  -->
+	</div>
+</div>

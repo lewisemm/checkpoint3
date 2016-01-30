@@ -5,18 +5,18 @@
     $('ul.tabs').tabs();
   });
 </script>
-	<div class="row">
-		<div class="col s12 white z-depth-5">
+<div class="row">
+	<div class="col s10 offset-s1 white z-depth-2" style="padding-top: 2em;">
 		<div class="row">
-			<div class="col s8 offset-s2">
-				<ul class="tabs">
-					<li class="tab col s3"><a class="teal-text text-lighten-2" href="#signup">Sign Up</a></li>
-					<li class="tab col s3"><a class="active teal-text text-lighten-2" href="#signin">Sign In</a></li>
+			<div class="col s8 offset-s2 grey darken-1">
+				<ul class="tabs grey darken-1">
+					<li class="tab col s3"><a class="white-text" href="#signup">Sign Up</a></li>
+					<li class="tab col s3"><a class="active white-text" href="#signin">Sign In</a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="row">
-			<div id="signup" class="col s8 offset-s2" style="border-style: solid;">
+			<div id="signup" class="col s8 offset-s2" style="border-style: solid; border-color: #757575;">
 			<!-- Sign up starts here -->
 				<div class="row">
 					<form class="col s12">
@@ -39,7 +39,9 @@
 							</div>
 						</div>
 						<div class="row">
-							<a class="waves-effect waves-light btn" href='login/'>Sign Up</a>
+							<div class="col s3 offset-s6">
+								<a class="waves-effect waves-light btn" href='login/'>Sign Up</a>
+							</div>
 						</div>
 					</form>
 				</div>
@@ -51,23 +53,30 @@
 					<form class="col s12">
 						<div class="row">
 							<div class="input-field col s6 offset-s3">
-								<input placeholder="Username" id="username" type="text" class="validate" ng-model="login_username">
+								<span style="color: #f44336;" ng-model="accessDenied">[[ accessDenied ]]</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s6 offset-s3">
+								<input placeholder="Username" id="username" type="text" class="validate" ng-model="login_username" ng-click="removeMsg()">
 								<label for="username">Username</label>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s6 offset-s3">
-								<input id="password" type="password" class="validate" ng-model="login_password">
+								<input id="password" type="password" class="validate" ng-model="login_password" ng-click="removeMsg()">
 								<label for="password">Password</label>
 							</div>
 						</div>
 						<div class="row">
-							<a class="waves-effect waves-light btn" href="" ng-click="login()">Sign In</a>
+							<div class="col s3 offset-s6">
+								<a class="waves-effect waves-light btn" href="" ng-click="login()">Sign In</a>
+							</div>
 						</div>
 					</form>
 				</div>
 				<!-- Sign in form ends here -->
 			</div>
-			</div>
+		</div>
 	</div>
 </div>

@@ -4,64 +4,72 @@ $(document).ready(function(){
     $('.modal-trigger').leanModal();
   });
 </script>
-<div class="row">
-  <div class="col s3 offset-9" style="padding-top: 1em;">
-  <!-- Modal start -->
-  <a class="waves-effect waves-light btn modal-trigger" class="z-depth-6" data-target="modal_add_bucketlist">Create Bucketlist</a>
-
-  <div id="modal_add_bucketlist" class="modal">
-    <div class="modal-content">
-      <div class="col s6 offset-s3">
-        <h4>Create a Bucketlist</h4>
+<div style="background-image: url('static/images/fedora_wallpaper.jpg');">
+  <!-- Start add bucketlist & search section -->
+  <div class="row" style="padding-top: 1em;">
+    <div class="col s3 offset-s1">
+    <!-- Modal start -->
+      <a class="waves-effect waves-light btn modal-trigger" class="z-depth-6" data-target="modal_add_bucketlist"><i class="material-icons">add</i></a>
+      <div id="modal_add_bucketlist" class="modal">
+        <div class="modal-content">
+          <div class="col s6 offset-s3">
+            <h4>Create a Bucketlist</h4>
+          </div>
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s6 offset-s6">
+                <input placeholder="Bucketlist Name" id="bucketlist_name" type="text" class="validate" ng-model="bucketlist_name">
+                <label for="bucketlist_name">Bucketlist Name</label>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="addBucketlist()">Create Bucketlist</a>
+          <a class=" modal-action modal-close waves-effect waves-green btn-flat" class="modal">Dismiss</a>
+        </div>
       </div>
-      <form class="col s12">
-        <div class="row">
-          <div class="input-field col s6 offset-s6">
-            <input placeholder="Bucketlist Name" id="bucketlist_name" type="text" class="validate" ng-model="bucketlist_name">
-            <label for="bucketlist_name">Bucketlist Name</label>
+      <!-- Modal end -->
+    </div>
+    <!-- search div -->
+    <div class="col s8">
+      <div class="input-field col s6">
+        <input placeholder="Search Bucketlists" id="search_bucketlists" type="text" class="validate" ng-model="search_bucketlists">
+        <label for="search_bucketlists" style="color: #000000;">Search Bucketlists by name</label>
+      </div>
+    </div>
+    <!-- search div -->
+  </div>
+  <div class="row">
+    <div class="col s12">IMPLEMENT THAT PAGINATION STUFF HERE</div>
+  </div>
+  <!-- End add bucketlist & search section -->
+
+  <!-- Start bucketlist displaysection -->
+  <div class="row">
+    <div class="container">
+      <div ng-repeat="bucketlist in bucketlists.results | filter:search_bucketlists" class="col s4" style="background-color: #4db6ac; opacity: 0.7; margin: 1em; width: 25em; height: 10em;">
+        <h6><strong>[[ bucketlist.name ]]</strong></h6>
+        <hr>
+        <p style="font-size: 0.8em; font-weight: bold; cursor: pointer;" ng-click="viewItems([[ bucketlist.buck_id ]])">Items done</p>
+        <p style="font-size: 0.8em;">Date Created: [[ bucketlist.date_created|date ]]</p>
+        <p style="font-size: 0.8em;">Last Modified: [[ bucketlist.date_created|date ]]</p>
+        <!-- Start fba -->
+        <div style="position: relative; height: 2em;">
+          <div class="fixed-action-btn horizontal click-to-toggle" style="position: absolute; right: 24px;">
+            <a class="btn-floating btn-small black">
+              <i class="small mdi-navigation-menu"></i>
+            </a>
+            <ul>
+              <li><a class="btn-floating red" style="transform: scaleY(0.4) scaleX(0.4) translateY(0px) translateX(40px); opacity: 0;"><i class="material-icons" ng-click="del([[ bucketlist.buck_id ]])">delete</i></a></li>
+              <li><a class="btn-floating grey darken-1" style="transform: scaleY(0.4) scaleX(0.4) translateY(0px) translateX(40px); opacity: 0;" ng-click="edit([[ bucketlist.buck_id ]])"><i class="material-icons">edit</i></a></li>
+            </ul>
           </div>
         </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <a href="#bucketlist" class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="addBucketlist()">Create Bucketlist</a>
-      <a href="#bucketlist" class=" modal-action modal-close waves-effect waves-green btn-flat" class="modal">Dismiss</a>
+        <!-- End fba -->
+      </div>
     </div>
   </div>
-  <!-- Modal end -->
-  </div>
+  <!-- End bucketlist displaysection -->
 </div>
-<div class="row">
-  <div class="col s12 m6" ng-repeat="bucketlist in bucketlists.results">
-    <div class="card teal lighten-2">
-      <div class="card-content white-text">
-        <span class="card-title">[[ bucketlist.name ]]</span>
-        <ul class="collection">
-          <li class="collection-item blue-grey-text darken-5">
-            Date Created: [[ bucketlist.date_created|date ]]
-          </li>
-          <li class="collection-item blue-grey-text darken-5">
-            Date Modified: [[ bucketlist.date_modified|date ]]
-          </li>
-        </ul>
-      </div>
-      <div class="card-action">
-        <a ng-click="viewItems( [[ bucketlist.buck_id ]] )">View Bucketlist Items</a>
-      </div>
-      <!-- Start fba -->
-      <div class="fixed-action-btn horizontal click-to-toggle" style="position: absolute; right: 24px;">
-        <a class="btn-floating btn-large red">
-            <i class="large mdi-navigation-menu"></i>
-        </a>
-        <ul>
-          <li><a class="btn-floating black"><i class="material-icons" ng-click="edit([[ bucketlist.buck_id ]])">edit</i></a></li>
-          <li><a class="btn-floating red"><i class="material-icons" ng-click="del([[ bucketlist.buck_id ]])">delete</i></a></li>
-        </ul>
-      </div>
-      <!-- End fba -->
-    </div>
-  </div>
-  <!-- edit modal starts -->
 
-  <!-- edit modal ends -->
-</div>

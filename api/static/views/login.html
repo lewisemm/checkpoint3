@@ -21,26 +21,31 @@
 				<div class="row">
 					<form class="col s12">
 						<div class="row">
+							<div class="col s6 offset-s3">
+								<span style="color: #f44336;" ng-model="signUpResponse"> [[ signUpResponse ]]</span>
+							</div>
+						</div>
+						<div class="row">
 							<div class="input-field col s6 offset-s3">
-								<input placeholder="Username" id="new_username" type="text" class="validate">
+								<input placeholder="Username" id="new_username" type="text" class="validate" ng-model="new_username" ng-click="removeSignUpMsg()">
 								<label for="new_username">Username</label>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s6 offset-s3">
-								<input id="new_password" type="password" class="validate">
+								<input id="new_password" type="password" class="validate" ng-click="removeSignUpMsg()" ng-model="new_password">
 								<label for="new_password">Password</label>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s6 offset-s3">
-								<input id="conf_new_password" type="password" class="validate">
+								<input id="conf_new_password" type="password" class="validate" ng-click="removeSignUpMsg()" ng-model="conf_new_password">
 								<label for="conf_new_password">Confirm Password</label>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col s3 offset-s6">
-								<a class="waves-effect waves-light btn" href='login/'>Sign Up</a>
+								<a class="waves-effect waves-light btn" ng-click="signUp()">Sign Up</a>
 							</div>
 						</div>
 					</form>
@@ -70,7 +75,7 @@
 						</div>
 						<div class="row">
 							<div class="col s3 offset-s6">
-								<a class="waves-effect waves-light btn" href="" ng-click="login()">Sign In</a>
+								<a class="waves-effect waves-light btn" ng-click="login()">Sign In</a>
 							</div>
 						</div>
 					</form>

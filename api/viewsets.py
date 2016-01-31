@@ -14,10 +14,10 @@ class BucketListViewSet(viewsets.ModelViewSet):
 	"""This class handles CRUD requests to the '/bucketlists/' url."""
 	queryset = BucketList.objects.all()
 	serializer_class = BucketListSerializer
-	# permission_classes = (
-	# 	permissions.IsAuthenticated,
-	# 	# IsOwnerOrReadOnly
-	# )
+	permission_classes = (
+		permissions.IsAuthenticated,
+		IsOwnerOrReadOnly
+	)
 	pagination_class = BucketlistPaginator
 
 	def get_queryset(self):
@@ -101,3 +101,16 @@ class ItemViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
 	serializer_class = UserSerializer
 	queryset = User.objects.all()
+
+	def create(self, request):
+		serializer = self.serializer_class(data=request.data)
+		if serializer.is_valid():
+			new_user = User.objects.create_user(**serializer.validated_data)
+			new_user.save()
+			return Response(serializer.data, status=status.HTTP_201_CREATED)
+		return Response(
+			{
+				'status': 'Invalid data',
+				'message': 'Invalid data provided'
+			}, status=status.HTTP_400_BAD_REQUEST
+		)

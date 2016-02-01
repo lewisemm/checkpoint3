@@ -1,24 +1,33 @@
-<div class="row">
-	<div class="col s8 offset-s2">
-		<!-- Form starts -->
-		<form class="col s12">
-	      <div class="row">
-	        <div class="input-field col s6">
-	          <input placeholder="[[ item.name ]]" id="update_name" type="text" class="validate" ng-model="update_name">
-	          <label for="update_name">Edit item name</label>
-	        </div>
-	      </div>
-	      <div class="row">
-	        <div class="input-field col s6">
-	          <input id="update_done" type="checkbox" ng-checked="[[ item.done ]]" class="validate" ng-model="update_done">
-	          <label for="update_done">Edit status</label>
-	        </div>
-	      </div>
-	      <div class="row">
-	        <a class="waves-effect waves-light btn" ng-click="updateItem()"><i class="material-icons left">cloud</i>Update</a>
-	      	<a class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>Exit</a>
-	      </div>
-	    </form>
-		<!-- Form ends  -->
+<div style="background-image: url('static/images/fedora_wallpaper.jpg'); height:25em;">
+	<div class="row">
+		<div class="container">
+			<div class="col s8 offset-s2" style="background-color: #4db6ac; opacity: 0.7; margin: 4em; border: solid #000000;">
+				<!-- Form starts -->
+				<form>
+		      <div class="row">
+		        <div class="input-field col s6 offset-s3" style="background-color: #ffffff; padding-bottom: 1em;">
+		          <input class="black-text" style="font-weight: bold;" placeholder="Current name: [[ item.name ]]" id="update_name" type="text" class="validate" ng-model="update_name">
+		          <label class="black-text" for="update_name">Edit item name</label>
+		        </div>
+		      </div>
+		      <div class="row">
+		        <div class="input-field col s6 offset-s3" style="background-color: #ffffff; padding-bottom: 1em;">
+		          <input id="update_done" type="checkbox" ng-checked="[[ item.done ]]" class="validate" ng-model="update_done">
+		          <label class="black-text" style="font-weight: bold;" for="update_done">Done</label>
+		        </div>
+		      </div>
+		      <hr>
+		      <div class="row">
+		      	<div class="col s4 offset-s2">
+		      		<a class="waves-effect waves-light btn white black-text" ng-click="updateItem()"><i class="material-icons left">thumb_up</i>Update</a>
+		      	</div>
+		      	<div class="col s4 offset-s2">
+		      		<a class="waves-effect waves-light btn white black-text" ng-click="dismiss()"><i class="material-icons left">thumb_down</i>Dismiss</a>
+		      	</div>
+		      </div>
+		    </form>
+				<!-- Form ends  -->
+			</div>
+		</div>
 	</div>
 </div>

@@ -1,6 +1,6 @@
 BucketlistApp.controller('ItemController',
-	['$scope', 'BucketlistFactory', '$routeParams',
-	function ($scope, BucketlistFactory, $routeParams) {
+	['$scope', 'BucketlistFactory', '$routeParams', '$window',
+	function ($scope, BucketlistFactory, $routeParams, $window) {
 		var data = {
 			buck_id: $routeParams.buckId,
 			item_id: $routeParams.itemId
@@ -23,9 +23,20 @@ BucketlistApp.controller('ItemController',
 			} else {
 				data.done = false;
 			}
-
-			console.log(data);
-			BucketlistFactory.ItemDetail.edit(data);
+			BucketlistFactory.ItemDetail.edit(data).$promise.then(
+				function (response) {
+					var $toastContent = $('<strong style="color: #4db6ac;">Item updated.</strong>');
+					Materialize.toast($toastContent, 5000);
+				},
+				function (error) {
+					var $toastContent = $('<strong style="color: #f44336;">Failed to update item.</strong>');
+					Materialize.toast($toastContent, 5000);
+				}
+			);
 		};
+
+		$scope.dismiss = function () {
+			$window.location.href = "#bucketlist/" + $routeParams.buckId + "/";
+		}
 	}
 ]);

@@ -17,13 +17,13 @@ BucketlistApp.controller('BucketlistDetailsController',
 				.$promise.then(
 					function (response) {
 						$scope.bucketlist = BucketlistFactory.Bucketlist.getOne({buck_id: $routeParams.buckId});
-						var $toastContent = $('<strong style="color: #4db6ac;">Bucketlist created successfully.</strong>');
+						var $toastContent = $('<strong style="color: #4db6ac;">Bucketlist item created successfully.</strong>');
 						Materialize.toast($toastContent, 5000);
 						$scope.new_item_name = "";
 						$scope.new_item_status = "";
 					},
 					function (error) {
-						var $toastContent = $('<strong style="color: #f44336;">Error Creating bucketlist.</strong>');
+						var $toastContent = $('<strong style="color: #f44336;">Error creating bucketlist item.</strong>');
 						Materialize.toast($toastContent, 5000);
 					}
 				);
@@ -50,11 +50,11 @@ BucketlistApp.controller('BucketlistDetailsController',
 				BucketlistFactory.ItemDetail.deleteItem(data)
 				.$promise.then(
 					function (response) {
-						var $toastContent = $('<strong style="color: #4db6ac;">Bucketlist successfully deleted.</strong>');
+						var $toastContent = $('<strong style="color: #4db6ac;">Bucketlist item successfully deleted.</strong>');
 						Materialize.toast($toastContent, 5000);
 						$scope.bucketlist = BucketlistFactory.Bucketlist.getOne({buck_id: $routeParams.buckId});
 					}, function (error) {
-						var $toastContent = $('<strong style="color: #f44336;">Bucketlist not edited.</strong>');
+						var $toastContent = $('<strong style="color: #f44336;">Bucketlist item not deleted.</strong>');
 						Materialize.toast($toastContent, 5000);
 					}
 				);

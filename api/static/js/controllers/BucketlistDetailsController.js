@@ -4,7 +4,24 @@ BucketlistApp.controller('BucketlistDetailsController',
 		var data = {
 			buck_id: $routeParams.buckId
 		};
-		$scope.bucketlist = BucketlistFactory.Bucketlist.getOne(data);
+
+		BucketlistFactory.Bucketlist.getOne(data).$promise.then(
+			function (response) {
+				$scope.bucketlist = response;
+				if (typeof($scope.bucketlist.item) === 'object') {
+					if ($scope.bucketlist.item.length > 0) {
+						$scope.showBucketlistItems =true;
+						$scope.showNTSHBucketlist = false;
+					} else {
+						$scope.showBucketlistItems =false;
+						$scope.showNTSHBucketlist = true;
+					}
+				}
+			},
+			function (error) {
+				console.log(error);
+			}
+		);
 
 		$scope.addItem = function () {
 			if ($scope.new_item_name) {

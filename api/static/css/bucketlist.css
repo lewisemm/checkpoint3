@@ -1,0 +1,28 @@
+#bucketlist_div {
+	background-color: #4db6ac;
+	opacity: 0.7;
+	margin: 1em;
+	width: 25em;
+	height: 10em;
+}
+
+.p_bucketlist {
+	font-size: 0.8em;
+}
+
+#p_bucketlist_items {
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#outer_div_fba {
+	position: relative;
+	height: 2em;
+}
+
+.ntsh_bucketlists {
+	height: 35em;
+	width: 50em;
+	opacity: 0.7;
+	margin: auto;
+}

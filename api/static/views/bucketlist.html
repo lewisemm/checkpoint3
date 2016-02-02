@@ -9,7 +9,7 @@ $(document).ready(function(){
   <div class="row" style="padding-top: 1em;">
     <div class="col s3 offset-s1">
     <!-- Modal start -->
-      <a class="waves-effect waves-light btn modal-trigger" class="z-depth-6" data-target="modal_add_bucketlist"><i class="material-icons">add</i></a>
+      <a class="waves-effect waves-light btn-large modal-trigger btn-floating" class="z-depth-6" data-target="modal_add_bucketlist"><i class="material-icons">add</i></a>
       <div id="modal_add_bucketlist" class="modal">
         <div class="modal-content">
           <div class="col s6 offset-s3">
@@ -48,14 +48,14 @@ $(document).ready(function(){
   <!-- Start bucketlist displaysection -->
   <div class="row">
     <div class="container">
-      <div ng-repeat="bucketlist in bucketlists.results | filter:search_bucketlists" class="col s4" style="background-color: #4db6ac; opacity: 0.7; margin: 1em; width: 25em; height: 10em;">
+      <div id="bucketlist_div" ng-repeat="bucketlist in bucketlists.results | filter:search_bucketlists" class="col s4">
         <h6><strong>[[ bucketlist.name ]]</strong></h6>
         <hr>
-        <p style="font-size: 0.8em; font-weight: bold; cursor: pointer;" ng-click="viewItems([[ bucketlist.buck_id ]])">Items done</p>
-        <p style="font-size: 0.8em;">Date Created: [[ bucketlist.date_created|date ]]</p>
-        <p style="font-size: 0.8em;">Last Modified: [[ bucketlist.date_created|date ]]</p>
+        <p id="p_bucketlist_items" ng-click="viewItems([[ bucketlist.buck_id ]])">Items done</p>
+        <p class="p_bucketlist">Date Created: [[ bucketlist.date_created|date ]]</p>
+        <p class="p_bucketlist">Last Modified: [[ bucketlist.date_created|date ]]</p>
         <!-- Start fba -->
-        <div style="position: relative; height: 2em;">
+        <div id="outer_div_fba">
           <div class="fixed-action-btn horizontal click-to-toggle" style="position: absolute; right: 24px;">
             <a class="btn-floating btn-small black">
               <i class="small mdi-navigation-menu"></i>

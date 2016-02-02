@@ -1,0 +1,20 @@
+#item_edit_parent_div {
+	background-image: url('../images/fedora_wallpaper.jpg');
+	height:25em;
+}
+
+#item_edit_form_div {
+	background-color: #4db6ac;
+	opacity: 0.7;
+	margin: 4em;
+}
+
+#input_field_div {
+	background-color: #ffffff;
+	padding-bottom: 1em;
+}
+
+#item_edit_checkbox_field_div {
+	background-color: #ffffff;
+	padding-bottom: 1em;
+}

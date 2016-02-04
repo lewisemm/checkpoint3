@@ -46,7 +46,7 @@ $(document).ready(function(){
   </div>
   <div class="row">
     <div class="container">
-      <div id="item_div" class="col s5 offset-s1" ng-repeat="item in bucketlist.item">
+      <div id="item_div" ng-show="showBucketlistItems" class="col s5 offset-s1" ng-repeat="item in bucketlist.item">
         <div id="checkbox_div">
           <input type="checkbox" id="[[ item.item_id ]]" ng-checked="[[ item.done ]]"/>
           <label id="item_name_label" for="[[ item.item_id ]]" class="black-text">[[ item.name ]]</label>
@@ -68,6 +68,11 @@ $(document).ready(function(){
         </div>
         <!-- End fab -->
       </div>
+      <!-- Start nothing to see here -->
+      <div ng-show="showNTSHBucketlist">
+        <img class="ntsh_bucketlists" src="static/images/ntsh.jpg">
+      </div>
+      <!-- End nothing to see here -->
     </div>
   </div>
 </div>

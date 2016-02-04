@@ -41,17 +41,21 @@ $(document).ready(function(){
     <!-- search div -->
   </div>
   <div class="row">
-    <div class="col s12">IMPLEMENT THAT PAGINATION STUFF HERE</div>
+    <ul class="pagination">
+      <li class="disabled"><a ngHref="[[ previousPage ]]"><i class="material-icons">chevron_left</i></a></li>
+      <li class="waves-effect" ng-click="setpage($index + 1)" ng-repeat="page in pages track by $index"><a  href="">[[$index + 1]]</a></li>
+      <li class="waves-effect"><a href="[[ nextPage ]]"><i class="material-icons">chevron_right</i></a></li>
+    </ul>
   </div>
   <!-- End add bucketlist & search section -->
 
   <!-- Start bucketlist displaysection -->
   <div class="row">
     <div class="container">
-      <div id="bucketlist_div" ng-repeat="bucketlist in bucketlists.results | filter:search_bucketlists" class="col s4">
+      <div id="bucketlist_div" ng-show="showBucketlist" ng-repeat="bucketlist in bucketlists.results | filter:search_bucketlists" class="col s4">
         <h6><strong>[[ bucketlist.name ]]</strong></h6>
         <hr>
-        <p id="p_bucketlist_items" ng-click="viewItems([[ bucketlist.buck_id ]])">Items done</p>
+        <p id="p_bucketlist_items" ng-click="viewItems([[ bucketlist.buck_id ]])">View items</p>
         <p class="p_bucketlist">Date Created: [[ bucketlist.date_created|date ]]</p>
         <p class="p_bucketlist">Last Modified: [[ bucketlist.date_created|date ]]</p>
         <!-- Start fba -->
@@ -68,6 +72,11 @@ $(document).ready(function(){
         </div>
         <!-- End fba -->
       </div>
+      <!-- start nothing to see here -->
+      <div ng-show="showNTSH">
+        <img class="ntsh_bucketlists" src="static/images/ntsh.jpg">
+      </div>
+      <!-- end nothing to see here -->
     </div>
   </div>
   <!-- End bucketlist displaysection -->

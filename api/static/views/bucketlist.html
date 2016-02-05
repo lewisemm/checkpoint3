@@ -42,7 +42,7 @@ $(document).ready(function(){
   </div>
   <div class="row">
     <ul class="pagination">
-      <li class="disabled"><a ngHref="[[ previousPage ]]"><i class="material-icons">chevron_left</i></a></li>
+      <li class="waves-effect"><a ng-click="leftChevron()"><i class="material-icons">chevron_left</i></a></li>
       <li class="waves-effect" ng-click="setpage($index + 1)" ng-repeat="page in pages track by $index"><a  href="">[[$index + 1]]</a></li>
       <li class="waves-effect"><a ng-click="rightChevron()"><i class="material-icons">chevron_right</i></a></li>
     </ul>

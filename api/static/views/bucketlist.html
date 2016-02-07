@@ -7,9 +7,9 @@ $(document).ready(function(){
 <div style="background-image: url('static/images/fedora_wallpaper.jpg');">
   <!-- Start add bucketlist & search section -->
   <div class="row" style="padding-top: 1em;">
-    <div class="col s3 offset-s1">
+    <div class="col s3">
     <!-- Modal start -->
-      <a class="waves-effect waves-light btn-large modal-trigger btn-floating" class="z-depth-6" data-target="modal_add_bucketlist"><i class="material-icons">add</i></a>
+      <a id="add_bucketlist_button" class="waves-effect waves-light btn-large modal-trigger btn-floating" class="z-depth-6" data-target="modal_add_bucketlist"><i class="material-icons">add</i></a>
       <div id="modal_add_bucketlist" class="modal">
         <div class="modal-content">
           <div class="col s6 offset-s3">
@@ -31,21 +31,32 @@ $(document).ready(function(){
       </div>
       <!-- Modal end -->
     </div>
-    <!-- search div -->
-    <div class="col s8">
+    <!-- start search div -->
+    <div class="col s5">
       <div class="input-field col s6">
         <input placeholder="Search Bucketlists" id="search_bucketlists" type="text" class="validate" ng-model="search_bucketlists">
         <label for="search_bucketlists" style="color: #000000;">Search Bucketlists by name</label>
       </div>
     </div>
-    <!-- search div -->
+    <!-- end search div -->
+
+    <!-- start custom page size -->
+    <div class="col s4">
+      <div class="input-field col s6">
+        <input placeholder="20" ng-model="custom_page_size" id="custom_page_size" type="text" class="validate" ng-keypress="loadBucketlists($event)">
+        <label id="custom_page_size_label" class="active" for="custom_page_size">Bucketlists per page</label>
+      </div>
+    </div>
+    <!-- end custom page size -->
   </div>
   <div class="row">
-    <ul class="pagination">
+    <div class="center-align">
+      <ul class="pagination">
       <li class="waves-effect"><a ng-click="leftChevron()"><i class="material-icons">chevron_left</i></a></li>
       <li class="waves-effect" ng-click="setpage($index + 1)" ng-repeat="page in pages track by $index"><a  href="">[[$index + 1]]</a></li>
       <li class="waves-effect"><a ng-click="rightChevron()"><i class="material-icons">chevron_right</i></a></li>
     </ul>
+    </div>
   </div>
   <!-- End add bucketlist & search section -->
 

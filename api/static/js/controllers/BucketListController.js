@@ -1,13 +1,13 @@
 BucketlistApp.controller('BucketlistController',
 	['$scope', '$window', 'BucketlistFactory', '$cookies',
 	function ($scope, $window, BucketlistFactory, $cookies) {
-		var nextPage = 1, pages = 1;
+		var nextPage = 1, pages = 1, itemsPerPage = 20;
 
 		var pageRequested = function (pageClicked) {
 			nextPage = pageClicked;
 			$scope.currentpage = pageClicked;
 
-			BucketlistFactory.Bucketlist.getAll({page:pageClicked}).$promise.then(
+			BucketlistFactory.Bucketlist.getAll({limit: itemsPerPage, page: pageClicked}).$promise.then(
 				function (response) {
 					$scope.bucketlists = response;
 				},
@@ -19,52 +19,67 @@ BucketlistApp.controller('BucketlistController',
 
 		$scope.setpage = function(currentpage){
 			pageRequested(currentpage);
-		}
+		};
 
 		$scope.rightChevron = function () {
 			nextPage += 1;
 			if ( nextPage <= pages) {
 				pageRequested(nextPage);
 			}
-		}
+		};
 
 		$scope.leftChevron = function () {
 			if ( (nextPage - 1) >= 1) {
 				nextPage -= 1;
 				pageRequested(nextPage);
 			}
-		}
+		};
 
-		BucketlistFactory.Bucketlist.getAll().$promise.then(
-			function (response) {
-				$scope.bucketlists = response;
-				if (typeof(response.results) === 'object') {
-					if ($scope.bucketlists.results.length > 0) {
-						$scope.showBucketlist = true;
-						$scope.showNTSH = false;
+		$scope.loadBucketlists = function (eventObj) {
 
-						var blCount = response.count;
-						$scope.pages = new Array(Math.ceil(blCount/2));
-						pages = $scope.pages.length;
+			if ( typeof($scope.custom_page_size) === 'undefined') {
+				itemsPerPage = 20;
+			} else {
+				itemsPerPage = $scope.custom_page_size;
+			}
 
-					} else {
-						$scope.showBucketlist = false;
-						$scope.showNTSH = true;
-					}
+			// if the enter key has been pressed, reload the page
+			if (eventObj === 'initializer' || eventObj.keyCode === 13) {
+				if (itemsPerPage < 1) {
+					// page size should not be less than 1 (obviously)
+					itemsPerPage = 1;
+				} else if (itemsPerPage > 100) {
+					// page size should be at 100 max
+					itemsPerPage = 100;
 				}
 
-			},
-			function (error) {
-				console.log(error);
-			}
-		);
+				BucketlistFactory.Bucketlist.getAll({limit: itemsPerPage}).$promise.then(
+					function (response) {
+						$scope.bucketlists = response;
+						if (typeof(response.results) === 'object') {
+							if ($scope.bucketlists.results.length > 0) {
+								$scope.showBucketlist = true;
+								$scope.showNTSH = false;
 
-		// if ($scope.bucketlists.next) {
- 	// 		$scope.nextPage = $scope.bucketlists.next;
-		// }
-		// if ($scope.bucketlists.previous) {
-		// 	$scope.prevPage = $scope.bucketlists.previous;
-		// }
+								var blCount = response.count;
+								$scope.pages = new Array(Math.ceil(blCount/itemsPerPage));
+								pages = $scope.pages.length;
+
+							} else {
+								$scope.showBucketlist = false;
+								$scope.showNTSH = true;
+							}
+						}
+
+					},
+					function (error) {
+						console.log(error);
+					}
+				);
+			}
+		};
+		// load the page with default page size 20
+		$scope.loadBucketlists('initializer');
 
 		$scope.edit = function(buck_id) {
 			var new_name = prompt('New bucketlist name');
@@ -84,7 +99,7 @@ BucketlistApp.controller('BucketlistController',
 				var $toastContent = $('<strong style="color: #f44336;">Bucketlist not edited.</strong>');
 				Materialize.toast($toastContent, 5000);
 			}
-		}
+		};
 
 		$scope.addBucketlist = function (data) {
 			var data = {
@@ -107,7 +122,7 @@ BucketlistApp.controller('BucketlistController',
 				var $toastContent = $('<strong style="color: #f44336;">Bucketlist name missing.</strong>');
 				Materialize.toast($toastContent, 5000);
 			}
-		}
+		};
 
 		$scope.del = function (buck_id) {
 			var conf = confirm('Are you sure you want to delete?');
@@ -126,11 +141,11 @@ BucketlistApp.controller('BucketlistController',
 				Materialize.toast($toastContent, 5000);
 			}
 
-		}
+		};
 
 		$scope.viewItems = function(buck_id) {
 			$window.location.href = "#bucketlist/" + buck_id + "/";
-		}
+		};
 
 		$scope.itemsDone = function (bucketlist) {
 			if (bucketlist.item) {
@@ -149,6 +164,6 @@ BucketlistApp.controller('BucketlistController',
 				// $scope.bucketlist.buck_id = done;
 			}
 
-		}
+		};
 	}
 ]);

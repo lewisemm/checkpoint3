@@ -23,7 +23,6 @@ BucketlistApp.controller('LoginController',
 				)
 				.then(
 					function (response) {
-						console.log('Signed up');
 						var $toastContent = $('<strong style="color: #4db6ac;">User successfully signed up. Proceed to Sign In.</strong>');
 						Materialize.toast($toastContent, 5000);
 						$scope.new_password = '';

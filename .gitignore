@@ -2,3 +2,4 @@
 *.sqlite3
 .env
 .DS_Store
+api/static/bower_components

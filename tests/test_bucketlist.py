@@ -1,87 +1,135 @@
-from test_base_class import TestBaseClass
+from .test_base import TestBaseClass
+
+from api.models import BucketList
 
 
-class TestBucketList(TestBaseClass):
+class TestBucketlist(TestBaseClass):
+	"""Test all permissible http methods on bucketlists."""
 
-	def test_successful_create_bucketlist(self):
-		"""Test successful creation of a bucketlist."""
-		# create a user
-		self.create_user()
-		# log them in
-		self.client.post(
-			'/auth/login',
-			{'username': self.username, 'password': self.password}
-		)
-		# create a bucketlist
-		buck_name = self.fake.name()
-		self.client.post(
-			'/bucketlists/',
-			data={'name': buck_name},
-			headers={'username': token}
-		)
+	def test_successful_post_bucketlist(self):
+		"""Test successful bucketlist creation."""
+		# create user
+		self.create_user(self.user1)
+		# login user
+		response = self.client.post('/auth/login/', self.user1)
+		token = 'JWT ' + response.data.get('token', None)
+		# set authentication token in headre
+		self.client.credentials(HTTP_AUTHORIZATION=token)
+		# create bucketlist
+		bucketlist = {
+			'name': self.fake.name()
+		}
+		response = self.client.post('/bucketlists/', bucketlist)
 
-		self.assertTrue(buck_name in response.content)
+		self.assertEqual(response.data.get('message'), 'BucketList created')
 		self.assertEqual(response.status_code, 201)
+		self.assertEqual(response.status_text, 'Created')
+		# fetch object from DB and confirm created_by == currently logged in user
+		bucketlist_obj = BucketList.objects.get(name=bucketlist.get('name'))
+		self.assertEqual(bucketlist_obj.created_by, self.user1.get('username'))
 
-	def test_unauthenticated_create_bucketlist(self):
-		"""Test attempt to create a bucketlist without the authentication token."""
-		# create a user
-		self.create_user()
-		# log them in
-		self.client.post(
-			'/auth/login',
-			{'username': self.username, 'password': self.password}
-		)
-		# create a bucketlist
-		buck_name = self.fake.name()
-		self.client.post('/bucketlists/', data={'name': buck_name})
-
-		self.assertTrue('Unauthoried accesss' in response.content)
-		self.assertEqual(response.status_code, 403)
-
-	def test_successful_authenticated_get_bucketlists(self):
-		"""Test successful attempt to get bucketlists in the system."""
-		# create a user
-		self.create_user()
+	def test_successful_get_bucketlist(self):
+		"""Test successful get operation on bucketlist."""
+		# create user
+		self.create_user(self.user1)
 		# login user
-		self.client.post(
-			'/auth/login',
-			{'username': self.username, 'password': self.password},
-			headers={'username': token}
-		)
-		# create a bucketlist
-		buck_name = self.fake.name()
-		self.client.post(
-			'/bucketlists/',
-			data={'name': buck_name},
-			headers={'username': token}
-		)
-		# create another bucketlist
-		buck_name2 = self.fake.name()
-		self.client.post(
-			'/bucketlists/',
-			data={'name': buck_name2},
-			headers={'username': token}
-		)
-		# confirm the two bucketlists are there in the response
-		self.assertTrue(buck_name in response.content)
-		self.assertTrue(buck_name2 in response.content)
-
+		response = self.client.post('/auth/login/', self.user1)
+		token = 'JWT ' + response.data.get('token', None)
+		# set authentication token in headre
+		self.client.credentials(HTTP_AUTHORIZATION=token)
+		# create bucketlist
+		bucketlist = {
+			'name': self.fake.name()
+		}
+		self.client.post('/bucketlists/', bucketlist)
+		# send get request to /bucketlists/
+		response = self.client.get('/bucketlists/')
+		self.assertTrue(len(response.data.get('results')), 1)
+		results_list = response.data.get('results')
+		self.assertEqual(results_list[0].get('name'), bucketlist.get('name'))
 		self.assertEqual(response.status_code, 200)
+		self.assertEqual(response.status_text, 'OK')
 
-	def test_unauthenticated_get_bucketlists(self):
-		"""Test unauthenticated attempt to get bucketlists in the system."""
-		# create a user
-		self.create_user()
+	def test_successful_get_bucketlist_id(self):
+		"""Test successful get operation on bucketlist of specified id."""
+		# create user
+		self.create_user(self.user1)
 		# login user
-		self.client.post(
-			'/auth/login',
-			{'username': self.username, 'password': self.password},
-			headers={'username': token}
-		)
-		# create a bucketlist
-		buck_name = self.fake.name()
-		self.client.post('/bucketlists/', data={'name': buck_name})
+		response = self.client.post('/auth/login/', self.user1)
+		token = 'JWT ' + response.data.get('token', None)
+		# set authentication token in headre
+		self.client.credentials(HTTP_AUTHORIZATION=token)
+		# create bucketlist
+		bucketlist = {
+			'name': self.fake.name()
+		}
+		self.client.post('/bucketlists/', bucketlist)
+		# send get request to /bucketlists/ and then retrieve bucketlist id
+		response = self.client.get('/bucketlists/')
+		results_list = response.data.get('results')
+		bucketlist_id = results_list[0].get('buck_id')
+		# append id of bucketlist just created in the url
+		response = self.client.get('/bucketlists/' + str(bucketlist_id) + '/')
+		self.assertEqual(response.status_code, 200)
+		self.assertEqual(response.status_text, 'OK')
+		self.assertEqual(response.data.get('name'), bucketlist.get('name'))
+		self.assertEqual(response.data.get('created_by'), self.user1.get('username'))
 
-		self.assertTrue('Unauthoried accesss' in response.content)
-		self.assertEqual(response.status_code, 403)
+	def test_successful_put_bucketlist_id(self):
+		"""Test successful put operation on bucketlist of specified id."""
+		# create user
+		self.create_user(self.user1)
+		# login user
+		response = self.client.post('/auth/login/', self.user1)
+		token = 'JWT ' + response.data.get('token', None)
+		# set authentication token in headre
+		self.client.credentials(HTTP_AUTHORIZATION=token)
+		# create bucketlist
+		bucketlist = {
+			'name': self.fake.name()
+		}
+		self.client.post('/bucketlists/', bucketlist)
+		# send get request to /bucketlists/ and then retrieve bucketlist id
+		response = self.client.get('/bucketlists/')
+		results_list = response.data.get('results')
+		bucketlist_id = results_list[0].get('buck_id')
+		# append id of bucketlist just created in the url and edit it
+		new_data = {
+			'name': self.fake.name()
+		}
+		response = self.client.put(
+			'/bucketlists/' + str(bucketlist_id) + '/',
+			new_data
+		)
+		self.assertEqual(response.status_code, 200)
+		self.assertEqual(response.status_text, 'OK')
+		self.assertEqual(response.data.get('name'), new_data.get('name'))
+		self.assertNotEqual(response.data.get('name'), bucketlist.get('username'))
+
+	def test_successful_delete_bucketlist_id(self):
+		"""Test successful get operation on bucketlist of specified id."""
+		# create user
+		self.create_user(self.user1)
+		# login user
+		response = self.client.post('/auth/login/', self.user1)
+		token = 'JWT ' + response.data.get('token', None)
+		# set authentication token in headre
+		self.client.credentials(HTTP_AUTHORIZATION=token)
+		# create bucketlist
+		bucketlist = {
+			'name': self.fake.name()
+		}
+		self.client.post('/bucketlists/', bucketlist)
+		# send get request to /bucketlists/ and then retrieve bucketlist id
+		response = self.client.get('/bucketlists/')
+		results_list = response.data.get('results')
+		bucketlist_id = results_list[0].get('buck_id')
+		# append id of bucketlist just created in the url
+		response = self.client.delete('/bucketlists/' + str(bucketlist_id) + '/')
+		self.assertEqual(response.status_code, 204)
+		self.assertEqual(response.status_text, 'No Content')
+		# send a get to url of this bucketlist id to confirm delete operation
+		response = self.client.get('/bucketlists/' + str(bucketlist_id) + '/')
+		self.assertEqual(response.data.get('detail'), 'Not found.')
+		self.assertEqual(response.status_code, 404)
+		self.assertEqual(response.status_text, 'Not Found')

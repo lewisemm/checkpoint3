@@ -15,8 +15,8 @@ class BucketListViewSet(viewsets.ModelViewSet):
 	queryset = BucketList.objects.all()
 	serializer_class = BucketListSerializer
 	permission_classes = (
-		permissions.IsAuthenticated,
-		IsOwnerOrReadOnly
+		permissions.IsAuthenticatedOrReadOnly,
+		IsOwnerOrReadOnly,
 	)
 	pagination_class = BucketlistPaginator
 
@@ -52,13 +52,7 @@ class BucketListViewSet(viewsets.ModelViewSet):
 				},
 				status=status.HTTP_201_CREATED
 			)
-		return Response(
-			{
-				'status': "Bad request",
-				'message': "Failed to create an BucketList"
-			},
-			status=status.HTTP_401_BAD_REQUEST
-		)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ItemViewSet(viewsets.ModelViewSet):
@@ -68,12 +62,28 @@ class ItemViewSet(viewsets.ModelViewSet):
 	"""
 	serializer_class = ItemSerializer
 	queryset = Item.objects.all()
-	# problem here: item objects have no attribute created_by
-	permission_classes = (
-		permissions.IsAuthenticated,
-		IsOwnerOrReadOnly
-	)
-	pagination_class = BucketlistPaginator
+
+	def create(self, request, bucketlist_pk=None, pk=None):
+		bucketlist = get_object_or_404(BucketList, pk=bucketlist_pk)
+		if isinstance(bucketlist, BucketList):
+			serializer = self.serializer_class(data=request.data)
+			if serializer.is_valid():
+				item = Item(**serializer.validated_data)
+				item.bucketlist = bucketlist
+				item.save()
+				return Response(
+					{
+						'status': 'Success',
+						'message': 'BucketList item created'
+					},
+					status=status.HTTP_201_CREATED
+				)
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+		return Response(
+			{
+				'detail': 'Not found.'
+			}, status=status.HTTP_404_NOT_FOUND
+		)
 
 	def list(self, request, bucketlist_pk=None):
 		"""Customize the get request to the '/bucketlists/<buck_id>/items' url.
@@ -83,7 +93,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 		bucketlist = BucketList.objects.get(buck_id=bucketlist_pk)
 		queryset = Item.objects.filter(bucketlist=bucketlist)
 		serializer = ItemSerializer(queryset, many=True)
-		return Response(serializer.data)
+		return Response(serializer.data, status=status.HTTP_200_OK)
 
 	def retrieve(self, request, pk=None, bucketlist_pk=None):
 		"""Customize the get request to the
@@ -95,7 +105,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 		queryset = Item.objects.filter(bucketlist=bucketlist, item_id=pk)
 		item = get_object_or_404(queryset)
 		serializer = ItemSerializer(item)
-		return Response(serializer.data)
+		return Response(serializer.data, status=HTTP_200_OK)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -108,9 +118,4 @@ class UserViewSet(viewsets.ModelViewSet):
 			new_user = User.objects.create_user(**serializer.validated_data)
 			new_user.save()
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
-		return Response(
-			{
-				'status': 'Invalid data',
-				'message': 'Invalid data provided'
-			}, status=status.HTTP_400_BAD_REQUEST
-		)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

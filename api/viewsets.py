@@ -62,23 +62,41 @@ class ItemViewSet(viewsets.ModelViewSet):
 	"""
 	serializer_class = ItemSerializer
 	queryset = Item.objects.all()
+	permission_classes = (
+		permissions.IsAuthenticatedOrReadOnly,
+		IsOwnerOrReadOnly,
+	)
+
+	def get_object(self):
+		obj = get_object_or_404(self.get_queryset())
+		self.check_object_permissions(self.request, obj)
+		return obj
 
 	def create(self, request, bucketlist_pk=None, pk=None):
 		bucketlist = get_object_or_404(BucketList, pk=bucketlist_pk)
 		if isinstance(bucketlist, BucketList):
-			serializer = self.serializer_class(data=request.data)
-			if serializer.is_valid():
-				item = Item(**serializer.validated_data)
-				item.bucketlist = bucketlist
-				item.save()
+			if bucketlist.created_by == request.user.username:
+				serializer = self.serializer_class(data=request.data)
+				if serializer.is_valid():
+					item = Item(**serializer.validated_data)
+					item.bucketlist = bucketlist
+					item.save()
+					return Response(
+						{
+							'status': 'Success',
+							'message': 'BucketList item created'
+						},
+						status=status.HTTP_201_CREATED
+					)
 				return Response(
-					{
-						'status': 'Success',
-						'message': 'BucketList item created'
-					},
-					status=status.HTTP_201_CREATED
+					serializer.errors,
+					status=status.HTTP_400_BAD_REQUEST
 				)
-			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+			return Response(
+				{
+					'detail': 'You do not have permission to perform this action.'
+				}, status=status.HTTP_403_FORBIDDEN
+			)
 		return Response(
 			{
 				'detail': 'Not found.'
@@ -105,7 +123,54 @@ class ItemViewSet(viewsets.ModelViewSet):
 		queryset = Item.objects.filter(bucketlist=bucketlist, item_id=pk)
 		item = get_object_or_404(queryset)
 		serializer = ItemSerializer(item)
-		return Response(serializer.data, status=HTTP_200_OK)
+		return Response(serializer.data, status=status.HTTP_200_OK)
+
+	def destroy(self, request, pk=None, bucketlist_pk=None):
+		"""Customize the delete request to the
+			'/bucketlists/<buck_id>/items/<item_id>' url.
+
+		Only delete item of <item_id> under bucketlist of <buck_id> if requester
+		is the bucketlist creator.
+		"""
+		bucketlist = BucketList.objects.get(buck_id=bucketlist_pk)
+		if bucketlist.created_by == request.user.username:
+			queryset = Item.objects.filter(bucketlist=bucketlist, item_id=pk)
+			item = get_object_or_404(queryset)
+			item.delete()
+			return Response(status=status.HTTP_204_NO_CONTENT)
+		return Response(
+			{
+				'detail': 'You do not have permission to perform this action.'
+			}, status=status.HTTP_403_FORBIDDEN
+		)
+
+	def update(self, request, pk=None, bucketlist_pk=None):
+		"""Customize the update request to the
+			'/bucketlists/<buck_id>/items/<item_id>' url.
+
+		Only update item of <item_id> under bucketlist of <buck_id> if requester
+		is the bucketlist creator.
+		"""
+		bucketlist = BucketList.objects.get(buck_id=bucketlist_pk)
+		if bucketlist.created_by == request.user.username:
+			queryset = Item.objects.filter(bucketlist=bucketlist, item_id=pk)
+			item = get_object_or_404(queryset)
+			serializer = self.serializer_class(data=request.data)
+			if serializer.is_valid():
+				item.name = serializer.validated_data.get('name')
+				item.done = serializer.validated_data.get('done')
+				item.save()
+				return Response(
+					serializer.data, status=status.HTTP_200_OK
+				)
+			return Response(
+				serializer.errors, status=status.HTTP_400_BAD_REQUEST
+			)
+		return Response(
+			{
+				'detail': 'You do not have permission to perform this action.'
+			}, status=status.HTTP_403_FORBIDDEN
+		)
 
 
 class UserViewSet(viewsets.ModelViewSet):

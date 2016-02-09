@@ -9,12 +9,12 @@ python:
 before_install:
   - "pip install -r requirements.txt"
 script:
-  - coverage run --omit="*ch3*","*api/migration*" manage.py test
+  - coverage run --omit="*ch3*","*virtualenv*","*api/migration*","checkpoint3*" manage.py test
 after_success:
   - coveralls
 branches:
   only:
-  - develop
+  - materialize
 services:
   - postgresql
 env:

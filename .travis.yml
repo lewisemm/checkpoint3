@@ -1,15 +1,15 @@
 language: python
 python:
   - "2.7"
-  - "3.2"
-  - "3.3"
   - "3.4"
   - "3.5"
 
 before_install:
-  - "pip install -r requirements.txt"
+  - pip install -r requirements.txt
+install:
+  - pip install coveralls
 script:
-  - coverage run --omit="*ch3*","*virtualenv*","*api/migration*","checkpoint3*" manage.py test
+  - coverage run manage.py test
 after_success:
   - coveralls
 branches:

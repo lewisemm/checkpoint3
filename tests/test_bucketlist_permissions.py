@@ -3,7 +3,7 @@ from .test_base import TestBaseClass
 from api.models import BucketList
 
 
-class TestBucketlist(TestBaseClass):
+class TestBucketListPermissions(TestBaseClass):
 	"""Create two users and test permissions on their respective bucketlists."""
 
 	def test_get_bucketlist_other_user(self):

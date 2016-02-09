@@ -81,7 +81,18 @@ WSGI_APPLICATION = 'checkpoint3.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {}
-DATABASES['default'] = dj_database_url.config()
+if os.environ.get('TRAVIS_BUILD', None):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'checkpoint3',
+            'USER': 'travis',
+            'PASSWORD': '',
+            'HOST': '127.0.0.1',
+        }
+    }
+else:
+    DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation

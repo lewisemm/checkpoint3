@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/andela-lkabui/checkpoint3.svg?branch=master)](https://travis-ci.org/andela-lkabui/checkpoint3)
-![Coverage Status](https://coveralls.io/repos/github/andela-lkabui/checkpoint3/badge.svg?branch=master)](https://coveralls.io/github/andela-lkabui/checkpoint3?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/andela-lkabui/checkpoint3/badge.svg?branch=master)](https://coveralls.io/github/andela-lkabui/checkpoint3?branch=master)
 [![Code Issues](https://www.quantifiedcode.com/api/v1/project/9f3638f3e6174272b67e4413c849d041/badge.svg)](https://www.quantifiedcode.com/app/project/9f3638f3e6174272b67e4413c849d041)
 
 # checkpoint3

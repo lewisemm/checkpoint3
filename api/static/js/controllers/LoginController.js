@@ -55,6 +55,7 @@ BucketlistApp.controller('LoginController',
 
 						$rootScope.showSignIn = false;
 						$rootScope.showSignOut = true;
+						$rootScope.signOutLabel = "Sign Out, " + data.username;
 
 						$window.location.href = '#bucketlist';
 					},

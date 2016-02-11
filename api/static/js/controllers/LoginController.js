@@ -1,6 +1,6 @@
 BucketlistApp.controller('LoginController',
-	['$scope', '$http', '$window', '$cookies',
-	function ($scope, $http, $window, $cookies) {
+	['$scope', '$http', '$window', '$cookies', '$rootScope', 'APIAccessFactory',
+	function ($scope, $http, $window, $cookies, $rootScope, APIAccessFactory) {
 
 		$scope.signUp = function() {
 			if (!$scope.new_username) {
@@ -17,23 +17,19 @@ BucketlistApp.controller('LoginController',
 					username: $scope.new_username,
 					password: $scope.new_password
 				};
-				$http.post(
-					'http://localhost:8000/users/',
-					data
-				)
-				.then(
+				APIAccessFactory.NewUser.create(data).$promise.then(
 					function (response) {
-						var $toastContent = $('<strong style="color: #4db6ac;">User successfully signed up. Proceed to Sign In.</strong>');
+						var $toastContent = $('<strong style="color: #4db6ac;">User successfully signed up. You can proceed to Sign In.</strong>');
 						Materialize.toast($toastContent, 5000);
 						$scope.new_password = '';
 						$scope.new_username = '';
 					},
 					function (error) {
+						console.log(error);
 						$scope.signUpResponse = 'User sign up failed';
 					}
 				);
 			}
-
 		}
 
 		$scope.login = function () {
@@ -48,17 +44,17 @@ BucketlistApp.controller('LoginController',
 					username: $scope.login_username,
 					password: $scope.login_password
 				};
-				$http.post(
-					'http://localhost:8000/auth/login/',
-					data
-				)
-				.then(
+				APIAccessFactory.User.login(data).$promise.then(
 					function (response) {
 						// attach token to authorization header
-						var token = response.data.token;
+						var token = response.token;
 						if (token) {
 							$cookies.put('Authorization', token);
 						}
+
+						$rootScope.showSignIn = false;
+						$rootScope.showSignOut = true;
+
 						$window.location.href = '#bucketlist';
 					},
 					function (error) {

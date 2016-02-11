@@ -3,4 +3,4 @@
 .env
 .DS_Store
 api/static/bower_components
-.coverage
+.coverage*

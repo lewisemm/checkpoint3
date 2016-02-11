@@ -82,23 +82,43 @@ BucketlistApp.controller('BucketlistController',
 		$scope.loadBucketlists('initializer');
 
 		$scope.edit = function(buck_id) {
-			var new_name = prompt('New bucketlist name');
+			swal(
+				{
+					title: "Don't like the current name?",
+					text: "You can edit the bucketlist name here:",
+					type: "input",   showCancelButton: true,
+					closeOnConfirm: false,
+					animation: "slide-from-top",
+					inputPlaceholder: "Type in new bucketlist name"
+				},
+				function (inputValue) {
+					if (inputValue === false)
+						return false;
+					if (inputValue === "" || inputValue.length < 1) {
+						swal.showInputError("You need to write something!");
+						return false
+					}
+					var data = {
+						buck_id: buck_id,
+						name: inputValue
+					};
+					BucketlistFactory.Bucketlist.edit(data).$promise.then(
+						function (response) {
+							swal("Success!", "Bucketlist: " + buck_id + "'s name updated");
+							// refresh bucketlists
+							$scope.bucketlists = BucketlistFactory.Bucketlist.getAll();
+						},
+						function (error) {
+							if (error.status === 403) {
+								sweetAlert("Update operation failed...", "You don't have permissions to edit this Bucketlist", "error");
+							} else {
+								sweetAlert("Update operation failed...", "Bucketlist not edited.", "error");
+							}
+						}
+					);
 
-			if (new_name) {
-				var data = {
-					buck_id: buck_id,
-					name: new_name
-				};
-				BucketlistFactory.Bucketlist.edit(data);
-				$scope.bucketlists = BucketlistFactory.Bucketlist.getAll();
-				var $toastContent = $('<strong style="color: #4db6ac;">Bucketlist successfully edited.</strong>');
-				Materialize.toast($toastContent, 5000);
-
-				//$window.location.href = "#bucketlist/";
-			} else {
-				var $toastContent = $('<strong style="color: #f44336;">Bucketlist not edited.</strong>');
-				Materialize.toast($toastContent, 5000);
-			}
+				}
+			);
 		};
 
 		$scope.addBucketlist = function (data) {
@@ -142,9 +162,16 @@ BucketlistApp.controller('BucketlistController',
 					BucketlistFactory.Bucketlist.deleteBucket(data).$promise.then(
 						function (response) {
 							swal("Deleted!", "Bucketlist " + data.buck_id + " has been deleted.", "success");
+							BucketlistFactory.Bucketlist.getAll({limit: itemsPerPage, page: $scope.currentpage}).$promise.then(
+								function (response) {
+									$scope.bucketlists = response;
+								},
+								function (error) {
+									console.log(error);
+								}
+							);
 						},
 						function (error) {
-							console.log(error);
 							if (error.status === 403) {
 								sweetAlert("Oops...", "You are not authorized to delete this bucketlist", "error");
 							} else {

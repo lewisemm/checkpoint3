@@ -38,6 +38,11 @@ BucketlistApp.controller('BucketlistDetailsController',
 						Materialize.toast($toastContent, 5000);
 						$scope.new_item_name = "";
 						$scope.new_item_status = false;
+
+						if ($scope.showNTSHBucketlist) {
+							$scope.showNTSHBucketlist = false;
+							$scope.showBucketlistItems = true;
+						}
 					},
 					function (error) {
 						console.log(error);

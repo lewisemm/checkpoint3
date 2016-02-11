@@ -125,22 +125,37 @@ BucketlistApp.controller('BucketlistController',
 		};
 
 		$scope.del = function (buck_id) {
-			var conf = confirm('Are you sure you want to delete?');
+			var data = {
+				buck_id: buck_id
+			};
+			swal(
+				{
+					title: "Are you sure?",
+					text: "You will not be able to undo this operation!",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#f44336",
+					confirmButtonText: "Yes, delete it!",
+					closeOnConfirm: false
+				},
+				function () {
+					BucketlistFactory.Bucketlist.deleteBucket(data).$promise.then(
+						function (response) {
+							swal("Deleted!", "Bucketlist " + data.buck_id + " has been deleted.", "success");
+						},
+						function (error) {
+							console.log(error);
+							if (error.status === 403) {
+								sweetAlert("Oops...", "You are not authorized to delete this bucketlist", "error");
+							} else {
+								sweetAlert("Oops...", error.statusText, "error");
+							}
 
-			if (conf) {
-				var data = {
-					buck_id: buck_id
-				};
-				BucketlistFactory.Bucketlist.deleteBucket(data);
-				$window.location.href = "#bucketlist/";
-				var $toastContent = $('<strong style="color: #f44336;">Bucketlist successfully deleted.</strong>');
-				Materialize.toast($toastContent, 5000);
-			}
-			else {
-				var $toastContent = $('<strong style="color: #4db6ac;">Bucketlist not deleted.</strong>');
-				Materialize.toast($toastContent, 5000);
-			}
+						}
+					);
 
+				}
+			);
 		};
 
 		$scope.viewItems = function(buck_id) {

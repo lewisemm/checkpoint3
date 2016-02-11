@@ -20,9 +20,11 @@
 	<script src="{% static 'js/controllers/LoginController.js' %}"></script>
 	<script src="{% static 'js/controllers/BucketlistController.js' %}"></script>
   <script src="{% static 'js/controllers/BucketlistDetailsController.js' %}"></script>
+  <script src="{% static 'js/controllers/DefaultController.js' %}"></script>
   <script src="{% static 'js/controllers/ItemController.js' %}"></script>
 	<script src="{% static 'js/services/bucketlist_service.js' %}"></script>
   <script src="{% static 'js/services/authorization_service.js' %}"></script>
+  <script src="{% static 'js/services/access_service.js' %}"></script>
 	<link rel="stylesheet" href="{% static 'css/base.css' %}">
   <link rel="stylesheet" href="{% static 'css/bucketlist.css' %}">
   <link rel="stylesheet" href="{% static 'css/bucketlist_details.css' %}">
@@ -30,15 +32,20 @@
   <link rel="stylesheet" href="{% static 'bower_components/sweetalert/dist/sweetalert.css' %}"></script>
 	<title>Bucketlist API</title>
 </head>
-<body ng-app="BucketlistApp">
+<body ng-app="BucketlistApp" ng-controller="DefaultController">
 	<header>
 		<div class="navbar-fixed">
 	<nav class="black">
     <div class="nav-wrapper">
-      <a href="#/" class="brand-logo">Logo</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#login">Sign In</a></li>
-      </ul>
+      <div style="margin-left: 3em;">
+        <a href="#/" class="brand-logo">Checkpoint 3</a>
+      </div>
+      <div style="margin-right: 2em;">
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="#login" ng-show="showSignIn">Sign In</a></li>
+          <li><a ng-show="showSignOut" ng-click="signOut()" ng-model="signOutLabel">[[ signOutLabel ]]</a></li>
+        </ul>
+      </div>
     </div>
   </nav>
   </div>

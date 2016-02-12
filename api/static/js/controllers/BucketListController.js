@@ -73,7 +73,7 @@ BucketlistApp.controller('BucketlistController',
 
 					},
 					function (error) {
-						console.log(error);
+						// console.log(error);
 					}
 				);
 			}
@@ -172,11 +172,6 @@ BucketlistApp.controller('BucketlistController',
 							);
 						},
 						function (error) {
-							if (error.status === 403) {
-								sweetAlert("Oops...", "You are not authorized to delete this bucketlist", "error");
-							} else {
-								sweetAlert("Oops...", error.statusText, "error");
-							}
 
 						}
 					);

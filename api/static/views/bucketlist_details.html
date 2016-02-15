@@ -48,7 +48,7 @@ $(document).ready(function(){
     <div class="container">
       <div id="item_div" ng-show="showBucketlistItems" class="col s5 offset-s1" ng-repeat="item in bucketlist.item">
         <div id="checkbox_div">
-          <input type="checkbox" id="[[ item.item_id ]]" ng-checked="[[ item.done ]]"/>
+          <input type="checkbox" id="[[ item.item_id ]]" ng-checked="[[ item.done ]]" ng-click="clickedAsDone(item.item_id)"/>
           <label id="item_name_label" for="[[ item.item_id ]]" class="black-text">[[ item.name ]]</label>
         </div>
         <hr>

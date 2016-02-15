@@ -137,7 +137,7 @@ class TestBucketlist(TestBaseClass):
 	def test_unauthenticated_get_bucketlist(self):
 		"""Test unauthenticated get operation on '/bucketlist/' url.
 
-		(No errors expected - safe request methods allowed)
+		Access should be denied because this is a protected route.
 		"""
 		# create user
 		self.create_user(self.user1)
@@ -155,14 +155,17 @@ class TestBucketlist(TestBaseClass):
 		self.client.credentials()
 		# send get request to /bucketlists/
 		response = self.client.get('/bucketlists/')
-		self.assertTrue(len(response.data.get('results')), 1)
-		results_list = response.data.get('results')
-		self.assertEqual(results_list[0].get('name'), bucketlist.get('name'))
-		self.assertEqual(response.status_code, 200)
-		self.assertEqual(response.status_text, 'OK')
+		self.assertTrue(
+			'credentials were not provided' in response.data.get('detail')
+		)
+		self.assertEqual(response.status_code, 401)
+		self.assertEqual(response.status_text, 'Unauthorized')
 
 	def test_unauthenticated_get_bucketlist_id(self):
-		"""Test unauthenticated get operation on '/bucketlist/buck_id/' url."""
+		"""Test unauthenticated get operation on '/bucketlist/buck_id/' url.
+
+		Access should be denied because this is a protected route.
+		"""
 		# create user
 		self.create_user(self.user1)
 		# login user
@@ -183,10 +186,11 @@ class TestBucketlist(TestBaseClass):
 		self.client.credentials()
 		# append id of bucketlist just created in the url and test
 		response = self.client.get('/bucketlists/' + str(bucketlist_id) + '/')
-		self.assertEqual(response.status_code, 200)
-		self.assertEqual(response.status_text, 'OK')
-		self.assertEqual(response.data.get('name'), bucketlist.get('name'))
-		self.assertEqual(response.data.get('created_by'), self.user1.get('username'))
+		self.assertEqual(response.status_code, 401)
+		self.assertEqual(response.status_text, 'Unauthorized')
+		self.assertTrue(
+			'credentials were not provided' in response.data.get('detail')
+		)
 
 	def test_unauthenticated_post_bucketlist(self):
 		"""Test unauthenticated post operation on '/bucketlist/' url.

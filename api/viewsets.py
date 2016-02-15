@@ -15,7 +15,7 @@ class BucketListViewSet(viewsets.ModelViewSet):
 	queryset = BucketList.objects.all()
 	serializer_class = BucketListSerializer
 	permission_classes = (
-		permissions.IsAuthenticatedOrReadOnly,
+		permissions.IsAuthenticated,
 		IsOwnerOrReadOnly,
 	)
 	pagination_class = BucketlistPaginator
@@ -63,7 +63,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 	serializer_class = ItemSerializer
 	queryset = Item.objects.all()
 	permission_classes = (
-		permissions.IsAuthenticatedOrReadOnly,
+		permissions.IsAuthenticated,
 		IsOwnerOrReadOnly,
 	)
 

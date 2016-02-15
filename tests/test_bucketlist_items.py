@@ -74,7 +74,7 @@ class TestBucketListItems(TestBaseClass):
 		# post item under bucketlsit
 		new_item = {
 			'name': self.fake.name(),
-			'done':	self.random_done_status()
+			'done': self.random_done_status()
 		}
 		self.client.post(
 			'/bucketlists/' + str(bucketlist_id) + '/items/',
@@ -190,7 +190,10 @@ class TestBucketListItems(TestBaseClass):
 		self.assertEqual(response.data.get('detail'), 'Not found.')
 
 	def test_unauthenticated_get_bucketlist_item(self):
-		"""Test unauthenticated get operation on existing bucketlist item."""
+		"""Test unauthenticated get operation on existing bucketlist item.
+
+		Access should be denied because this is a protected route.
+		"""
 		# create user 1
 		self.create_user(self.user1)
 		# login user 1
@@ -227,9 +230,11 @@ class TestBucketListItems(TestBaseClass):
 		response = self.client.get(
 			'/bucketlists/' + str(bucketlist_id) + '/items/' + str(item_id) + '/'
 		)
-		self.assertEqual(response.data.get('name'), new_item.get('name'))
-		self.assertEqual(response.status_text, 'OK')
-		self.assertEqual(response.status_code, 200)
+		self.assertTrue(
+			'credentials were not provided' in response.data.get('detail')
+		)
+		self.assertEqual(response.status_text, 'Unauthorized')
+		self.assertEqual(response.status_code, 401)
 
 	def test_unauthenticated_put_bucketlist_item(self):
 		"""Test unauthenticated put operation on existing bucketlist item."""

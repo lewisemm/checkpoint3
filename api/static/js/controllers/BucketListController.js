@@ -22,8 +22,8 @@ BucketlistApp.controller('BucketlistController',
 		};
 
 		$scope.rightChevron = function () {
-			nextPage += 1;
-			if ( nextPage <= pages) {
+			if ( (nextPage + 1) <= pages) {
+				nextPage += 1;
 				pageRequested(nextPage);
 			}
 		};

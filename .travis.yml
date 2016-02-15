@@ -14,7 +14,7 @@ after_success:
   - coveralls
 branches:
   only:
-  - materialize
+  - develop
 services:
   - postgresql
 env:

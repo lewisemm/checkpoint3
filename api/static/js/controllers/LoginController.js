@@ -50,11 +50,10 @@ BucketlistApp.controller('LoginController',
 						var token = response.token;
 						if (token) {
 							$cookies.put('Authorization', token);
+							$cookies.put('Username', data.username);
 						}
 
 						$rootScope.showSignIn = false;
-						$rootScope.showSignOut = true;
-						$rootScope.signOutLabel = "Sign Out, " + data.username;
 
 						$window.location.href = '#bucketlist';
 					},

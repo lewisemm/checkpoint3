@@ -7,6 +7,7 @@ BucketlistApp.service('AuthorizationService', ['$cookies', '$window', '$rootScop
 
 			if (token) {
 				config.headers['Authorization'] = 'JWT ' + $cookies.get('Authorization');
+				$rootScope.signOutLabel = "Sign Out, " + $cookies.get('Username');
 			}
 
 			return config;
@@ -22,6 +23,7 @@ BucketlistApp.service('AuthorizationService', ['$cookies', '$window', '$rootScop
 					$rootScope.signOutLabel = "Sign Out";
 				} else if (response.data.detail === 'Authentication credentials were not provided.') {
 					sweetAlert("Authentication required!", "You need to be authenticated to perform this action", "error");
+					$window.location.href = "/#/login/";
 				}
 
 			} else if (response.status === 403) {

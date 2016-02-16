@@ -26,7 +26,7 @@ class BucketListViewSet(viewsets.ModelViewSet):
 
 		search_name = self.request.query_params.get('q', None)
 		if search_name:
-			return BucketList.objects.filter(name=search_name)
+			return BucketList.objects.filter(name__icontains=search_name)
 
 		return BucketList.objects.all()
 

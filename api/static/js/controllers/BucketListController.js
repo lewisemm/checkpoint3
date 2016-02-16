@@ -6,8 +6,13 @@ BucketlistApp.controller('BucketlistController',
 		var pageRequested = function (pageClicked) {
 			nextPage = pageClicked;
 			$scope.currentpage = pageClicked;
+			var queryStrings = {
+				limit: itemsPerPage,
+				page: pageClicked,
+				q: $scope.search_bucketlists
+			};
 
-			BucketlistFactory.Bucketlist.getAll({limit: itemsPerPage, page: pageClicked}).$promise.then(
+			BucketlistFactory.Bucketlist.getAll(queryStrings).$promise.then(
 				function (response) {
 					$scope.bucketlists = response;
 				},
@@ -36,7 +41,7 @@ BucketlistApp.controller('BucketlistController',
 		};
 
 		$scope.loadBucketlists = function (eventObj) {
-
+			nextPage = 1; pages = 1; itemsPerPage = 20;
 			if ( typeof($scope.custom_page_size) === 'undefined') {
 				itemsPerPage = 20;
 			} else {
@@ -53,7 +58,16 @@ BucketlistApp.controller('BucketlistController',
 					itemsPerPage = 100;
 				}
 
-				BucketlistFactory.Bucketlist.getAll({limit: itemsPerPage}).$promise.then(
+				var queryStrings = {};
+				if ($scope.search_bucketlists) {
+					queryStrings.q = $scope.search_bucketlists;
+					queryStrings.limit = itemsPerPage;
+				} else {
+					queryStrings.limit = itemsPerPage;
+				}
+
+
+				BucketlistFactory.Bucketlist.getAll(queryStrings).$promise.then(
 					function (response) {
 						$scope.bucketlists = response;
 						if (typeof(response.results) === 'object') {

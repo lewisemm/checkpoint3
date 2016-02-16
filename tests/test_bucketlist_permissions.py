@@ -37,12 +37,11 @@ class TestBucketListPermissions(TestBaseClass):
 		# attempt get on user1's bucketlist
 		response = self.client.get('/bucketlists/' + str(bucketlist1_id) + '/')
 
-		self.assertEqual(response.status_code, 200)
-		self.assertEqual(response.status_text, 'OK')
-		self.assertEqual(response.data.get('name'), bucketlist1.get('name'))
-		self.assertNotEqual(
-			response.data.get('created_by'),
-			self.user2.get('username')
+		self.assertEqual(response.status_code, 403)
+		self.assertEqual(response.status_text, 'Forbidden')
+		self.assertTrue(
+			'You do not have permission to perform this action' in
+			response.data.get('detail')
 		)
 
 	def test_put_bucketlist_other_user(self):

@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from .serializers import BucketListSerializer, ItemSerializer, UserSerializer
 from .models import BucketList, Item
-from .permissions import IsOwnerOrReadOnly
+from .permissions import IsOwner
 from .paginator import BucketlistPaginator
 
 
@@ -16,19 +16,25 @@ class BucketListViewSet(viewsets.ModelViewSet):
 	serializer_class = BucketListSerializer
 	permission_classes = (
 		permissions.IsAuthenticated,
-		IsOwnerOrReadOnly,
+		IsOwner,
 	)
 	pagination_class = BucketlistPaginator
 
 	def get_queryset(self):
+		# permissions will handle cases where bucketlist doesn't belong to
+		# current user
 		if self.kwargs.get('pk'):
 			return BucketList.objects.filter(pk=self.kwargs.get('pk'))
 
+		# restrict bucketlists to those of current user
+		current_user = self.request.user.username
 		search_name = self.request.query_params.get('q', None)
 		if search_name:
-			return BucketList.objects.filter(name__icontains=search_name)
-
-		return BucketList.objects.all()
+			return BucketList.objects.filter(
+				name__icontains=search_name,
+				created_by=current_user
+			)
+		return BucketList.objects.filter(created_by=current_user)
 
 	def get_object(self):
 		obj = get_object_or_404(self.get_queryset())
@@ -64,7 +70,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 	queryset = Item.objects.all()
 	permission_classes = (
 		permissions.IsAuthenticated,
-		IsOwnerOrReadOnly,
+		IsOwner,
 	)
 
 	def get_object(self):

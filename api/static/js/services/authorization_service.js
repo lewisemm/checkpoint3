@@ -18,9 +18,9 @@ BucketlistApp.service('AuthorizationService', ['$cookies', '$window', '$rootScop
 
 			if (response.status === 401) {
 				if (response.data.detail === 'Signature has expired.') {
-					sweetAlert("Your current session has expired!", "Please login again to refresh it.", "error");
 					$window.location.href = "/#/login/";
-					$rootScope.signOutLabel = "Sign Out";
+					sweetAlert("Your current session has expired!", "Please login again to refresh it.", "error");
+
 				} else if (response.data.detail === 'Authentication credentials were not provided.') {
 					sweetAlert("Authentication required!", "You need to be authenticated to perform this action", "error");
 					$window.location.href = "/#/login/";

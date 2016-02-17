@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/andela-lkabui/checkpoint3.svg?branch=materialize)](https://travis-ci.org/andela-lkabui/checkpoint3)
-[![Coverage Status](https://coveralls.io/repos/github/andela-lkabui/checkpoint3/badge.svg?branch=materialize)](https://coveralls.io/github/andela-lkabui/checkpoint3?branch=materialize)
+[![Build Status](https://travis-ci.org/andela-lkabui/checkpoint3.svg?branch=develop)](https://travis-ci.org/andela-lkabui/checkpoint3)
+[![Coverage Status](https://coveralls.io/repos/github/andela-lkabui/checkpoint3/badge.svg?branch=develop)](https://coveralls.io/github/andela-lkabui/checkpoint3?branch=develop)
 [![Code Issues](https://www.quantifiedcode.com/api/v1/project/9f3638f3e6174272b67e4413c849d041/badge.svg)](https://www.quantifiedcode.com/app/project/9f3638f3e6174272b67e4413c849d041)
 
 # checkpoint3
@@ -58,9 +58,23 @@
   *  `python manage.py migrate api`
 *  Run the app
   *  `python manage.py runserver`
+*  A message that's similar to the example below is displayed on terminal when the app starts running.
+
+
+  ```
+  System check identified no issues (0 silenced).
+  February 17, 2016 - 15:58:14
+  Django version 1.9.1, using settings 'checkpoint3.settings'
+  Starting development server at http://127.0.0.1:8000/
+  Quit the server with CONTROL-C.
+  ```
+
+*  To start the app, visit the following url on a web browser.
+
+  `http://localhost:8000`
 
 ## Routes, methods and functionality
-*  To view this API's documentation, visit `/api/docs` while the app is running and explore the resources and associated actions it has to offer.
+*  To view this API's documentation, visit `/api/docs/` while the app is running and explore the resources and associated actions it has to offer.
 
 ## Tests
 *  The tests have been written in classes that inherit [Django REST framework](http://www.django-rest-framework.org/)'s **`APITestCase`**.
@@ -70,9 +84,9 @@
   *  `coverage run manage.py test`
 *  The tests are successful if they run without failures or errors
   ```
-  .............................
+  .....................................
   ----------------------------------------------------------------------
-  Ran 29 tests in 2.942s
+  Ran 37 tests in 3.384s
 
   OK
   ```

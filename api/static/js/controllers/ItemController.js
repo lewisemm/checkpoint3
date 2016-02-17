@@ -27,6 +27,7 @@ BucketlistApp.controller('ItemController',
 				function (response) {
 					var $toastContent = $('<strong style="color: #4db6ac;">Item updated.</strong>');
 					Materialize.toast($toastContent, 5000);
+					$window.location.href = "#bucketlist/" + $routeParams.buckId + "/";
 				},
 				function (error) {
 					var $toastContent = $('<strong style="color: #f44336;">Failed to update item.</strong>');

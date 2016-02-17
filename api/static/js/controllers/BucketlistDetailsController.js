@@ -146,7 +146,7 @@ BucketlistApp.controller('BucketlistDetailsController',
 					.$promise.then(
 						function (response) {
 							swal("Deleted!", "Item " + data.item_id + " in Bucketlist " + data.buck_id + " has been deleted.", "success");
-							$scope.bucketlist = BucketlistFactory.Bucketlist.getOne({buck_id: data.buck_id});
+							loadBucketlist();
 						}, function (error) {
 
 						}

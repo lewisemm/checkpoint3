@@ -2,7 +2,7 @@ from .test_base import TestBaseClass
 
 
 class TestLoginLogout(TestBaseClass):
-	"""Has methods that test user login and logout."""
+	"""Test '/auth/login' url."""
 
 	def test_successful_login(self):
 		"""Test successful login attempt."""
@@ -14,4 +14,4 @@ class TestLoginLogout(TestBaseClass):
 		self.assertTrue('token' in response.data)
 		self.assertEqual(response.status_code, 200)
 		self.assertEqual(response.status_text, 'OK')
-		self.assertNotEqual(response.data.get('token', None), None)
+		self.assertNotEqual(response.data.get('token'), None)

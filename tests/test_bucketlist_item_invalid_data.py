@@ -6,7 +6,7 @@ from api.models import Item
 
 
 class TestBucketListItemInvalidData(TestBaseClass):
-	"""Test responses when invalid data is provided."""
+	"""Test responses when invalid bucketlist item data is provided."""
 
 	def random_done_status(self):
 		"""Return a random status for the done field in bucketlist items."""
@@ -20,7 +20,7 @@ class TestBucketListItemInvalidData(TestBaseClass):
 		self.create_user(self.user1)
 		# login user 1
 		response = self.client.post('/auth/login/', self.user1)
-		token = 'JWT ' + response.data.get('token', None)
+		token = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token)
 		# create bucketlist
@@ -32,7 +32,7 @@ class TestBucketListItemInvalidData(TestBaseClass):
 		response = self.client.get('/bucketlists/')
 		results_list = response.data.get('results')
 		bucketlist_id = results_list[0].get('buck_id')
-		# post item under bucketlsit (missing name)
+		# post item under bucketlist (missing name)
 		new_item = {
 			'name': '',
 			'done': self.random_done_status()
@@ -47,7 +47,7 @@ class TestBucketListItemInvalidData(TestBaseClass):
 		self.assertEqual(response.status_code, 400)
 		self.assertEqual(response.status_text, 'Bad Request')
 
-		# post item under bucketlsit (string as a done status)
+		# post item under bucketlist (with string as a done status)
 		new_item1 = {
 			'name': self.fake.name(),
 			'done': 'some string'
@@ -62,7 +62,7 @@ class TestBucketListItemInvalidData(TestBaseClass):
 		self.assertEqual(response.status_code, 400)
 		self.assertEqual(response.status_text, 'Bad Request')
 
-		# post item under bucketlsit (name and done have invalid data)
+		# post item under bucketlist (name and done have invalid data)
 		new_item2 = {
 			'name': '',
 			'done': 'some string'
@@ -86,7 +86,7 @@ class TestBucketListItemInvalidData(TestBaseClass):
 		self.create_user(self.user1)
 		# login user 1
 		response = self.client.post('/auth/login/', self.user1)
-		token = 'JWT ' + response.data.get('token', None)
+		token = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token)
 		# create bucketlist
@@ -98,7 +98,7 @@ class TestBucketListItemInvalidData(TestBaseClass):
 		response = self.client.get('/bucketlists/')
 		results_list = response.data.get('results')
 		bucketlist_id = results_list[0].get('buck_id')
-		# create a bucketlist
+		# create a bucketlist item
 		new_item = {
 			'name': self.fake.name(),
 			'done': self.random_done_status()

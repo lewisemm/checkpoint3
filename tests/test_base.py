@@ -4,6 +4,7 @@ from faker import Factory
 
 
 class TestBaseClass(APITestCase):
+	"""Parent class for all other tests."""
 
 	def setUp(self):
 		"""Initialize test resources."""
@@ -26,9 +27,12 @@ class TestBaseClass(APITestCase):
 		del self.user2
 
 	def create_user(self, user):
-		"""Creates a user by posting username and password info to '/users/'' url."""
+		"""Utility method to create a user by posting username and password
+		info to '/users/' url.
+		"""
 		response = self.client.post(
 			path='/users/',
 			data=user,
 			format='json'
 		)
+		return response

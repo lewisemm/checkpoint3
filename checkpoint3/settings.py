@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'checkpoint3.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {}
-if os.environ.get('TRAVIS_BUILD', None):
+if os.environ.get('TRAVIS_BUILD'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',

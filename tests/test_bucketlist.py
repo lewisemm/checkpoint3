@@ -12,7 +12,7 @@ class TestBucketlist(TestBaseClass):
 		self.create_user(self.user1)
 		# login user
 		response = self.client.post('/auth/login/', self.user1)
-		token = 'JWT ' + response.data.get('token', None)
+		token = 'JWT ' + response.data.get('token')
 		# set authentication token in headre
 		self.client.credentials(HTTP_AUTHORIZATION=token)
 		# create bucketlist
@@ -34,7 +34,7 @@ class TestBucketlist(TestBaseClass):
 		self.create_user(self.user1)
 		# login user
 		response = self.client.post('/auth/login/', self.user1)
-		token = 'JWT ' + response.data.get('token', None)
+		token = 'JWT ' + response.data.get('token')
 		# set authentication token in headre
 		self.client.credentials(HTTP_AUTHORIZATION=token)
 		# create bucketlist
@@ -58,7 +58,7 @@ class TestBucketlist(TestBaseClass):
 		self.create_user(self.user1)
 		# login user
 		response = self.client.post('/auth/login/', self.user1)
-		token = 'JWT ' + response.data.get('token', None)
+		token = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token)
 		# create bucketlist
@@ -80,7 +80,7 @@ class TestBucketlist(TestBaseClass):
 		self.create_user(self.user1)
 		# login user
 		response = self.client.post('/auth/login/', self.user1)
-		token = 'JWT ' + response.data.get('token', None)
+		token = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token)
 		# create bucketlist
@@ -105,7 +105,7 @@ class TestBucketlist(TestBaseClass):
 		self.create_user(self.user1)
 		# login user
 		response = self.client.post('/auth/login/', self.user1)
-		token = 'JWT ' + response.data.get('token', None)
+		token = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token)
 		# create bucketlist
@@ -137,7 +137,7 @@ class TestBucketlist(TestBaseClass):
 		self.create_user(self.user1)
 		# login user
 		response = self.client.post('/auth/login/', self.user1)
-		token = 'JWT ' + response.data.get('token', None)
+		token = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token)
 		# create bucketlist
@@ -169,7 +169,7 @@ class TestBucketlist(TestBaseClass):
 		self.create_user(self.user1)
 		# login user
 		response = self.client.post('/auth/login/', self.user1)
-		token = 'JWT ' + response.data.get('token', None)
+		token = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token)
 		# create bucketlist
@@ -196,7 +196,7 @@ class TestBucketlist(TestBaseClass):
 		self.create_user(self.user1)
 		# login user
 		response = self.client.post('/auth/login/', self.user1)
-		token = 'JWT ' + response.data.get('token', None)
+		token = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token)
 		# create bucketlist
@@ -241,7 +241,7 @@ class TestBucketlist(TestBaseClass):
 		self.create_user(self.user1)
 		# login user
 		response = self.client.post('/auth/login/', self.user1)
-		token = 'JWT ' + response.data.get('token', None)
+		token = 'JWT ' + response.data.get('token')
 		# set authentication token in headre
 		self.client.credentials(HTTP_AUTHORIZATION=token)
 		# create bucketlist
@@ -276,7 +276,7 @@ class TestBucketlist(TestBaseClass):
 		self.create_user(self.user1)
 		# login user
 		response = self.client.post('/auth/login/', self.user1)
-		token = 'JWT ' + response.data.get('token', None)
+		token = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token)
 		# create bucketlist

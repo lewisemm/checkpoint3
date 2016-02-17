@@ -14,7 +14,7 @@ class TestBucketListPermissions(TestBaseClass):
 		self.create_user(self.user1)
 		# login user 1
 		response = self.client.post('/auth/login/', self.user1)
-		token1 = 'JWT ' + response.data.get('token', None)
+		token1 = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token1)
 		# create bucketlist
@@ -33,7 +33,7 @@ class TestBucketListPermissions(TestBaseClass):
 		self.create_user(self.user2)
 		# login user 2
 		response = self.client.post('/auth/login/', self.user2)
-		token2 = 'JWT ' + response.data.get('token', None)
+		token2 = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token2)
 		# attempt get on user1's bucketlist
@@ -54,7 +54,7 @@ class TestBucketListPermissions(TestBaseClass):
 		self.create_user(self.user1)
 		# login user 1
 		response = self.client.post('/auth/login/', self.user1)
-		token1 = 'JWT ' + response.data.get('token', None)
+		token1 = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token1)
 		# create bucketlist
@@ -73,7 +73,7 @@ class TestBucketListPermissions(TestBaseClass):
 		self.create_user(self.user2)
 		# login user 2
 		response = self.client.post('/auth/login/', self.user2)
-		token2 = 'JWT ' + response.data.get('token', None)
+		token2 = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token2)
 		# attempt put on user1's bucketlist
@@ -99,7 +99,7 @@ class TestBucketListPermissions(TestBaseClass):
 		self.create_user(self.user1)
 		# login user 1
 		response = self.client.post('/auth/login/', self.user1)
-		token1 = 'JWT ' + response.data.get('token', None)
+		token1 = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token1)
 		# create bucketlist
@@ -118,7 +118,7 @@ class TestBucketListPermissions(TestBaseClass):
 		self.create_user(self.user2)
 		# login user 2
 		response = self.client.post('/auth/login/', self.user2)
-		token2 = 'JWT ' + response.data.get('token', None)
+		token2 = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token2)
 

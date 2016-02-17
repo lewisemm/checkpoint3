@@ -1,27 +1,32 @@
 BucketlistApp.controller('BucketlistDetailsController',
 	['$scope', 'BucketlistFactory', '$routeParams', '$window', '$filter',
 	function ($scope, BucketlistFactory, $routeParams, $window, $filter) {
-		var data = {
-			buck_id: $routeParams.buckId
+
+		var loadBucketlist = function () {
+			var data = {
+				buck_id: $routeParams.buckId
+			};
+
+			BucketlistFactory.Bucketlist.getOne(data).$promise.then(
+				function (response) {
+					$scope.bucketlist = response;
+					if (typeof($scope.bucketlist.item) === 'object') {
+						if ($scope.bucketlist.item.length > 0) {
+							$scope.showBucketlistItems =true;
+							$scope.showNTSHBucketlist = false;
+						} else {
+							$scope.showBucketlistItems =false;
+							$scope.showNTSHBucketlist = true;
+						}
+					}
+				},
+				function (error) {
+					console.log(error);
+				}
+			);
 		};
 
-		BucketlistFactory.Bucketlist.getOne(data).$promise.then(
-			function (response) {
-				$scope.bucketlist = response;
-				if (typeof($scope.bucketlist.item) === 'object') {
-					if ($scope.bucketlist.item.length > 0) {
-						$scope.showBucketlistItems =true;
-						$scope.showNTSHBucketlist = false;
-					} else {
-						$scope.showBucketlistItems =false;
-						$scope.showNTSHBucketlist = true;
-					}
-				}
-			},
-			function (error) {
-				console.log(error);
-			}
-		);
+		loadBucketlist();
 
 		$scope.addItem = function () {
 			if ($scope.new_item_name) {
@@ -94,6 +99,8 @@ BucketlistApp.controller('BucketlistDetailsController',
 							function (response) {
 								console.log(response);
 								swal("Item status updated!", "The item has now been marked as done!", "success");
+								// reload bucketlist to reflect changes in item status
+								loadBucketlist();
 							},
 							function (error) {
 								console.log(error);

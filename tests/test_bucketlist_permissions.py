@@ -4,10 +4,12 @@ from api.models import BucketList
 
 
 class TestBucketListPermissions(TestBaseClass):
-	"""Create two users and test permissions on their respective bucketlists."""
+	"""Create two users and test permissions dynamics."""
 
 	def test_get_bucketlist_other_user(self):
-		"""Test get operation on bucketlist belonging to another user."""
+		"""Test get operation on '/bucketlists/<buck_id>/' url where bucketlist
+		of <buck_id> belongs to a different user.
+		"""
 		# create user 1
 		self.create_user(self.user1)
 		# login user 1
@@ -45,7 +47,9 @@ class TestBucketListPermissions(TestBaseClass):
 		)
 
 	def test_put_bucketlist_other_user(self):
-		"""Test put operation on bucketlist belonging to another user."""
+		"""Test put operation on '/bucketlists/<buck_id>/' url where bucketlist
+		of id <buck_id> belongs to a different user.
+		"""
 		# create user 1
 		self.create_user(self.user1)
 		# login user 1
@@ -88,7 +92,9 @@ class TestBucketListPermissions(TestBaseClass):
 		)
 
 	def test_delete_bucketlist_other_user(self):
-		"""Test delete operation on bucketlist belonging to another user."""
+		"""Test delete operation on '/bucketlists/<buck_id>/' url where bucketlist
+		of <buck_id> belongs to a different user.
+		"""
 		# create user 1
 		self.create_user(self.user1)
 		# login user 1

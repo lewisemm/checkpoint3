@@ -10,5 +10,3 @@ class IsOwner(permissions.BasePermission):
 
 		if isinstance(obj, BucketList):
 			return obj.created_by == request.user.username
-
-		return obj.bucketlist.created_by == request.user.username

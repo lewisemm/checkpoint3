@@ -109,7 +109,7 @@ BucketlistApp.controller('BucketlistController',
 					if (inputValue === false)
 						return false;
 					if (inputValue === "" || inputValue.length < 1) {
-						swal.showInputError("You need to write something!");
+						swal.showInputError("You need to write something (meaningful)!");
 						return false
 					}
 					var data = {
@@ -120,7 +120,7 @@ BucketlistApp.controller('BucketlistController',
 						function (response) {
 							swal("Success!", "Bucketlist: " + buck_id + "'s name updated");
 							// refresh bucketlists
-							$scope.bucketlists = BucketlistFactory.Bucketlist.getAll();
+							$scope.loadBucketlists('initializer');
 						},
 						function (error) {
 							if (error.status === 403) {
@@ -176,14 +176,7 @@ BucketlistApp.controller('BucketlistController',
 					BucketlistFactory.Bucketlist.deleteBucket(data).$promise.then(
 						function (response) {
 							swal("Deleted!", "Bucketlist " + data.buck_id + " has been deleted.", "success");
-							BucketlistFactory.Bucketlist.getAll({limit: itemsPerPage, page: $scope.currentpage}).$promise.then(
-								function (response) {
-									$scope.bucketlists = response;
-								},
-								function (error) {
-									console.log(error);
-								}
-							);
+							$scope.loadBucketlists('initializer');
 						},
 						function (error) {
 

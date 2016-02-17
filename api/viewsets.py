@@ -11,7 +11,7 @@ from .paginator import BucketlistPaginator
 
 
 class BucketListViewSet(viewsets.ModelViewSet):
-	"""This class handles CRUD requests to the '/bucketlists/' url."""
+	"""Handle CRUD requests to '/bucketlists/' url."""
 	queryset = BucketList.objects.all()
 	serializer_class = BucketListSerializer
 	permission_classes = (
@@ -42,10 +42,8 @@ class BucketListViewSet(viewsets.ModelViewSet):
 		return obj
 
 	def create(self, request):
-		"""Customize the '/bucketlist/' POST request.
-
-		Save the currently logged in user as the creator of the
-		bucketlist.
+		"""Create bucketlist and save currently logged in user's username in the
+		'created_by' field.
 		"""
 		serializer = self.serializer_class(data=request.data)
 		if serializer.is_valid():
@@ -62,25 +60,18 @@ class BucketListViewSet(viewsets.ModelViewSet):
 
 
 class ItemViewSet(viewsets.ModelViewSet):
-	"""
-	This class handles CRUD requests
-	to the '/bucketlists/<buck_id>/items/' url.
+	"""Handle CRUD requests to the '/bucketlists/<pk>/items/' url.
 	"""
 	serializer_class = ItemSerializer
 	queryset = Item.objects.all()
 	permission_classes = (
 		permissions.IsAuthenticated,
-		IsOwner,
 	)
 
-	def get_object(self):
-		obj = get_object_or_404(self.get_queryset())
-		self.check_object_permissions(self.request, obj)
-		return obj
-
 	def create(self, request, bucketlist_pk=None, pk=None):
-		bucketlist = get_object_or_404(BucketList, pk=bucketlist_pk)
-		if isinstance(bucketlist, BucketList):
+		"""Create a bucketlist item in bucketlist of id 'bucketlist_pk'."""
+		try:
+			bucketlist = BucketList.objects.get(pk=bucketlist_pk)
 			if bucketlist.created_by == request.user.username:
 				serializer = self.serializer_class(data=request.data)
 				if serializer.is_valid():
@@ -103,40 +94,54 @@ class ItemViewSet(viewsets.ModelViewSet):
 					'detail': 'You do not have permission to perform this action.'
 				}, status=status.HTTP_403_FORBIDDEN
 			)
-		return Response(
-			{
-				'detail': 'Not found.'
-			}, status=status.HTTP_404_NOT_FOUND
-		)
+		except BucketList.DoesNotExist:
+			return Response(
+				{
+					'detail': 'Not found.'
+				}, status=status.HTTP_404_NOT_FOUND
+			)
 
 	def list(self, request, bucketlist_pk=None):
-		"""Customize the get request to the '/bucketlists/<buck_id>/items' url.
-
-		Filter out items which don't belong to bucketlist of id <buck_id>.
-		"""
-		bucketlist = BucketList.objects.get(buck_id=bucketlist_pk)
-		queryset = Item.objects.filter(bucketlist=bucketlist)
-		serializer = ItemSerializer(queryset, many=True)
-		return Response(serializer.data, status=status.HTTP_200_OK)
+		"""Retrieve all bucketlist items in the bucketlist of id 'bucketlist_pk'."""
+		try:
+			bucketlist = BucketList.objects.get(buck_id=bucketlist_pk)
+			if bucketlist.created_by == request.user.username:
+				queryset = Item.objects.filter(bucketlist=bucketlist)
+				serializer = ItemSerializer(queryset, many=True)
+				return Response(serializer.data, status=status.HTTP_200_OK)
+			return Response(
+				{
+					'detail': 'You do not have permission to perform this action.'
+				}, status=status.HTTP_403_FORBIDDEN
+			)
+		except BucketList.DoesNotExist:
+			return Response(
+				{
+					'detail': 'Not found.'
+				}, status=status.HTTP_404_NOT_FOUND
+			)
 
 	def retrieve(self, request, pk=None, bucketlist_pk=None):
-		"""Customize the get request to the
-			'/bucketlists/<buck_id>/items/<item_id>' url.
-
-		Only retrieves item of <item_id> under bucketlist of <buck_id>.
+		"""Retrieve bucketlist item of id 'pk' in bucketlist of id 'bucketlist_pk'.
 		"""
-		bucketlist = BucketList.objects.get(buck_id=bucketlist_pk)
-		queryset = Item.objects.filter(bucketlist=bucketlist, item_id=pk)
-		item = get_object_or_404(queryset)
-		serializer = ItemSerializer(item)
-		return Response(serializer.data, status=status.HTTP_200_OK)
+		try:
+			bucketlist = BucketList.objects.get(
+				buck_id=bucketlist_pk,
+				created_by=request.user.username
+			)
+			queryset = Item.objects.filter(bucketlist=bucketlist, item_id=pk)
+			item = get_object_or_404(queryset)
+			serializer = ItemSerializer(item)
+			return Response(serializer.data, status=status.HTTP_200_OK)
+		except BucketList.DoesNotExist:
+			return Response(
+				{
+					'detail': 'You do not have permission to perform this action.'
+				}, status=status.HTTP_403_FORBIDDEN
+			)
 
 	def destroy(self, request, pk=None, bucketlist_pk=None):
-		"""Customize the delete request to the
-			'/bucketlists/<buck_id>/items/<item_id>' url.
-
-		Only delete item of <item_id> under bucketlist of <buck_id> if requester
-		is the bucketlist creator.
+		"""Delete bucketlist item of id 'pk' in bucketlist of id 'bucketlist_pk'.
 		"""
 		bucketlist = BucketList.objects.get(buck_id=bucketlist_pk)
 		if bucketlist.created_by == request.user.username:
@@ -151,11 +156,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 		)
 
 	def update(self, request, pk=None, bucketlist_pk=None):
-		"""Customize the update request to the
-			'/bucketlists/<buck_id>/items/<item_id>' url.
-
-		Only update item of <item_id> under bucketlist of <buck_id> if requester
-		is the bucketlist creator.
+		"""Update bucketlist item of id 'pk' in bucketlist of id 'bucketlist_pk'.
 		"""
 		bucketlist = BucketList.objects.get(buck_id=bucketlist_pk)
 		if bucketlist.created_by == request.user.username:
@@ -184,6 +185,7 @@ class UserViewSet(viewsets.ModelViewSet):
 	queryset = User.objects.all()
 
 	def create(self, request):
+		"""Create new users."""
 		serializer = self.serializer_class(data=request.data)
 		if serializer.is_valid():
 			new_user = User.objects.create_user(**serializer.validated_data)

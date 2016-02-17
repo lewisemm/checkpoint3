@@ -4,10 +4,12 @@ from api.models import BucketList
 
 
 class TestBucketListInvalidData(TestBaseClass):
-	"""Test responses when invalid data is submitted."""
+	"""Test responses when invalid bucketlist data is submitted."""
 
 	def test_post_invalid_bucketlist_name(self):
-		"""Test response when invalid data is submitted on '/bucketlist/' url."""
+		"""Test response when invalid data is sent through a post request on
+		'/bucketlist/' url.
+		"""
 		# create user
 		self.create_user(self.user1)
 		# login user
@@ -25,7 +27,9 @@ class TestBucketListInvalidData(TestBaseClass):
 		self.assertEqual(response.status_text, 'Bad Request')
 
 	def test_put_invalid_bucketlist_name(self):
-		"""Test response when invalid data is submitted on '/bucketlist/buck_id' url."""
+		"""Test response when invalid data is sent through a put request on
+		'/bucketlist/<buck_id>/' url.
+		"""
 		# create user
 		self.create_user(self.user1)
 		# login user
@@ -50,6 +54,8 @@ class TestBucketListInvalidData(TestBaseClass):
 			'/bucketlists/' + str(bucketlist_id) + '/',
 			new_data
 		)
-		self.assertEqual(response.data.get('name')[0], 'This field may not be blank.')
+		self.assertEqual(
+			response.data.get('name')[0], 'This field may not be blank.'
+		)
 		self.assertEqual(response.status_code, 400)
 		self.assertEqual(response.status_text, 'Bad Request')

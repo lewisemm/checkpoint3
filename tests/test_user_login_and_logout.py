@@ -14,4 +14,4 @@ class TestLoginLogout(TestBaseClass):
 		self.assertTrue('token' in response.data)
 		self.assertEqual(response.status_code, 200)
 		self.assertEqual(response.status_text, 'OK')
-		self.assertNotEqual(response.data.get('token', None), None)
+		self.assertNotEqual(response.data.get('token'), None)

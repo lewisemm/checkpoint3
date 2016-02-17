@@ -24,7 +24,7 @@ class TestBucketListItemPermissions(TestBaseClass):
 		self.create_user(self.user1)
 		# login user 1
 		response = self.client.post('/auth/login/', self.user1)
-		token1 = 'JWT ' + response.data.get('token', None)
+		token1 = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token1)
 		# create bucketlist
@@ -57,7 +57,7 @@ class TestBucketListItemPermissions(TestBaseClass):
 		self.create_user(self.user2)
 		# login user 2
 		response = self.client.post('/auth/login/', self.user2)
-		token2 = 'JWT ' + response.data.get('token', None)
+		token2 = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token2)
 		# test get while authenticated as user2
@@ -79,7 +79,7 @@ class TestBucketListItemPermissions(TestBaseClass):
 		self.create_user(self.user1)
 		# login user 1
 		response = self.client.post('/auth/login/', self.user1)
-		token1 = 'JWT ' + response.data.get('token', None)
+		token1 = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token1)
 		# create bucketlist as user1
@@ -106,7 +106,7 @@ class TestBucketListItemPermissions(TestBaseClass):
 		self.create_user(self.user2)
 		# login user 2
 		response = self.client.post('/auth/login/', self.user2)
-		token2 = 'JWT ' + response.data.get('token', None)
+		token2 = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token2)
 		# test get while authenticated as user2
@@ -128,7 +128,7 @@ class TestBucketListItemPermissions(TestBaseClass):
 		self.create_user(self.user1)
 		# login user 1
 		response = self.client.post('/auth/login/', self.user1)
-		token1 = 'JWT ' + response.data.get('token', None)
+		token1 = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token1)
 		# create bucketlist
@@ -150,7 +150,7 @@ class TestBucketListItemPermissions(TestBaseClass):
 		self.create_user(user2)
 		# login user2
 		response = self.client.post('/auth/login/', user2)
-		token2 = 'JWT ' + response.data.get('token', None)
+		token2 = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token2)
 		# try to post item as user2 in self.user1's bucketlist
@@ -177,7 +177,7 @@ class TestBucketListItemPermissions(TestBaseClass):
 		self.create_user(self.user1)
 		# login user 1
 		response = self.client.post('/auth/login/', self.user1)
-		token1 = 'JWT ' + response.data.get('token', None)
+		token1 = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token1)
 		# create bucketlist
@@ -210,7 +210,7 @@ class TestBucketListItemPermissions(TestBaseClass):
 		self.create_user(self.user2)
 		# login user 2
 		response = self.client.post('/auth/login/', self.user2)
-		token2 = 'JWT ' + response.data.get('token', None)
+		token2 = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token2)
 		# test put while authenticated as user2
@@ -236,7 +236,7 @@ class TestBucketListItemPermissions(TestBaseClass):
 		self.create_user(self.user1)
 		# login user 1
 		response = self.client.post('/auth/login/', self.user1)
-		token1 = 'JWT ' + response.data.get('token', None)
+		token1 = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token1)
 		# create bucketlist
@@ -269,7 +269,7 @@ class TestBucketListItemPermissions(TestBaseClass):
 		self.create_user(self.user2)
 		# login user 2
 		response = self.client.post('/auth/login/', self.user2)
-		token2 = 'JWT ' + response.data.get('token', None)
+		token2 = 'JWT ' + response.data.get('token')
 		# set authentication token in header
 		self.client.credentials(HTTP_AUTHORIZATION=token2)
 		# test delete while authenticated as user2

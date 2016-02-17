@@ -28,7 +28,7 @@ class BucketListViewSet(viewsets.ModelViewSet):
 
 		# restrict bucketlists to those of current user
 		current_user = self.request.user.username
-		search_name = self.request.query_params.get('q', None)
+		search_name = self.request.query_params.get('q')
 		if search_name:
 			return BucketList.objects.filter(
 				name__icontains=search_name,

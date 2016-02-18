@@ -1,0 +1,79 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--Import jQuery before materialize.js-->
+	<script src="{% static 'bower_components/jquery/dist/jquery.js' %}"></script>
+	<!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="{% static 'bower_components/Materialize/dist/css/materialize.css' %}">
+	<!-- Materialize Icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Raleway (Google Font) -->
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+	<!-- Compiled and minified JavaScript -->
+	<script src="{% static 'bower_components/Materialize/dist/js/materialize.js' %}"></script>
+	<!--Angular JS-->
+	<script src="{% static 'bower_components/angular/angular.js' %}"></script>
+	<script src="{% static 'bower_components/angular-route/angular-route.js' %}"></script>
+	<script src="{% static 'bower_components/angular-resource/angular-resource.js' %}"></script>
+	<script src="{% static 'bower_components/angular-cookies/angular-cookies.js' %}"></script>
+  <script src="{% static 'bower_components/sweetalert/dist/sweetalert.min.js' %}"></script>
+	<script src="{% static 'js/app.js' %}"></script>
+	<script src="{% static 'js/controllers/LoginController.js' %}"></script>
+	<script src="{% static 'js/controllers/BucketListController.js' %}"></script>
+  <script src="{% static 'js/controllers/BucketlistDetailsController.js' %}"></script>
+  <script src="{% static 'js/controllers/DefaultController.js' %}"></script>
+  <script src="{% static 'js/controllers/ItemController.js' %}"></script>
+	<script src="{% static 'js/services/bucketlist_service.js' %}"></script>
+  <script src="{% static 'js/services/authorization_service.js' %}"></script>
+  <script src="{% static 'js/services/access_service.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bucketlist.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bucketlist_details.css' %}">
+  <link rel="stylesheet" href="{% static 'css/item_edit.css' %}">
+  <link rel="stylesheet" href="{% static 'bower_components/sweetalert/dist/sweetalert.css' %}"></script>
+	<title>Bucketlist API</title>
+</head>
+<body ng-app="BucketlistApp" ng-controller="DefaultController">
+	<header>
+		<div class="navbar-fixed">
+	<nav class="black">
+    <div class="nav-wrapper">
+      <div style="margin-left: 3em;">
+        <a href="#/" class="brand-logo">Checkpoint 3</a>
+      </div>
+      <div style="margin-right: 2em;">
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="#login" ng-show="showSignIn">Sign In</a></li>
+          <li><a ng-show="!showSignIn" ng-click="signOut()" ng-model="signOutLabel">[[ signOutLabel ]]</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  </div>
+	</header>
+
+	<main ng-view>
+	</main>
+	<footer class="page-footer black">
+          <div class="container">
+            <div class="row">
+              <div class="col s6">
+                <h5 class="white-text">Repo</h5>
+                <p class="grey-text text-lighten-4">Checkpoint 3</p>
+              </div>
+              <div class="col s6">
+                <h5 class="white-text">Feedback</h5>
+                <p class="grey-text text-lighten-4">Email, slack, #tweet me, whatever</p>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2016 Andela
+            <a class="grey-text text-lighten-4 right" href="http://www.andela.com">Andela</a>
+            </div>
+          </div>
+        </footer>
+</body>
+</html>

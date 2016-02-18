@@ -1,0 +1,32 @@
+{
+  "name": "checkpoint3",
+  "version": "1.0.0",
+  "description": "A Django powered REST API Bucketlist App",
+  "main": "index.js",
+  "engines": {
+        "node": "4.2.6"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andela-lkabui/checkpoint3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andela-lkabui/checkpoint3/issues"
+  },
+  "homepage": "https://github.com/andela-lkabui/checkpoint3#readme",
+  "dependencies": {
+    "bower": "1.7.7"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install"
+  },
+  "keywords": []
+}

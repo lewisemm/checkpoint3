@@ -1,0 +1,2 @@
+[report]
+omit = *ch3*, *api/migration*, *virtualenv*

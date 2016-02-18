@@ -1,0 +1,95 @@
+<script type="text/javascript">
+$(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+</script>
+<div style="background-image: url('static/images/fedora_wallpaper.jpg');">
+  <!-- Start add bucketlist & search section -->
+  <div class="row" style="padding-top: 1em;">
+    <div class="col s3">
+    <!-- Modal start -->
+      <a id="add_bucketlist_button" class="waves-effect waves-light btn-large modal-trigger btn-floating" class="z-depth-6" data-target="modal_add_bucketlist"><i class="material-icons">add</i></a>
+      <div id="modal_add_bucketlist" class="modal">
+        <div class="modal-content">
+          <div class="col s6 offset-s3">
+            <h4>Create a Bucketlist</h4>
+          </div>
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s6 offset-s6">
+                <input placeholder="Bucketlist Name" id="bucketlist_name" type="text" class="validate" ng-model="bucketlist_name">
+                <label for="bucketlist_name">Bucketlist Name</label>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="addBucketlist()">Create Bucketlist</a>
+          <a class=" modal-action modal-close waves-effect waves-green btn-flat" class="modal">Dismiss</a>
+        </div>
+      </div>
+      <!-- Modal end -->
+    </div>
+    <!-- start search div -->
+    <div class="col s5">
+      <div class="input-field col s6">
+        <input placeholder="Search Bucketlists" id="search_bucketlists" type="text" class="validate" ng-model="search_bucketlists" ng-keypress="loadBucketlists($event)">
+        <label for="search_bucketlists" style="color: #000000;">Search Bucketlists by name</label>
+      </div>
+    </div>
+    <!-- end search div -->
+
+    <!-- start custom page size -->
+    <div class="col s4">
+      <div class="input-field col s6">
+        <input placeholder="20" ng-model="custom_page_size" id="custom_page_size" type="text" class="validate" ng-keypress="loadBucketlists($event)">
+        <label id="custom_page_size_label" class="active" for="custom_page_size">Bucketlists per page</label>
+      </div>
+    </div>
+    <!-- end custom page size -->
+  </div>
+  <div class="row">
+    <div class="center-align">
+      <ul class="pagination">
+      <li class="waves-effect"><a ng-click="leftChevron()"><i class="material-icons">chevron_left</i></a></li>
+      <li ng-class="currentpage == $index+1 ? 'active teal lighten-2': 'waves-effect'"  ng-click="setpage($index + 1)" ng-repeat="page in pages track by $index"><a  href="">[[$index + 1]]</a></li>
+      <li class="waves-effect"><a ng-click="rightChevron()"><i class="material-icons">chevron_right</i></a></li>
+    </ul>
+    </div>
+  </div>
+  <!-- End add bucketlist & search section -->
+
+  <!-- Start bucketlist displaysection -->
+  <div class="row">
+    <div class="container">
+      <div id="bucketlist_div" ng-show="showBucketlist" ng-repeat="bucketlist in bucketlists.results" class="col s4">
+        <h6><strong>[[ bucketlist.name ]]</strong></h6>
+        <hr>
+        <p id="p_bucketlist_items" ng-click="viewItems([[ bucketlist.buck_id ]])">View items</p>
+        <p class="p_bucketlist">Date Created: [[ bucketlist.date_created|date ]]</p>
+        <p class="p_bucketlist">Last Modified: [[ bucketlist.date_created|date ]]</p>
+        <!-- Start fba -->
+        <div id="outer_div_fba">
+          <div class="fixed-action-btn horizontal click-to-toggle" style="position: absolute; right: 24px;">
+            <a class="btn-floating btn-small black">
+              <i class="small mdi-navigation-menu"></i>
+            </a>
+            <ul>
+              <li><a class="btn-floating red" style="transform: scaleY(0.4) scaleX(0.4) translateY(0px) translateX(40px); opacity: 0;"><i class="material-icons" ng-click="del([[ bucketlist.buck_id ]])">delete</i></a></li>
+              <li><a class="btn-floating grey darken-1" style="transform: scaleY(0.4) scaleX(0.4) translateY(0px) translateX(40px); opacity: 0;" ng-click="edit([[ bucketlist.buck_id ]])"><i class="material-icons">edit</i></a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- End fba -->
+      </div>
+      <!-- start nothing to see here -->
+      <div ng-show="showNTSH">
+        <img class="ntsh_bucketlists" src="static/images/ntsh.jpg">
+      </div>
+      <!-- end nothing to see here -->
+    </div>
+  </div>
+  <!-- End bucketlist displaysection -->
+</div>
+

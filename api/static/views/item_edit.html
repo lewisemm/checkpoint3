@@ -1,0 +1,33 @@
+<div id="item_edit_parent_div">
+	<div class="row">
+		<div class="container">
+			<div id="item_edit_form_div" class="col s8 offset-s2">
+				<!-- Form starts -->
+				<form>
+		      <div class="row">
+		        <div id="input_field_div" class="input-field col s6 offset-s3">
+		          <input class="black-text" style="font-weight: bold;" placeholder="Current name: [[ item.name ]]" id="update_name" type="text" class="validate" ng-model="update_name">
+		          <label class="black-text" for="update_name">Edit item name</label>
+		        </div>
+		      </div>
+		      <div class="row">
+		        <div id="item_edit_checkbox_field_div" class="input-field col s6 offset-s3">
+		          <input id="update_done" type="checkbox" ng-checked="[[ item.done ]]" class="validate" ng-model="update_done">
+		          <label class="black-text" style="font-weight: bold;" for="update_done">Done</label>
+		        </div>
+		      </div>
+		      <hr>
+		      <div class="row">
+		      	<div class="col s4 offset-s2">
+		      		<a class="waves-effect waves-light btn white black-text" ng-click="updateItem()"><i class="material-icons left">thumb_up</i>Update</a>
+		      	</div>
+		      	<div class="col s4 offset-s2">
+		      		<a class="waves-effect waves-light btn white black-text" ng-click="dismiss()"><i class="material-icons left">thumb_down</i>Dismiss</a>
+		      	</div>
+		      </div>
+		    </form>
+				<!-- Form ends  -->
+			</div>
+		</div>
+	</div>
+</div>

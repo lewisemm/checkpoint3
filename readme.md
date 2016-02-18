@@ -74,7 +74,7 @@
   `http://localhost:8000`
 
 ## Routes, methods and functionality
-*  To view this API's documentation, visit `/api/docs` while the app is running and explore the resources and associated actions it has to offer.
+*  To view this API's documentation, visit `/api/docs/` while the app is running and explore the resources and associated actions it has to offer.
 
 ## Tests
 *  The tests have been written in classes that inherit [Django REST framework](http://www.django-rest-framework.org/)'s **`APITestCase`**.

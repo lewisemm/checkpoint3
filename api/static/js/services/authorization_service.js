@@ -14,16 +14,38 @@ BucketlistApp.service('AuthorizationService', ['$cookies', '$window', '$rootScop
 		};
 
 		service.responseError = function (response) {
-			console.log(response);
-
 			if (response.status === 401) {
 				if (response.data.detail === 'Signature has expired.') {
-					$window.location.href = "/#/login/";
-					sweetAlert("Your current session has expired!", "Please login again to refresh it.", "error");
+					swal(
+						{
+							title: "Your current session has expired!",
+							text: "Please login again to refresh it.",
+							type: "error",
+							showCancelButton: true,
+							confirmButtonColor: "#4db6ac",
+							confirmButtonText: "Proceed to Sign In!",
+							closeOnConfirm: true
+						},
+						function () {
+							$window.location.href = "/#/login/";
+						}
+					);
 
 				} else if (response.data.detail === 'Authentication credentials were not provided.') {
-					sweetAlert("Authentication required!", "You need to be authenticated to perform this action", "error");
-					$window.location.href = "/#/login/";
+					swal(
+						{
+							title: "Authentication Required!",
+							text: "You need to be authenticated to perform this action.",
+							type: "error",
+							showCancelButton: true,
+							confirmButtonColor: "#4db6ac",
+							confirmButtonText: "Proceed to Sign In!",
+							closeOnConfirm: true
+						},
+						function () {
+							$window.location.href = "/#/login/";
+						}
+					);
 				}
 
 			} else if (response.status === 403) {
@@ -31,7 +53,7 @@ BucketlistApp.service('AuthorizationService', ['$cookies', '$window', '$rootScop
 					sweetAlert("Write operations denied!", "Only the bucketlist owner is permitted to perform this action.", "error");
 				}
 			}
-
-		}
+			return response;
+		};
 	}
 ])

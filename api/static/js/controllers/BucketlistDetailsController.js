@@ -97,13 +97,11 @@ BucketlistApp.controller('BucketlistDetailsController',
 						};
 						BucketlistFactory.ItemDetail.edit(data).$promise.then(
 							function (response) {
-								console.log(response);
 								swal("Item status updated!", "The item has now been marked as done!", "success");
 								// reload bucketlist to reflect changes in item status
 								loadBucketlist();
 							},
 							function (error) {
-								console.log(error);
 								swal("Oops...!", "Something went wrong when updating the done status", "error");
 							}
 						);

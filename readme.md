@@ -37,16 +37,17 @@
 *  Navigate to a directory of choice on `terminal`
 *  Clone this repository on that directory.
   *  Using ssh;
-    *  `git@github.com:andela-lkabui/checkpoint3.git`
+    *  `git clone git@github.com:andela-lkabui/checkpoint3.git`
   *  Using http;
-    *  `https://github.com/andela-lkabui/checkpoint3.git`
+    *  `git clone https://github.com/andela-lkabui/checkpoint3.git`
 * Navigate to the repo's folder
     *  `cd checkpoint3/`
 *  Install the project's backend dependencies. For best results, using a [virtual environment](https://virtualenv.readthedocs.org/en/latest/) is recommended.
   *  `pip install -r requirements`
 *  Install the project's database. **PostgreSQL** was used for this checkpoint. Locate your platform and follow the installation instructions [here](http://www.postgresql.org/download/)
 *  Install the project's front end dependencies using [bower](http://bower.io/). First navigate to the project's root directory (where `bower.json` is located) and run the following command.
-  *  `bower install`
+  *  `npm install bower`
+  *  `./node_modules/bower/bin/bower install`
 
 
  ```Please note that in order to use bower, you need to have node, npm and git installed on your system```

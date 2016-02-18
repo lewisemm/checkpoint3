@@ -2,9 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/andela-lkabui/checkpoint3/badge.svg?branch=materialize)](https://coveralls.io/github/andela-lkabui/checkpoint3?branch=materialize)
 [![Code Issues](https://www.quantifiedcode.com/api/v1/project/9f3638f3e6174272b67e4413c849d041/badge.svg)](https://www.quantifiedcode.com/app/project/9f3638f3e6174272b67e4413c849d041)
 
-# checkpoint3
-
-## A Django powered Bucketlist REST API
+# Andelist - A Django powered Bucketlist REST API
 
 ## Introduction
 *  Checkpoint3 is a Django implementation of [checkpoint2](https://github.com/andela-lkabui/checkpoint2) and goes a step further to implement a frontend for the REST API using [Django Templates](https://docs.djangoproject.com/en/1.9/ref/templates/language/#templates) and [Angular JS](https://angularjs.org/)

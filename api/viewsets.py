@@ -21,6 +21,7 @@ class BucketListViewSet(viewsets.ModelViewSet):
 	pagination_class = BucketlistPaginator
 
 	def get_queryset(self):
+		"""Override default queryset attribute."""
 		# permissions will handle cases where bucketlist doesn't belong to
 		# current user
 		if self.kwargs.get('pk'):
@@ -37,6 +38,7 @@ class BucketListViewSet(viewsets.ModelViewSet):
 		return BucketList.objects.filter(created_by=current_user)
 
 	def get_object(self):
+		"""Fetch bucketlist when <buck_id> is specified in url."""
 		obj = get_object_or_404(self.get_queryset())
 		self.check_object_permissions(self.request, obj)
 		return obj
@@ -181,6 +183,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 
 
 class UserViewSet(viewsets.ModelViewSet):
+	"""Handle CRUD requests to '/users/' url."""
 	serializer_class = UserSerializer
 	queryset = User.objects.all()
 

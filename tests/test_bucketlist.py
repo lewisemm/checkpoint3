@@ -26,7 +26,7 @@ class TestBucketlist(TestBaseClass):
 		self.assertEqual(response.status_text, 'Created')
 		# fetch object from DB and confirm created_by == currently logged in user
 		bucketlist_obj = BucketList.objects.get(name=bucketlist.get('name'))
-		self.assertEqual(bucketlist_obj.created_by, self.user1.get('username'))
+		self.assertEqual(bucketlist_obj.created_by.username, self.user1.get('username'))
 
 	def test_successful_get_bucketlist(self):
 		"""Test successful get operation on '/bucketlist/' url."""

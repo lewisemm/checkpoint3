@@ -14,23 +14,6 @@ class ItemSerializer(serializers.ModelSerializer):
 		read_only_fields = ('item_id', 'date_created', 'date_modified')
 
 
-class BucketListSerializer(serializers.ModelSerializer):
-	"""Serialize the Bucketlist model/Configure model fields to be displayed to
-	user/to be expected from the user.
-	"""
-	item = ItemSerializer(many=True, read_only=True)
-
-	class Meta:
-		model = BucketList
-		fields = (
-			'buck_id', 'name', 'item', 'date_created',
-			'date_modified', 'created_by'
-		)
-		read_only_fields = (
-			'buck_id', 'created_by', 'date_created', 'date_modified',
-		)
-
-
 class UserSerializer(serializers.ModelSerializer):
 	"""Serialize the User model/Configure model fields to be displayed to user/to
 	be required of the user.
@@ -40,3 +23,22 @@ class UserSerializer(serializers.ModelSerializer):
 		model = User
 		fields = ('id', 'username', 'password')
 		extra_kwargs = {'password': {'write_only': True}}
+
+
+class BucketListSerializer(serializers.ModelSerializer):
+	"""Serialize the Bucketlist model/Configure model fields to be displayed to
+	user/to be expected from the user.
+	"""
+	item = ItemSerializer(many=True, read_only=True)
+	# created_by = serializers.StringRelatedField()
+	created_by = serializers.SlugRelatedField(read_only=True, slug_field='username')
+
+	class Meta:
+		model = BucketList
+		fields = (
+			'buck_id', 'name', 'item', 'date_created',
+			'date_modified', 'created_by',
+		)
+		read_only_fields = (
+			'buck_id', 'created_by', 'date_created', 'date_modified',
+		)

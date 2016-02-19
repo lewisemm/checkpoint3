@@ -28,7 +28,7 @@ class BucketListViewSet(viewsets.ModelViewSet):
 			return BucketList.objects.filter(pk=self.kwargs.get('pk'))
 
 		# restrict bucketlists to those of current user
-		current_user = self.request.user.username
+		current_user = self.request.user
 		search_name = self.request.query_params.get('q')
 		if search_name:
 			return BucketList.objects.filter(
@@ -74,7 +74,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 		"""Create a bucketlist item in bucketlist of id 'bucketlist_pk'."""
 		try:
 			bucketlist = BucketList.objects.get(pk=bucketlist_pk)
-			if bucketlist.created_by == request.user.username:
+			if bucketlist.created_by == request.user:
 				serializer = self.serializer_class(data=request.data)
 				if serializer.is_valid():
 					item = Item(**serializer.validated_data)
@@ -107,7 +107,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 		"""Retrieve all bucketlist items in the bucketlist of id 'bucketlist_pk'."""
 		try:
 			bucketlist = BucketList.objects.get(buck_id=bucketlist_pk)
-			if bucketlist.created_by == request.user.username:
+			if bucketlist.created_by == request.user:
 				queryset = Item.objects.filter(bucketlist=bucketlist)
 				serializer = ItemSerializer(queryset, many=True)
 				return Response(serializer.data, status=status.HTTP_200_OK)
@@ -129,7 +129,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 		try:
 			bucketlist = BucketList.objects.get(
 				buck_id=bucketlist_pk,
-				created_by=request.user.username
+				created_by=request.user
 			)
 			queryset = Item.objects.filter(bucketlist=bucketlist, item_id=pk)
 			item = get_object_or_404(queryset)
@@ -146,7 +146,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 		"""Delete bucketlist item of id 'pk' in bucketlist of id 'bucketlist_pk'.
 		"""
 		bucketlist = BucketList.objects.get(buck_id=bucketlist_pk)
-		if bucketlist.created_by == request.user.username:
+		if bucketlist.created_by == request.user:
 			queryset = Item.objects.filter(bucketlist=bucketlist, item_id=pk)
 			item = get_object_or_404(queryset)
 			item.delete()
@@ -161,7 +161,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 		"""Update bucketlist item of id 'pk' in bucketlist of id 'bucketlist_pk'.
 		"""
 		bucketlist = BucketList.objects.get(buck_id=bucketlist_pk)
-		if bucketlist.created_by == request.user.username:
+		if bucketlist.created_by == request.user:
 			queryset = Item.objects.filter(bucketlist=bucketlist, item_id=pk)
 			item = get_object_or_404(queryset)
 			serializer = self.serializer_class(data=request.data)

@@ -61,7 +61,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            'api/static/views/'
+            os.path.join(BASE_DIR, 'public/templates'),
+            os.path.join(BASE_DIR, 'public/static')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -143,3 +144,6 @@ JWT_AUTH = {
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "public/static"),
+)

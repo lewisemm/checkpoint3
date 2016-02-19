@@ -16,7 +16,7 @@ after_success:
   - coveralls
 branches:
   only:
-  - develop
+  - review
 services:
   - postgresql
 env:

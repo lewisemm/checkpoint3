@@ -5,6 +5,9 @@ from .models import BucketList, Item
 
 
 class ItemSerializer(serializers.ModelSerializer):
+	"""Serialize the Item model/Configure model fields to be displayed to user/to
+	be expected from the user.
+	"""
 	class Meta:
 		model = Item
 		fields = ('item_id', 'name', 'date_created', 'date_modified', 'done')
@@ -12,6 +15,9 @@ class ItemSerializer(serializers.ModelSerializer):
 
 
 class BucketListSerializer(serializers.ModelSerializer):
+	"""Serialize the Bucketlist model/Configure model fields to be displayed to
+	user/to be expected from the user.
+	"""
 	item = ItemSerializer(many=True, read_only=True)
 
 	class Meta:
@@ -26,6 +32,9 @@ class BucketListSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+	"""Serialize the User model/Configure model fields to be displayed to user/to
+	be required of the user.
+	"""
 
 	class Meta:
 		model = User

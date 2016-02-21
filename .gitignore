@@ -5,3 +5,4 @@
 api/static/bower_components
 node_modules/
 .coverage*
+api/migrations/

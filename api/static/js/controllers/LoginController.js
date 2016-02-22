@@ -1,6 +1,7 @@
 BucketlistApp.controller('LoginController',
 	['$scope', '$http', '$window', '$cookies', '$rootScope', 'APIAccessFactory',
 	function ($scope, $http, $window, $cookies, $rootScope, APIAccessFactory) {
+		$rootScope.loginPage=true;
 
 		// if someone is/had logged in, show sign in button and remove existing
 		// auth token

@@ -1,5 +1,6 @@
 BucketlistApp.controller('DefaultController',
 	function ($rootScope, $cookies, $window) {
+		$rootScope.loginPage=false;
 		// if there's no authorization token, show signIn button
 		if (!$cookies.get('Authorization')) {
 			$rootScope.showSignIn = true;

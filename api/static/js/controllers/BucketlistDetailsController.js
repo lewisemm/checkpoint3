@@ -1,7 +1,7 @@
 BucketlistApp.controller('BucketlistDetailsController',
 	['$scope', 'BucketlistFactory', '$routeParams', '$window', '$filter',
 	function ($scope, BucketlistFactory, $routeParams, $window, $filter) {
-
+		$rootScope.loginPage=false;
 		var loadBucketlist = function () {
 			var data = {
 				buck_id: $routeParams.buckId

@@ -1,56 +1,9 @@
 <!-- {% extends "base/base.html" %} -->
-<script type="text/javascript">
-$(document).ready(function(){
-  $('.slider').slider({full_width: true});
-});
-</script>
-<div class="row">
-<!-- Slider starts -->
-<div class="slider">
-    <ul class="slides">
-        <li>
-            <img src="static/images/graduate.jpg"> <!-- random image -->
-            <div class="caption left-align">
-                <h3>What do you hope to achieve?</h3>
-                <h5 class="light grey-text text-lighten-3">Graduate maybe?</h5>
-            </div>
-        </li>
-        <li>
-            <img src="static/images/promotion.jpg"> <!-- random image -->
-            <div class="caption center-align">
-                <h3>Career Progression?</h3>
-                <h5 class="light grey-text text-lighten-3">D1 Material</h5>
-            </div>
-        </li>
-        <li>
-            <img src="static/images/javascript.png"> <!-- random image -->
-            <div class="caption left-align">
-                <h3>Learn?</h3>
-                <h5 class="light grey-text text-lighten-3">Finish that course online</h5>
-            </div>
-        </li>
-        <li>
-            <img src="static/images/mentor.png"> <!-- random image -->
-            <div class="caption right-align">
-                <h3>Inspire?</h3>
-                <h5 class="light grey-text text-lighten-3">Mentor someone this year</h5>
-            </div>
-        </li>
-        <li>
-            <img src="static/images/shrek.jpg"> <!-- random image -->
-            <div class="caption center-align">
-                <h3>Smile more often?</h3>
-                <h5 class="light grey-text text-lighten-3">Say cheese!!</h5>
-            </div>
-        </li>
-        <li>
-            <img src="static/images/bucketlist.jpg"> <!-- random image -->
-            <div class="caption left-align">
-                <h3>Take ownership!</h3>
-                <h5 class="light grey-text text-lighten-3">Create that BucketList!</h5>
-            </div>
-        </li>
-    </ul>
-  </div>
-<!-- Slider ends -->
+
+<!-- <div class="row"> -->
+<div ng-controller="DefaultController" style="height: 30em; margin-bottom: 0.1em;">
+    <img src="static/images/bucketlist.jpg" style="height: 30em; width: 87em; margin-bottom: 0.1em; z-index: -1;">
+    <a href="#login" ng-show="showSignIn" class="waves-effect waves-light btn" style="position: relative; bottom: 5em; left: 38em;">Sign In</a>
+    <!-- <button >Sign in</button> -->
 </div>
+<!-- </div> -->

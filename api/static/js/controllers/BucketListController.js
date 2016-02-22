@@ -1,6 +1,7 @@
 BucketlistApp.controller('BucketlistController',
 	['$scope', '$window', 'BucketlistFactory', '$cookies',
 	function ($scope, $window, BucketlistFactory, $cookies) {
+		$rootScope.loginPage=false;
 		var nextPage = 1, pages = 1, itemsPerPage = 20;
 
 		var pageRequested = function (pageClicked) {

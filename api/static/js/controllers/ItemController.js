@@ -1,29 +1,33 @@
 BucketlistApp.controller('ItemController',
-	['$scope', 'BucketlistFactory', '$routeParams', '$window',
-	function ($scope, BucketlistFactory, $routeParams, $window) {
+	['$scope', 'BucketlistFactory', '$routeParams', '$window', '$rootScope',
+	function ($scope, BucketlistFactory, $routeParams, $window, $rootScope) {
 		$rootScope.loginPage=false;
 		var data = {
 			buck_id: $routeParams.buckId,
 			item_id: $routeParams.itemId
 		};
-		$scope.item = BucketlistFactory.ItemDetail.getOne(data);
+		BucketlistFactory.ItemDetail.getOne(data).$promise.then(
+			function (response) {
+				$scope.update_name = response.name;
+			},
+			function (error) {
+				console.log(error);
+			}
+		);
 
 		$scope.updateItem = function () {
 			var data = {
 					buck_id: $routeParams.buckId,
 					item_id: $routeParams.itemId
 			};
-			if ($scope.update_name) {
-				data.name = $scope.update_name;
-			} else {
-				data.name = $scope.item.name;
-			}
+			data.name = $scope.update_name;
 
 			if ($scope.update_done) {
 				data.done = $scope.update_done;
 			} else {
 				data.done = false;
 			}
+
 			BucketlistFactory.ItemDetail.edit(data).$promise.then(
 				function (response) {
 					var $toastContent = $('<strong style="color: #4db6ac;">Item updated.</strong>');

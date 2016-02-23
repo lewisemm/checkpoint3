@@ -34,6 +34,9 @@ BucketlistApp.config(function ($routeProvider) {
 	.when('/bucketlist/:buckId/edit/:itemId', {
 		templateUrl: 'static/views/item_edit.html',
 		controller: 'ItemController'
+	})
+	.otherwise({
+		redirectTo: '/'
 	});
 
 });

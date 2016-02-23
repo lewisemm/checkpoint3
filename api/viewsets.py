@@ -187,6 +187,23 @@ class UserViewSet(viewsets.ModelViewSet):
 	serializer_class = UserSerializer
 	queryset = User.objects.all()
 
+	def list(self, request):
+		"""Customize list to provide search user by username option."""
+		search_user = request.query_params.get('user')
+		if search_user:
+			queryset = User.objects.filter(username=search_user)
+			if len(queryset):
+				serializer = UserSerializer(queryset, many=True)
+				return Response(serializer.data, status=status.HTTP_200_OK)
+			return Response(
+				{
+					'detail': 'Not found.'
+				}, status=status.HTTP_404_NOT_FOUND
+			)
+		queryset = User.objects.all()
+		serializer = UserSerializer(queryset, many=True)
+		return Response(serializer.data, status=status.HTTP_200_OK)
+
 	def create(self, request):
 		"""Create new users."""
 		serializer = self.serializer_class(data=request.data)

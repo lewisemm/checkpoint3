@@ -8,3 +8,22 @@ body {
 main {
 	flex: 1 0 auto;
 }
+
+#show_bucketlists {
+	 position: relative;
+	 bottom: 5em;
+	 left: 38em;
+}
+
+#signup_button {
+	 position: relative;
+	 bottom: 5em;
+	 left: 38em;
+}
+
+#landing_image {
+	height: 30em;
+	width: 87em;
+	margin-bottom: 0.1em;
+	z-index: -1;
+}

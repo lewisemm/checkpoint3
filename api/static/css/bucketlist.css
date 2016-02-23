@@ -1,9 +1,9 @@
 #bucketlist_div {
-	background-color: #4db6ac;
-	opacity: 0.7;
-	margin: 1em;
-	width: 25em;
-	height: 12em;
+	background-color: #fafafa;
+}
+
+#bucketlist_master_div {
+	background-image: url('../images/subtle.png');
 }
 
 .p_bucketlist {
@@ -35,6 +35,6 @@
 	color: #000000;
 }
 
-#add_bucketlist_button {
-	margin-left: 5em;
+.activator {
+	cursor: pointer;
 }

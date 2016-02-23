@@ -1,6 +1,6 @@
 BucketlistApp.controller('BucketlistDetailsController',
-	['$scope', 'BucketlistFactory', '$routeParams', '$window', '$filter',
-	function ($scope, BucketlistFactory, $routeParams, $window, $filter) {
+	['$scope', 'BucketlistFactory', '$routeParams', '$window', '$filter', '$rootScope',
+	function ($scope, BucketlistFactory, $routeParams, $window, $filter, $rootScope) {
 		$rootScope.loginPage=false;
 		var loadBucketlist = function () {
 			var data = {
@@ -29,6 +29,7 @@ BucketlistApp.controller('BucketlistDetailsController',
 		loadBucketlist();
 
 		$scope.addItem = function () {
+
 			if ($scope.new_item_name) {
 				var data = {
 					buck_id: $routeParams.buckId,
@@ -143,7 +144,7 @@ BucketlistApp.controller('BucketlistDetailsController',
 					BucketlistFactory.ItemDetail.deleteItem(data)
 					.$promise.then(
 						function (response) {
-							swal("Deleted!", "Item " + data.item_id + " in Bucketlist " + data.buck_id + " has been deleted.", "success");
+							swal("Deleted!", "Item deleted.", "success");
 							loadBucketlist();
 						}, function (error) {
 

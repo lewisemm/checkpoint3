@@ -1,16 +1,15 @@
 BucketlistApp.controller('BucketlistController',
-	['$scope', '$window', 'BucketlistFactory', '$cookies',
-	function ($scope, $window, BucketlistFactory, $cookies) {
+	['$scope', '$window', 'BucketlistFactory', '$cookies', '$rootScope',
+	function ($scope, $window, BucketlistFactory, $cookies, $rootScope) {
 		$rootScope.loginPage=false;
-		var nextPage = 1, pages = 1, itemsPerPage = 20;
+		var nextPage = 1, pages = 1, itemsPerPage = 5;
 
 		var pageRequested = function (pageClicked) {
 			nextPage = pageClicked;
 			$scope.currentpage = pageClicked;
 			var queryStrings = {
 				limit: itemsPerPage,
-				page: pageClicked,
-				q: $scope.search_bucketlists
+				page: pageClicked
 			};
 
 			BucketlistFactory.Bucketlist.getAll(queryStrings).$promise.then(
@@ -41,60 +40,44 @@ BucketlistApp.controller('BucketlistController',
 			}
 		};
 
-		$scope.loadBucketlists = function (eventObj) {
-			nextPage = 1; pages = 1; itemsPerPage = 20;
-			if ( typeof($scope.custom_page_size) === 'undefined') {
-				itemsPerPage = 20;
+		$scope.loadBucketlists = function (pageSize) {
+			nextPage = 1; pages = 1; itemsPerPage = 5;
+			if ( typeof(pageSize) === 'undefined') {
+				itemsPerPage = 5;
 			} else {
-				itemsPerPage = $scope.custom_page_size;
+				itemsPerPage = pageSize;
 			}
 
-			// if the enter key has been pressed, reload the page
-			if (eventObj === 'initializer' || eventObj.keyCode === 13) {
-				if (itemsPerPage < 1) {
-					// page size should not be less than 1 (obviously)
-					itemsPerPage = 1;
-				} else if (itemsPerPage > 100) {
-					// page size should be at 100 max
-					itemsPerPage = 100;
-				}
-
-				var queryStrings = {};
-				if ($scope.search_bucketlists) {
-					queryStrings.q = $scope.search_bucketlists;
-					queryStrings.limit = itemsPerPage;
-				} else {
-					queryStrings.limit = itemsPerPage;
-				}
+			var queryStrings = {};
+			queryStrings.limit = itemsPerPage;
 
 
-				BucketlistFactory.Bucketlist.getAll(queryStrings).$promise.then(
-					function (response) {
-						$scope.bucketlists = response;
-						if (typeof(response.results) === 'object') {
-							if ($scope.bucketlists.results.length > 0) {
-								$scope.showBucketlist = true;
-								$scope.showNTSH = false;
+			BucketlistFactory.Bucketlist.getAll(queryStrings).$promise.then(
+				function (response) {
+					$scope.bucketlists = response;
+					if (typeof(response.results) === 'object') {
+						if ($scope.bucketlists.results.length > 0) {
+							$scope.showBucketlist = true;
+							$scope.showNTSH = false;
 
-								var blCount = response.count;
-								$scope.pages = new Array(Math.ceil(blCount/itemsPerPage));
-								pages = $scope.pages.length;
+							var blCount = response.count;
+							$scope.pages = new Array(Math.ceil(blCount/itemsPerPage));
+							pages = $scope.pages.length;
 
-							} else {
-								$scope.showBucketlist = false;
-								$scope.showNTSH = true;
-							}
+						} else {
+							$scope.showBucketlist = false;
+							$scope.showNTSH = true;
 						}
-
-					},
-					function (error) {
-						// console.log(error);
 					}
-				);
-			}
+				},
+				function (error) {
+					// console.log(error);
+				}
+			);
+
 		};
-		// load the page with default page size 20
-		$scope.loadBucketlists('initializer');
+		// load the page with default page size 5
+		$scope.loadBucketlists(itemsPerPage);
 
 		$scope.edit = function(buck_id) {
 			swal(
@@ -102,7 +85,7 @@ BucketlistApp.controller('BucketlistController',
 					title: "Don't like the current name?",
 					text: "You can edit the bucketlist name here:",
 					type: "input",   showCancelButton: true,
-					closeOnConfirm: false,
+					closeOnConfirm: true,
 					animation: "slide-from-top",
 					inputPlaceholder: "Type in new bucketlist name"
 				},
@@ -119,7 +102,9 @@ BucketlistApp.controller('BucketlistController',
 					};
 					BucketlistFactory.Bucketlist.edit(data).$promise.then(
 						function (response) {
-							swal("Success!", "Bucketlist: " + buck_id + "'s name updated");
+							// swal("Success!", "Bucketlist: " + buck_id + "'s name updated");
+							var $toastContent = $('<strong style="color: #4db6ac;">Bucketlist updated to ' + inputValue + '</strong>');
+							Materialize.toast($toastContent, 5000);
 							// refresh bucketlists
 							$scope.loadBucketlists('initializer');
 						},
@@ -137,26 +122,43 @@ BucketlistApp.controller('BucketlistController',
 		};
 
 		$scope.addBucketlist = function (data) {
-			var data = {
-				name: $scope.bucketlist_name
-			}
-			if (data.name != null) {
-				BucketlistFactory.Bucketlist.create(data)
-				.$promise.then(
-					function (response) {
-						$scope.bucketlists = BucketlistFactory.Bucketlist.getAll();
-						var $toastContent = $('<strong style="color: #4db6ac;">' + response.message + '</strong>');
+			swal({
+					title: "Create a new Bucketlist",
+					text: "Enter a bucketlist name below",
+					type: "input",
+					showCancelButton: true,
+					closeOnConfirm: true,
+					animation: "slide-from-top",
+					inputPlaceholder: "Write something"
+				},
+				function (inputValue) {
+					if (inputValue === false) return false;
+					if (inputValue === "") {
+						swal.showInputError("Bucketlist name missing!");
+						return false
+					}
+					var data = {
+						name: inputValue
+					}
+					if (data.name != null) {
+						BucketlistFactory.Bucketlist.create(data)
+						.$promise.then(
+							function (response) {
+								var $toastContent = $('<strong style="color: #4db6ac;">' + response.message + '</strong>');
+								Materialize.toast($toastContent, 5000);
+								$scope.bucketlist_name = "";
+								$scope.loadBucketlists(itemsPerPage);
+							}, function (error) {
+								var $toastContent = $('<strong style="color: #f44336;">Error Creating bucketlist.</strong>');
+								Materialize.toast($toastContent, 5000);
+							});
+					}
+					else {
+						var $toastContent = $('<strong style="color: #f44336;">Bucketlist name missing.</strong>');
 						Materialize.toast($toastContent, 5000);
-						$scope.bucketlist_name = "";
-					}, function (error) {
-						var $toastContent = $('<strong style="color: #f44336;">Error Creating bucketlist.</strong>');
-						Materialize.toast($toastContent, 5000);
-					});
-			}
-			else {
-				var $toastContent = $('<strong style="color: #f44336;">Bucketlist name missing.</strong>');
-				Materialize.toast($toastContent, 5000);
-			}
+					}
+				}
+			);
 		};
 
 		$scope.del = function (buck_id) {
@@ -176,7 +178,7 @@ BucketlistApp.controller('BucketlistController',
 				function () {
 					BucketlistFactory.Bucketlist.deleteBucket(data).$promise.then(
 						function (response) {
-							swal("Deleted!", "Bucketlist " + data.buck_id + " has been deleted.", "success");
+							swal("Deleted!", "Bucketlist has been deleted.", "success");
 							$scope.loadBucketlists('initializer');
 						},
 						function (error) {

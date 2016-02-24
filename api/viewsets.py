@@ -192,7 +192,7 @@ class UserViewSet(viewsets.ModelViewSet):
 		search_user = request.query_params.get('user')
 		if search_user:
 			queryset = User.objects.filter(username=search_user)
-			if len(queryset):
+			if queryset:
 				serializer = UserSerializer(queryset, many=True)
 				return Response(serializer.data, status=status.HTTP_200_OK)
 			return Response(

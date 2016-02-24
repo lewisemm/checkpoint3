@@ -188,12 +188,13 @@ BucketlistApp.controller('BucketlistController',
 					showCancelButton: true,
 					confirmButtonColor: "#f44336",
 					confirmButtonText: "Yes, delete it!",
-					closeOnConfirm: false
+					closeOnConfirm: true
 				},
 				function () {
 					BucketlistFactory.Bucketlist.deleteBucket(data).$promise.then(
 						function (response) {
-							swal("Deleted!", "Bucketlist has been deleted.", "success");
+							var $toastContent = $('<strong style="color: #4db6ac;">Bucketlist has been deleted.</strong>');
+							Materialize.toast($toastContent, 5000);
 							if ($cookies.get('pageSize')) {
 								$scope.loadBucketlists($cookies.get('pageSize'));
 							} else {

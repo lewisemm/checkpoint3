@@ -15,6 +15,16 @@ BucketlistApp.controller('ItemController',
 			}
 		);
 
+		// for the breadcrumb
+		BucketlistFactory.Bucketlist.getOne(data).$promise.then(
+			function (response) {
+				$scope.bucketlist = response;
+			},
+			function (error) {
+				console.log(error);
+			}
+		);
+
 		$scope.updateItem = function () {
 			var data = {
 					buck_id: $routeParams.buckId,

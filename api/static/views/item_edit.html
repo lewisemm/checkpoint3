@@ -1,6 +1,19 @@
 <div id="item_edit_parent_div">
+
 	<div class="row">
-		<div id="item_edit_form_div" class="col 10 offset-s1">
+    <nav class="grey lighten-5">
+      <div class="col s10 offset-s1 black-text" class="nav-wrapper">
+        <div class="col s12 grey lighten-5">
+          <a href="#/bucketlist" class="breadcrumb black-text">Bucketlists</a>
+          <a ng-click="dismiss()" class="breadcrumb black-text">[[ bucketlist.name.substring(0, 15) ]][[bucketlist.name.length > 15 ? "...": ""]]</a>
+          <a class="breadcrumb teal-text" style="font-weight: bold;">Edit: [[update_name ]]</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+	<div class="row">
+		<div id="item_edit_form_div" class="col s10 offset-s1">
 			<!-- Form starts -->
 			<form id="item_edit_form">
 				<div style="padding-left: 10em;">

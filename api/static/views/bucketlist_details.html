@@ -14,7 +14,7 @@ $(document).ready(function(){
       <div class="col s10 offset-s1 black-text" class="nav-wrapper">
         <div class="col s12 grey lighten-5">
           <a href="#/bucketlist" class="breadcrumb black-text">Bucketlists</a>
-          <a class="breadcrumb teal-text" style="font-weight: bold;">Items</a>
+          <a class="breadcrumb teal-text" style="font-weight: bold;">[[ bucketlist.name.substring(0, 15) ]][[bucketlist.name.length > 15 ? "...": ""]]</a>
         </div>
       </div>
     </nav>
@@ -55,7 +55,7 @@ $(document).ready(function(){
 
   <div class="row">
     <div style="margin: 1em;">
-      <h3 class="center-align">[[ bucketlist.name ]]</h3>
+      <h5 class="center-align">[[ bucketlist.name ]]</h5>
     </div>
   </div>
 

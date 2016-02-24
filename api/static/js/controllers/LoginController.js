@@ -1,6 +1,7 @@
 BucketlistApp.controller('LoginController',
 	['$scope', '$http', '$window', '$cookies', '$rootScope', 'APIAccessFactory',
 	function ($scope, $http, $window, $cookies, $rootScope, APIAccessFactory) {
+		$rootScope.loginPage=true;
 
 		// if someone is/had logged in, show sign in button and remove existing
 		// auth token
@@ -25,12 +26,18 @@ BucketlistApp.controller('LoginController',
 					username: $scope.new_username,
 					password: $scope.new_password
 				};
+
 				APIAccessFactory.NewUser.create(data).$promise.then(
 					function (response) {
+
 						var $toastContent = $('<strong style="color: #4db6ac;">User successfully signed up. You can proceed to Sign In.</strong>');
 						Materialize.toast($toastContent, 5000);
+						$(document).ready(function(){
+							$('ul.tabs').tabs('select_tab', 'signin');
+						});
 						$scope.new_password = '';
 						$scope.new_username = '';
+						console.log(response);
 					},
 					function (error) {
 						console.log(error);
@@ -52,6 +59,8 @@ BucketlistApp.controller('LoginController',
 					username: $scope.login_username,
 					password: $scope.login_password
 				};
+
+
 				APIAccessFactory.User.login(data).$promise.then(
 					function (response) {
 						// attach token to authorization header
@@ -63,7 +72,9 @@ BucketlistApp.controller('LoginController',
 
 						$rootScope.showSignIn = false;
 
-						$window.location.href = '#bucketlist';
+						if ($cookies.get('Authorization')) {
+							$window.location.href = '#bucketlist';
+						}
 					},
 					function (error) {
 						$scope.accessDenied = 'Incorrect username and/or password';

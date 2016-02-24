@@ -4,4 +4,3 @@
 .DS_Store
 api/static/bower_components
 .coverage*
-api/migrations/

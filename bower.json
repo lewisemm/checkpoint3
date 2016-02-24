@@ -15,7 +15,7 @@
     "bower_components",
     "test",
     "tests",
-    "./api/static/bower_components"
+    "./public/static/bower_components"
   ],
   "dependencies": {
     "angular-cookies": "^1.5.0",
@@ -23,6 +23,7 @@
     "angular-resource": "^1.5.0",
     "angular": "^1.5.0",
     "sweetalert": "^1.1.3",
-    "Materialize": "materialize#^0.97.5"
+    "Materialize": "materialize#^0.97.5",
+    "mdi": "^1.4.57"
   }
 }

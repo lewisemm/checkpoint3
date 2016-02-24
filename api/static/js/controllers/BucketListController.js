@@ -48,6 +48,8 @@ BucketlistApp.controller('BucketlistController',
 				itemsPerPage = pageSize;
 			}
 
+			$cookies.put('pageSize', itemsPerPage);
+
 			var queryStrings = {};
 			queryStrings.limit = itemsPerPage;
 
@@ -76,8 +78,13 @@ BucketlistApp.controller('BucketlistController',
 			);
 
 		};
-		// load the page with default page size 5
-		$scope.loadBucketlists(itemsPerPage);
+
+		if ($cookies.get('pageSize')) {
+			$scope.loadBucketlists($cookies.get('pageSize'));
+			console.log($cookies.get('pageSize'));
+		} else {
+			$scope.loadBucketlists(itemsPerPage);
+		}
 
 		$scope.edit = function(buck_id) {
 			swal(
@@ -106,7 +113,11 @@ BucketlistApp.controller('BucketlistController',
 							var $toastContent = $('<strong style="color: #4db6ac;">Bucketlist updated to ' + inputValue + '</strong>');
 							Materialize.toast($toastContent, 5000);
 							// refresh bucketlists
-							$scope.loadBucketlists('initializer');
+							if ($cookies.get('pageSize')) {
+								$scope.loadBucketlists($cookies.get('pageSize'));
+							} else {
+								$scope.loadBucketlists(itemsPerPage);
+							}
 						},
 						function (error) {
 							if (error.status === 403) {
@@ -147,7 +158,11 @@ BucketlistApp.controller('BucketlistController',
 								var $toastContent = $('<strong style="color: #4db6ac;">' + response.message + '</strong>');
 								Materialize.toast($toastContent, 5000);
 								$scope.bucketlist_name = "";
-								$scope.loadBucketlists(itemsPerPage);
+								if ($cookies.get('pageSize')) {
+									$scope.loadBucketlists($cookies.get('pageSize'));
+								} else {
+									$scope.loadBucketlists(itemsPerPage);
+								}
 							}, function (error) {
 								var $toastContent = $('<strong style="color: #f44336;">Error Creating bucketlist.</strong>');
 								Materialize.toast($toastContent, 5000);
@@ -179,7 +194,11 @@ BucketlistApp.controller('BucketlistController',
 					BucketlistFactory.Bucketlist.deleteBucket(data).$promise.then(
 						function (response) {
 							swal("Deleted!", "Bucketlist has been deleted.", "success");
-							$scope.loadBucketlists('initializer');
+							if ($cookies.get('pageSize')) {
+								$scope.loadBucketlists($cookies.get('pageSize'));
+							} else {
+								$scope.loadBucketlists(itemsPerPage);
+							}
 						},
 						function (error) {
 

@@ -1,13 +1,6 @@
-{% extends "base/base.html" %}
+<!-- {% extends "base/base.html" %} -->
 
-<div class="row" >
-<!-- Slider starts -->
-<div class="slider">
-    <img src="static/images/bucketlist.jpg"> <!-- random image -->
-    <div class="caption left-align">
-        <h3>Take ownership!</h3>
-        <h5 class="light grey-text text-lighten-3">Create that BucketList!</h5>
-    </div>
-  </div>
-<!-- Slider ends -->
+<div ng-controller="DefaultController" id="index">
 </div>
+<a id="signup_button" href="#login" ng-show="showSignIn" class="waves-effect waves-light btn">Sign In</a>
+<a id="show_bucketlists" href="#bucketlist" ng-hide="showSignIn" class="waves-effect waves-light btn">Show Bucketlists</a>

@@ -31,3 +31,7 @@
 	position: relative;
 	height: 2em;
 }
+
+.breadcrumb:before {
+	color: #000000;
+}

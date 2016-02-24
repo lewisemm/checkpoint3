@@ -47,12 +47,12 @@ BucketlistApp.service('AuthorizationService', ['$cookies', '$window', '$rootScop
 						}
 					);
 				}
-
 			} else if (response.status === 403) {
 				if (response.data.detail === 'You do not have permission to perform this action.') {
 					sweetAlert("Write operations denied!", "Only the bucketlist owner is permitted to perform this action.", "error");
 				}
 			}
+
 			return response;
 		};
 	}

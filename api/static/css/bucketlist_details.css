@@ -1,25 +1,15 @@
 #bucketlist_details_div {
-	background-image: url('../images/my_bucketlist.jpg');
-	background-size: 85em 50em;
+	background-image: url('../images/subtle.png');
 }
 
 #add_item_div {
 	padding-top: 1em;
 }
 
-#bucketlist_name_div {
-	text-align: center;
-	font-size: 2em;
-	font-weight: bold;
-	color: #ffffff;
-	background-color: #000000;
-	opacity: 0.7;
-}
-
 #item_div {
-	background-color: #4db6ac;
+	background-color: #fafafa;
 	margin: 1em;
-	opacity: 0.7;
+	width: 20em;
 }
 
 #checkbox_div {
@@ -34,10 +24,14 @@
 
 .p_bucketlist_details {
 	color: #000000;
-	font-weight: bold;
+	font-size: 0.7em;
 }
 
 #div_bucketlist_details_fab {
 	position: relative;
 	height: 2em;
+}
+
+.breadcrumb:before {
+	color: #000000;
 }

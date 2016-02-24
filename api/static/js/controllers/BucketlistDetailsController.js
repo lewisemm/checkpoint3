@@ -61,7 +61,6 @@ BucketlistApp.controller('BucketlistDetailsController',
 				var $toastContent = $('<strong style="color: #f44336;">Item name not provided.</strong>');
 				Materialize.toast($toastContent, 5000);
 			}
-
 		};
 
 		$scope.editItem = function(buck_id, item_id) {
@@ -78,7 +77,6 @@ BucketlistApp.controller('BucketlistDetailsController',
 			var itemClicked = itemClickedArray[0];
 
 			if (!itemClicked.done) {
-				//
 				swal(
 					{
 						title: "Proceed to mark item as 'done'?",
@@ -87,7 +85,7 @@ BucketlistApp.controller('BucketlistDetailsController',
 						showCancelButton: true,
 						confirmButtonColor: "#f44336",
 						confirmButtonText: "Yes, update item!",
-						closeOnConfirm: false
+						closeOnConfirm: true
 					},
 					function () {
 						var data = {
@@ -98,7 +96,8 @@ BucketlistApp.controller('BucketlistDetailsController',
 						};
 						BucketlistFactory.ItemDetail.edit(data).$promise.then(
 							function (response) {
-								swal("Item status updated!", "The item has now been marked as done!", "success");
+								var $toastContent = $('<strong style="color: #4db6ac;">The item has now been marked as done!</strong>');
+								Materialize.toast($toastContent, 5000);
 								// reload bucketlist to reflect changes in item status
 								loadBucketlist();
 							},
@@ -122,7 +121,6 @@ BucketlistApp.controller('BucketlistDetailsController',
 
 				}
 			);
-
 		};
 
 		$scope.deleteItem = function (item_id) {
@@ -138,13 +136,14 @@ BucketlistApp.controller('BucketlistDetailsController',
 					showCancelButton: true,
 					confirmButtonColor: "#f44336",
 					confirmButtonText: "Yes, delete it!",
-					closeOnConfirm: false
+					closeOnConfirm: true
 				},
 				function () {
 					BucketlistFactory.ItemDetail.deleteItem(data)
 					.$promise.then(
 						function (response) {
-							swal("Deleted!", "Item deleted.", "success");
+							var $toastContent = $('<strong style="color: #4db6ac;">Item deleted.</strong>');
+							Materialize.toast($toastContent, 5000);
 							loadBucketlist();
 						}, function (error) {
 

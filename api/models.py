@@ -24,6 +24,10 @@ class BucketList(models.Model):
 		)
 		bl.save()
 
+	def __str__(self):
+		"""Dictates model object representation."""
+		return self.name
+
 
 class Item(models.Model):
 	"""The Item model."""
@@ -37,3 +41,7 @@ class Item(models.Model):
 		on_delete=models.CASCADE,
 		related_name='item'
 	)
+
+	def __str__(self):
+		"""Dictates model object representation."""
+		return self.name

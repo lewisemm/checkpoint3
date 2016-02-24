@@ -10,6 +10,11 @@ BucketlistApp.factory('APIAccessFactory', ['$resource',
 				create:{
 					method: 'POST'
 				}
+			}),
+			UserExists: $resource('/users/', {}, {
+				search:{
+					method: 'GET'
+				}
 			})
 		}
 	}

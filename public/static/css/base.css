@@ -1,0 +1,46 @@
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	font-family: 'Raleway', 'Arial';
+
+	background-image: url('../images/subtle.png');
+	background-size: inherit;
+}
+
+#index {
+	position: relative;
+	min-height: 70%;
+    background: url('../images/bucketlist.jpg') no-repeat;
+	background-size: 100% 100%;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+#show_bucketlists,
+#signup_button {
+	 position: absolute;
+	 bottom: 25%;
+	 left: 43.5%;
+}
+
+#landing_image {
+	height: 30em;
+	width: 87em;
+	z-index: -1;
+}
+
+footer.page-footer {
+	margin-top: 0;
+}
+}
+
+.breadcrumb {
+	cursor: pointer;
+}
+
+.footer_refs {
+	color: #4db6ac;
+}

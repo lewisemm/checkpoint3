@@ -1,0 +1,20 @@
+.user_form {
+	margin-bottom: 0.1em;
+}
+
+.userFormStyleDiv {
+	padding: 1em;
+	margin-left: 4em;
+}
+
+#login_row_div {
+	background-image: url('../images/subtle.png');
+}
+
+#master_div {
+	margin: 10em;
+}
+
+.tabs .indicator {
+	background-color: #4db6ac;
+}

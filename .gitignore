@@ -1,0 +1,7 @@
+*.pyc
+*.sqlite3
+.env
+.DS_Store
+bower_components/
+node_modules/
+.coverage*

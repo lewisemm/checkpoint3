@@ -1,0 +1,115 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+		$('.modal-trigger').leanModal();
+		$('.dropdown-button').dropdown({
+	      inDuration: 300,
+	      outDuration: 225,
+	      constrain_width: true, // Does not change width of dropdown to that of the activator
+	      hover: false, // Activate on hover
+	      gutter: 0, // Spacing from edge
+	      belowOrigin: false, // Displays dropdown below the button
+	      alignment: 'left' // Displays dropdown with edge aligned to the left of button
+    	}
+  	);
+	});
+</script>
+
+<div id="bucketlist_master_div">
+
+	<div class="row">
+		<!-- Breadcrumbs -->
+		<nav class="grey lighten-5">
+	    <div class="col s10 offset-s1 black-text" class="nav-wrapper">
+	    	<div class="col s12 grey lighten-5">
+	        <a href="#/bucketlist" class="breadcrumb teal-text" style="font-weight: bold;">Bucketlists</a>
+	      </div>
+	    </div>
+	  </nav>
+	  <!-- Breadcrumbs -->
+	</div>
+
+	<div class="row" style="padding-top: 1em;">
+		<div class="col s10 offset-s1">
+			<div class="input-field col s8">
+				<input placeholder="Search Bucketlists" id="search_bucketlists" type="text" class="validate" ng-model="search_bucketlists">
+				<label for="search_bucketlists" style="color: #000000;">Search Bucketlists by name</label>
+			</div>
+			<div class="col s1">
+				<label class="active" style="color: #000000;">Page Size</label>
+				<!-- Dropdown Trigger -->
+				<a class='dropdown-button btn black' data-activates='pageSizeOptions' style="margin-top: 0.5em;"><i class="mdi mdi-chevron-down"></i></a>
+				<!-- Dropdown Structure -->
+				<ul id='pageSizeOptions' class='dropdown-content'>
+					<li><a class="black-text" ng-click="loadBucketlists(5)">5</a></li>
+					<li><a class="black-text" ng-click="loadBucketlists(10)">10</a></li>
+					<li><a class="black-text" ng-click="loadBucketlists(15)">15</a></li>
+					<li><a class="black-text" ng-click="loadBucketlists(20)">20</a></li>
+					<li><a class="black-text" ng-click="loadBucketlists(25)">25</a></li>
+				</ul>
+			</div>
+			<div class="col s3" style="transform: translateX(150px) translateY(10px);">
+				<a class="btn-floating btn-large teal" ng-click="addBucketlist()">
+					<i class="material-icons">add</i>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col s12">
+			<div class="center-align">
+				<ul class="pagination">
+					<li class="waves-effect"><a ng-click="leftChevron()"><i class="material-icons">chevron_left</i></a></li>
+					<li ng-class="currentpage == $index+1 ? 'active teal lighten-2': 'waves-effect'"  ng-click="setpage($index + 1)" ng-repeat="page in pages track by $index"><a  href="">[[$index + 1]]</a></li>
+					<li class="waves-effect"><a ng-click="rightChevron()"><i class="material-icons">chevron_right</i></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col s10 offset-s1">
+
+			<div class="row">
+				<div class="col s4" ng-repeat="bucketlist in bucketlists.results|filter:search_bucketlists" class="bucketlist_div">
+					<div class="card small gray lighten-5" style="height: 10em;">
+						<div class="card-content">
+							<i class="material-icons activator right">more_vert</i>
+					    <span class="card-title black-text" ng-click="viewItems([[bucketlist.buck_id]])" style="cursor: pointer;">[[ bucketlist.name.substring(0, 15) ]][[bucketlist.name.length > 15 ? "...": ""]]</span>
+					  </div>
+					  <div class="card-reveal teal lighten-2">
+					    <span class="card-title grey-text text-darken-4">Details<i class="material-icons right">close</i></span>
+				    	<p class="p_bucketlist">Date Created: [[ bucketlist.date_created|date ]]</p>
+							<p class="p_bucketlist">Last Modified: [[bucketlist.date_created|date ]]</p>
+							<!-- Start fba -->
+							<div id="outer_div_fba">
+								<div class="fixed-action-btn horizontal click-to-toggle" style="position: absolute; right: 24px; transform: translateY(10px) translateX(25px);">
+									<a class="btn-floating btn-small black">
+										<i class="mdi mdi-dots-horizontal"></i>
+									</a>
+									<ul>
+										<li style="transform: translateY(-15px) translateX(10px);"><a class="btn-floating red"><i class="material-icons" ng-click="del([[ bucketlist.buck_id ]])">delete</i></a></li>
+										<li style="transform: translateY(-15px) translateX(30px);"><a class="btn-floating teal"><i class="material-icons" ng-click="viewItems([[bucketlist.buck_id]])">view_list</i></a></li>
+										<li style="transform: translateY(-15px) translateX(25px);"><a class="btn-floating black" ng-click="edit([[ bucketlist.buck_id ]])"><i class="material-icons">edit</i></a></li>
+									</ul>
+								</div>
+							</div>
+					  </div>
+					</div>
+				</div>
+			</div>
+
+			<!-- start nothing to see here -->
+			<div ng-show="showNTSH">
+				<div style="height: 15em;">
+					<h3 class="center-align">You don't have any bucketlists.</h3>
+				</div>
+			</div>
+			<!-- end nothing to see here -->
+
+		</div>
+	</div>
+	<!-- End bucketlist displaysection -->
+</div>
+

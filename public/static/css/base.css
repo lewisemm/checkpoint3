@@ -10,7 +10,7 @@ body {
 
 #index {
 	position: relative;
-	min-height: 70%;
+	min-height: 91%;
     background: url('../images/bucketlist.jpg') no-repeat;
 	background-size: 100% 100%;
 }
@@ -22,7 +22,7 @@ main {
 #show_bucketlists,
 #signup_button {
 	 position: absolute;
-	 bottom: 25%;
+	 bottom: 10%;
 	 left: 43.5%;
 }
 
@@ -42,5 +42,12 @@ footer.page-footer {
 }
 
 .footer_refs {
-	color: #4db6ac;
+	/*color: #4db6ac;*/
+	color: #ffffff;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+footer.page-footer {
+	padding-bottom: 20px;
 }

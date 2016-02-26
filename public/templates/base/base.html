@@ -36,12 +36,12 @@
 	<link rel="stylesheet" href="{% static 'css/bucketlist_details.css' %}">
 	<link rel="stylesheet" href="{% static 'css/item_edit.css' %}">
 	<link rel="stylesheet" href="{% static 'bower_components/sweetalert/dist/sweetalert.css' %}">
-	<title>Bucketlist API</title>
+	<title>Andelist</title>
 </head>
 <body ng-app="BucketlistApp" ng-controller="DefaultController">
 	<header ng-hide="loginPage">
 		<div class="navbar-fixed">
-			<nav class="black">
+			<nav class="indigo darken-4">
 				<div class="nav-wrapper">
 					<div style="margin-left: 3em;">
 						<a href="#/" class="brand-logo">Andelist</a>
@@ -58,19 +58,21 @@
 
 	<main ng-view>
 	</main>
-	<footer class="page-footer black" ng-hide="loginPage">
-		<div class="container">
+	<footer class="page-footer indigo darken-4" ng-hide="loginPage">
+		<!-- <div class="container">
 			<div class="row">
 				<div class="col s6">
-					<h5 class="white-text">Repo</h5>
-					<a href="https://github.com/andela-lkabui/checkpoint3" class="grey-text text-lighten-4">Checkpoint 3</a>
+					<p class="white-text">Repo: </p><a class="footer_refs" href="https://github.com/andela-lkabui/checkpoint3">Checkpoint 3</a>
+				</div>
+				<div class="col s6">
+					<p class="white-text">Repo: </p><a class="footer_refs" href="https://github.com/andela-lkabui/checkpoint3">Checkpoint 3</a>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<div class="footer-copyright">
 			<div class="container">
-			© 2016 Andelist; A project by <span class="footer_refs">Lewis Maina Kabui</span> from <a class="footer_refs" href="http://www.andela.com">Andela</a>. #TIA
-
+				<p class="white-text left">© 2016 Andelist; A project by <span style="font-weight: bold;">Lewis Maina Kabui</span> from <a class="footer_refs" href="http://www.andela.com">Andela</a>. #TIA</p>
+				<p class="white-text right">Repo: <a class="footer_refs" href="https://github.com/andela-lkabui/checkpoint3">Checkpoint 3</a></p>
 			</div>
 		</div>
 	</footer>

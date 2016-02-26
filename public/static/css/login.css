@@ -4,7 +4,7 @@
 
 .userFormStyleDiv {
 	padding: 1em;
-	margin-left: 4em;
+	margin-left: 1em;
 }
 
 #login_row_div {
@@ -12,9 +12,23 @@
 }
 
 #master_div {
-	margin: 10em;
+	margin: 2em 10em 10em 10em;
 }
 
 .tabs .indicator {
 	background-color: #4db6ac;
+}
+
+#login_home_text {
+	margin-left: 1em;
+	font-size: 2em;
+	font-weight: bold;
+	cursor: pointer;
+	color: #000000;
+}
+
+#home_logo_div {
+	margin-top: 6em;
+	margin-left: 36em;
+	margin-bottom: 2em;
 }

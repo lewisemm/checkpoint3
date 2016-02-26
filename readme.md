@@ -57,6 +57,16 @@
   *  `python manage.py migrate api`
 *  Run the app
   *  `python manage.py runserver`
+  *  Running the command above successfully will produce output similar to the sample below.
+
+
+  ```
+  System check identified no issues (0 silenced).
+  February 26, 2016 - 11:59:36
+  Django version 1.9.1, using settings 'checkpoint3.settings'
+  Starting development server at http://127.0.0.1:8000/
+  Quit the server with CONTROL-C.
+  ```
 
 ## Routes, methods and functionality
 *  To view this API's documentation, visit `/api/docs` while the app is running and explore the resources and associated actions it has to offer.
@@ -69,9 +79,9 @@
   *  `coverage run manage.py test`
 *  The tests are successful if they run without failures or errors
   ```
-  .............................
+  .....................................
   ----------------------------------------------------------------------
-  Ran 29 tests in 2.942s
+  Ran 37 tests in 3.233s
 
   OK
   ```

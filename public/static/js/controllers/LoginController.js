@@ -69,13 +69,17 @@ BucketlistApp.controller('LoginController',
 						if (token) {
 							$cookies.put('Authorization', token);
 							$cookies.put('Username', data.username);
+							$rootScope.showSignIn = false;
+
+							if ($cookies.get('Authorization')) {
+								$window.location.href = '#bucketlist';
+							}
+						} else {
+							$scope.accessDenied = response.non_field_errors[0];
 						}
 
-						$rootScope.showSignIn = false;
 
-						if ($cookies.get('Authorization')) {
-							$window.location.href = '#bucketlist';
-						}
+
 					},
 					function (error) {
 						$scope.accessDenied = 'Incorrect username and/or password';

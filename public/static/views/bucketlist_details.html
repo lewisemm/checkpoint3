@@ -1,0 +1,97 @@
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.collapsible').collapsible({
+      accordion : false
+  });
+  $('.modal-trigger').leanModal();
+});
+</script>
+
+<div id="bucketlist_details_div">
+
+  <div class="row">
+    <nav class="grey lighten-5">
+      <div class="col s10 offset-s1 black-text" class="nav-wrapper">
+        <div class="col s12 grey lighten-5">
+          <a href="#/bucketlist" class="breadcrumb black-text">Bucketlists</a>
+          <a class="breadcrumb teal-text" style="font-weight: bold;">[[ bucketlist.name.substring(0, 15) ]][[bucketlist.name.length > 15 ? "...": ""]]</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div id="add_item_div" class="row">
+    <div class="col s10 offset-s1">
+      <div class="col s4" style="position: absolute; left: 68em;">
+        <a class="btn-floating btn-large modal-trigger teal" data-target="create_bucketlist_item">
+          <i class="material-icons">add</i>
+        </a>
+        <!-- Start Modal Structure -->
+        <div id="create_bucketlist_item" class="modal">
+          <div class="modal-content" style="height: 10em;">
+            <h4>Create item in "[[ bucketlist.name ]]"</h4>
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s12">
+                  <input placeholder="New item name" id="new_item_name" type="text" class="validate" ng-model="new_item_name">
+                  <label for="new_item_name">Item Name</label>
+                </div>
+                <div class="input-field col s12">
+                  <input placeholder="Status" id="new_item_status" type="checkbox" class="validate" ng-model="new_item_status">
+                  <label for="new_item_status">Done</label>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="addItem()">Create</a>
+            <a class="modal-action modal-close waves-effect waves-green btn-flat">Dismiss</a>
+          </div>
+        </div>
+        <!-- End modal structure -->
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div style="margin: 1em;">
+      <h5 class="center-align">[[ bucketlist.name ]]</h5>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s10 offset-s1">
+      <div id="item_div" ng-show="showBucketlistItems" class="col s3" ng-repeat="item in bucketlist.item">
+        <div id="checkbox_div">
+          <input type="checkbox" id="[[ item.item_id ]]" ng-checked="[[ item.done ]]" ng-click="clickedAsDone(item.item_id)"/>
+          <label id="item_name_label" for="[[ item.item_id ]]" class="black-text">[[ item.name ]]</label>
+        </div>
+        <hr>
+        <p class="p_bucketlist_details">Date Created: [[ item.date_created|date ]]</p>
+        <p class="p_bucketlist_details">Date Modified: [[ item.date_modified|date ]]</p>
+        <!-- Start fab -->
+        <div id="div_bucketlist_details_fab">
+          <div class="fixed-action-btn horizontal click-to-toggle" style="position: absolute; left: 230px; transform: translateY(15px); z-index: 1;">
+            <a class="btn-floating btn-small black">
+              <i class="mdi mdi-dots-horizontal"></i>
+            </a>
+            <ul>
+              <li style="transform: translateY(-15px) translateX(40px);"><a class="btn-floating red"><i class="material-icons" ng-click="deleteItem([[ item.item_id ]])">delete</i></a></li>
+              <li style="transform: translateY(-15px) translateX(40px);"><a class="btn-floating black" ng-click="editItem(bucketlist.buck_id ,item.item_id)"><i class="material-icons">edit</i></a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- End fab -->
+      </div>
+
+      <!-- Start nothing to see here -->
+      <div ng-show="showNTSHBucketlist">
+        <div style="height: 20em; margin-top: 10em;">
+          <h3 class="center-align">This bucketlist doesn't have any items.</h3>
+        </div>
+      </div>
+      <!-- End nothing to see here -->
+
+    </div>
+  </div>
+</div>

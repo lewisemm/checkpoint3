@@ -1,0 +1,37 @@
+#bucketlist_details_div {
+	background-image: url('../images/subtle.png');
+}
+
+#add_item_div {
+	padding-top: 1em;
+}
+
+#item_div {
+	background-color: #fafafa;
+	margin: 1em;
+	width: 20em;
+}
+
+#checkbox_div {
+	background-color: #ffffff;
+	opacity: 1;
+	margin-top: 1em;
+}
+
+#item_name_label {
+	font-weight: bold;
+}
+
+.p_bucketlist_details {
+	color: #000000;
+	font-size: 0.7em;
+}
+
+#div_bucketlist_details_fab {
+	position: relative;
+	height: 2em;
+}
+
+.breadcrumb:before {
+	color: #000000;
+}

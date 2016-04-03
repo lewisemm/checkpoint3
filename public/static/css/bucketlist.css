@@ -1,0 +1,40 @@
+#bucketlist_div {
+	background-color: #fafafa;
+}
+
+#bucketlist_master_div {
+	background-image: url('../images/subtle.png');
+}
+
+.p_bucketlist {
+	font-size: 0.8em;
+}
+
+#p_bucketlist_items {
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#outer_div_fba {
+	position: relative;
+	height: 2em;
+}
+
+.ntsh_bucketlists {
+	height: 35em;
+	width: 50em;
+	opacity: 0.7;
+	margin: auto;
+}
+
+#custom_page_size_label {
+     color: #000000;
+}
+
+#custom_page_size {
+	color: #000000;
+}
+
+.activator {
+	cursor: pointer;
+}

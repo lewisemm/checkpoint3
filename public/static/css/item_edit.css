@@ -1,0 +1,15 @@
+#item_edit_parent_div {
+	background-image: url('../images/subtle.png');
+	height:25em;
+}
+
+#item_edit_form {
+	padding: 2em;
+	background-color: #fafafa;
+}
+
+#item_edit_form_div {
+	width: 55em;
+	height: 25em;
+	padding: 4em;
+}
